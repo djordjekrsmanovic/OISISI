@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,7 @@ public class StatusBar extends JPanel {
 
 
 	
-    JLabel labelTitle = new JLabel("Studentska sluûba");
+    JLabel labelTitle = new JLabel("Studentska slu≈æba");
     labelTitle.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
     Date initialDate = new Date();
     
