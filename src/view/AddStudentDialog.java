@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 import controller.StudentControler;
 import listeners.AddStudentListener;
-import validation.ValidationStudent;
+import controller.ValidationStudent;
 
 public class AddStudentDialog extends JDialog {
 	/**
