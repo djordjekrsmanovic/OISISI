@@ -9,6 +9,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import controller.GlobalController;
+
 public class MenuBar extends JMenuBar {
 
 	/**
@@ -23,6 +25,14 @@ public class MenuBar extends JMenuBar {
 		newI.setIcon(new ImageIcon("images_project/add_icon.png"));
 		newI.setMnemonic(KeyEvent.VK_N);
 		newI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		newI.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GlobalController.getInstance().addEntity();
+				
+			}
+		});
 		
 		
 		JMenuItem close=new JMenuItem("Close");

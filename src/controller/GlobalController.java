@@ -1,7 +1,9 @@
 package controller;
 
 import view.AddProfessorDialog;
+import view.AddStudentDialog;
 import view.CentralPanel;
+import view.MainWindow;
 
 public class GlobalController {
 
@@ -12,6 +14,8 @@ public class GlobalController {
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0: // tab 0 - Studenti
 			// TODO dodati dijalog za studente
+			AddStudentDialog addStudentDialog=new AddStudentDialog(MainWindow.getInstance());
+			addStudentDialog.setVisible(true);
 			break;
 		case 1: // tab 1 - Profesori
 			AddProfessorDialog addProfessorDialog = new AddProfessorDialog();
