@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ public class AboutDialog extends JDialog {
 				setLocationRelativeTo(MainWindow.getInstance());
 				setBackground(Color.LIGHT_GRAY);
 
-				JTextArea opis=new JTextArea("Studentska sluzba verzija 1 \nNamjena aplikacije je da omoguci"
+				JTextArea opis=new JTextArea("Studentska služba verzija 1 \nNamjena aplikacije je da omogući"
 						+ " operacije nad studentima,profesorima i predmetima.Koriste se tabele za unos studenata"
 						+ "i operacije za unos,brisanje,sortiranje i prikazivanje pojedinosti o studentima");
 				opis.setEditable(false);
@@ -43,14 +43,14 @@ public class AboutDialog extends JDialog {
 				JPanel bottom=new JPanel(new BorderLayout(10,10));
 				
 				JTextArea opisDj=new JTextArea("Student 1: Djordje Krsmanović RA71/2018\n"
-						+ "Rodjen u Foči. Zavrsio gimnaziju kao odličan učenik. Trenutno je student 3. godine"
-						+ "Fakulteta tehnickih nauka. Stipendista kompanije EnergySavingGroup.");
+						+ "Rođen u Foči. Zavrsio gimnaziju kao odličan učenik. Trenutno je student 3. godine"
+						+ "Fakulteta tehničkih nauka. Stipendista kompanije EnergySavingGroup.");
 				opisDj.setLineWrap(true);
 				opisDj.setSize(240,160);
 				opisDj.setEditable(false);
 				opisDj.setBorder(new CompoundBorder(new LineBorder(Color.BLACK,1),new LineBorder(Color.GRAY,2)));
-				JTextArea opisN=new JTextArea("Student 2: Nikola Jovisic RA74/2018\n"
-						+ "Rodjen u Somboru. Završio srednju medicinsku školu kao odličan učenik. "
+				JTextArea opisN=new JTextArea("Student 2: Nikola Jovišić RA74/2018\n"
+						+ "Rođen u Somboru. Završio srednju medicinsku školu kao odličan učenik. "
 						+ "Student 3. godine Fakulteta tehničkih nauka u Novom Sadu. Stipendista kompanije Schneider Electric."
 						+ "Veliki zaljubljenik u čitanje kapitalnih dijela svjetske književnosti.");
 				
