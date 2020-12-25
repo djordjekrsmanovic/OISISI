@@ -1,3 +1,5 @@
-/gui/
+/controller/
+/listeners/
 /main/
-/Main.class
+/model/
+/view/
