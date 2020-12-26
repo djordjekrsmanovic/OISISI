@@ -2,6 +2,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -22,7 +23,7 @@ public class MenuBar extends JMenuBar {
 		JMenu file=new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		JMenuItem newI=new JMenuItem("New");
-		newI.setIcon(new ImageIcon("images_project/add_icon.png"));
+		newI.setIcon(new ImageIcon("images_project"+File.separator+"add_icon.png"));
 		newI.setMnemonic(KeyEvent.VK_N);
 		newI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		newI.addActionListener(new ActionListener() {
@@ -36,7 +37,7 @@ public class MenuBar extends JMenuBar {
 		
 		
 		JMenuItem close=new JMenuItem("Close");
-		close.setIcon(new ImageIcon("images_project/close_icon.png"));
+		close.setIcon(new ImageIcon("images_project"+File.separator+"close_icon.png"));
 		close.setMnemonic(KeyEvent.VK_C);
 		close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,ActionEvent.CTRL_MASK));
 		
@@ -49,12 +50,12 @@ public class MenuBar extends JMenuBar {
 		edit.setMnemonic(KeyEvent.VK_E);
 		
 		JMenuItem editI=new JMenuItem("Edit");
-		editI.setIcon(new ImageIcon("images_project/edit_icon.png"));
+		editI.setIcon(new ImageIcon("images_project"+File.separator+"edit_icon.png"));
 		editI.setMnemonic(KeyEvent.VK_E);
 		editI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 		
 		JMenuItem deleteI=new JMenuItem("Delete");
-		deleteI.setIcon(new ImageIcon("images_project/delete_icon.png"));
+		deleteI.setIcon(new ImageIcon("images_project"+File.separator+"delete_icon.png"));
 		deleteI.setMnemonic(KeyEvent.VK_D);
 		deleteI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		
@@ -66,7 +67,7 @@ public class MenuBar extends JMenuBar {
 		help.setMnemonic(KeyEvent.VK_H);
 		
 		JMenuItem helpI=new JMenuItem("Help");
-		helpI.setIcon(new ImageIcon("images_project/help_icon.png"));
+		helpI.setIcon(new ImageIcon("images_project"+File.separator+"help_icon.png"));
 		helpI.setMnemonic(KeyEvent.VK_H);
 		helpI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
 		helpI.addActionListener(new ActionListener() {
@@ -80,7 +81,7 @@ public class MenuBar extends JMenuBar {
 		});
 		
 		JMenuItem aboutI=new JMenuItem("About");
-		aboutI.setIcon(new ImageIcon("images_project/about_icon.png"));
+		aboutI.setIcon(new ImageIcon("images_project"+File.separator+"about_icon.png"));
 		aboutI.setMnemonic(KeyEvent.VK_A);
 		aboutI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		aboutI.addActionListener(new ActionListener() {
