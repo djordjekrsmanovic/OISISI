@@ -30,6 +30,25 @@ public class Profesor {
 		this.titula = titula;
 		this.zvanje = zvanje;
 	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	public Profesor(Profesor p) {
+		this.prezime = p.prezime;
+		this.ime = p.ime;
+		this.datumRodjenja = p.datumRodjenja;
+		this.adresaStanovanja = p.adresaStanovanja;
+		this.telefon = p.telefon;
+		this.email = p.email;
+		this.adresaKancelarije = p.adresaKancelarije;
+		this.brojLicneKarte = p.brojLicneKarte;
+		this.titula = p.titula;
+		this.zvanje = p.zvanje;
+		this.predajeNaPredmetima = (HashSet<Predmet>)p.predajeNaPredmetima.clone();
+	}
+
+
 
 	@Override
 	public String toString() {
