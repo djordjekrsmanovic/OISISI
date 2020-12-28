@@ -56,6 +56,7 @@ public class BazaProfesora {
 	public void dodajProfesora(Profesor profesor) {
 		profesori.add(profesor);
 	}
+	
 
 	public int getNumberOfColumns() {
 		return kolone.size();
@@ -88,5 +89,10 @@ public class BazaProfesora {
 			return null;
 		}
 	}
+
+	public List<Profesor> getProfesori() {
+		return profesori;
+	}
+	
 
 }

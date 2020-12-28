@@ -8,24 +8,25 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.ProfessorController;
 import controller.ValidationProfessor;
-import listeners.AddProfessorListener;
+import listeners.EditProfessorListener;
+import model.BazaProfesora;
+import model.Profesor;
 
-public class AddProfessorDialog extends JDialog {
-	
+public class EditProfessorDialogInformacije extends JPanel {
 
-	private static final long serialVersionUID = 7107186219503582633L;
+	private static final long serialVersionUID = -560857531152912044L;
 	private static JTextField fieldIme;
 	private static JTextField fieldPrezime;
 	private static JTextField fieldDatum;
@@ -38,19 +39,20 @@ public class AddProfessorDialog extends JDialog {
 	private static JTextField fieldZvanje;
 	private static Button ok;
 	private static Button cancel;
+	private static Profesor profesor;
 
-	public AddProfessorDialog() {
-		JFrame mainFrame = MainWindow.getInstance();
-		this.setTitle("Dodavanje profesora");
+	public EditProfessorDialogInformacije() {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocationRelativeTo(mainFrame);
 		this.setSize(d.width * 3 / 8, (d.height * 3 / 4) * 97 / 100);
 		setLayout(new BorderLayout());
 		Dimension preferredDim = new Dimension(200, 25);
 		Dimension buttonDim = new Dimension(70, 30);
-		setResizable(false);
-		setModal(true);
-		setLocationRelativeTo(mainFrame);
+		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
+		if (row == -1) {
+			System.out.println("Eve ga");
+			return;
+		}
+		profesor = BazaProfesora.getInstance().getRow(row);
 
 		JPanel ime = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel labIme = new JLabel("Ime*");
@@ -132,6 +134,8 @@ public class AddProfessorDialog extends JDialog {
 		zvanje.add(labZvanje);
 		zvanje.add(fieldZvanje);
 
+		refreshProfessor();
+
 		JPanel central = new JPanel();
 		central.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
 		central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
@@ -149,29 +153,29 @@ public class AddProfessorDialog extends JDialog {
 
 		add(central, BorderLayout.NORTH);
 
-		fieldIme.addFocusListener(new AddProfessorListener(fieldIme, 0));
-		fieldPrezime.addFocusListener(new AddProfessorListener(fieldPrezime, 1));
-		fieldDatum.addFocusListener(new AddProfessorListener(fieldDatum, 2));
-		fieldAdresa.addFocusListener(new AddProfessorListener(fieldAdresa, 3));
-		fieldBrTel.addFocusListener(new AddProfessorListener(fieldBrTel, 4));
-		fieldMail.addFocusListener(new AddProfessorListener(fieldMail, 5));
-		fieldAdrKanc.addFocusListener(new AddProfessorListener(fieldAdrKanc, 6));
-		fieldBrLK.addFocusListener(new AddProfessorListener(fieldBrLK, 7));
-		fieldTitula.addFocusListener(new AddProfessorListener(fieldTitula, 8));
-		fieldZvanje.addFocusListener(new AddProfessorListener(fieldZvanje, 9));
+		fieldIme.addFocusListener(new EditProfessorListener(fieldIme, 0));
+		fieldPrezime.addFocusListener(new EditProfessorListener(fieldPrezime, 1));
+		fieldDatum.addFocusListener(new EditProfessorListener(fieldDatum, 2));
+		fieldAdresa.addFocusListener(new EditProfessorListener(fieldAdresa, 3));
+		fieldBrTel.addFocusListener(new EditProfessorListener(fieldBrTel, 4));
+		fieldMail.addFocusListener(new EditProfessorListener(fieldMail, 5));
+		fieldAdrKanc.addFocusListener(new EditProfessorListener(fieldAdrKanc, 6));
+		fieldBrLK.addFocusListener(new EditProfessorListener(fieldBrLK, 7));
+		fieldTitula.addFocusListener(new EditProfessorListener(fieldTitula, 8));
+		fieldZvanje.addFocusListener(new EditProfessorListener(fieldZvanje, 9));
 
 		ok = new Button("Potvrdi");
 		ok.setPreferredSize(buttonDim);
-		ok.setEnabled(false);
+		ok.setEnabled(true);
 		ok.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (ValidationProfessor.getInstance().professorValidAdd()) {
-					ValidationProfessor.getInstance().reset();
-					ProfessorController.getInstance().addProfessor();
-					dispose();
-				}
+				ValidationProfessor.getInstance().reset();
+				ProfessorController.getInstance().editProfessor();
+				EditProfessorDialog.getInstance().dispose();
+				EditProfessorDialog.resetInstance();
+				EditProfessor.resetInstance();
 
 			}
 
@@ -184,8 +188,9 @@ public class AddProfessorDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ValidationProfessor.getInstance().reset();
-				dispose();
-
+				EditProfessorDialog.getInstance().dispose();
+				EditProfessorDialog.resetInstance();
+				EditProfessor.resetInstance();
 			}
 
 		});
@@ -198,6 +203,21 @@ public class AddProfessorDialog extends JDialog {
 		bottom.add(cancel);
 
 		add(bottom, BorderLayout.SOUTH);
+
+	}
+
+	private void refreshProfessor() {
+		fieldIme.setText(profesor.getIme());
+		fieldPrezime.setText(profesor.getPrezime());
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
+		fieldDatum.setText(dateFormat.format(profesor.getDatumRodjenja()));
+		fieldAdresa.setText(profesor.getAdresaStanovanja());
+		fieldBrTel.setText(profesor.getTelefon());
+		fieldMail.setText(profesor.getEmail());
+		fieldAdrKanc.setText(profesor.getAdresaKancelarije());
+		fieldBrLK.setText(profesor.getBrojLicneKarte());
+		fieldTitula.setText(profesor.getTitula());
+		fieldZvanje.setText(profesor.getZvanje());
 
 	}
 
@@ -250,7 +270,7 @@ public class AddProfessorDialog extends JDialog {
 	}
 
 	public static void setOk(Button ok) {
-		AddProfessorDialog.ok = ok;
+		EditProfessorDialogInformacije.ok = ok;
 	}
 
 	public static Button getCancel() {
@@ -258,7 +278,11 @@ public class AddProfessorDialog extends JDialog {
 	}
 
 	public static void setCancel(Button cancel) {
-		AddProfessorDialog.cancel = cancel;
+		EditProfessorDialogInformacije.cancel = cancel;
+	}
+
+	public static Profesor getProfesor() {
+		return profesor;
 	}
 
 }

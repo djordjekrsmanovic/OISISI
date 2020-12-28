@@ -46,6 +46,7 @@ public class ToolBar extends JToolBar {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				GlobalController.getInstance().addEntity();
+
 			}
 		});
 
@@ -54,10 +55,62 @@ public class ToolBar extends JToolBar {
 		editEntityButton.setToolTipText("Dijalog za izmenu studenta, profesora ili predmeta.");
 		this.add(editEntityButton);
 
+		editEntityButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (GlobalController.getInstance().isSelected()) {
+					GlobalController.getInstance().editEntity();
+				}
+			}
+		});
+
 		imageIcon = new ImageIcon("images_project" + File.separator + "delete_icon.png");
 		JButton deleteEntityButton = new JButton(imageIcon);
 		deleteEntityButton.setToolTipText("Dijalog za brisanje studenta, profesora ili predmeta.");
 		this.add(deleteEntityButton);
+
+		deleteEntityButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (GlobalController.getInstance().isSelected()) {
+					GlobalController.getInstance().showDeleteDialog();
+				}
+			}
+		});
 
 		add(Box.createHorizontalGlue());
 

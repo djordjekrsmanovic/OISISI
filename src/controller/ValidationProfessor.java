@@ -9,10 +9,12 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 import view.AddProfessorDialog;
+import view.EditProfessorDialogInformacije;
 
 public class ValidationProfessor {
 
 	Boolean[] retVal = new Boolean[10];
+	Boolean[] retValEdit = new Boolean[10];
 
 	private static ValidationProfessor instance = null;
 
@@ -29,9 +31,10 @@ public class ValidationProfessor {
 
 	public void reset() {
 		Arrays.fill(retVal, Boolean.FALSE);
+		Arrays.fill(retValEdit, Boolean.TRUE);
 	}
 
-	public boolean professorValid() {
+	public boolean professorValidAdd() {
 
 		for (Boolean v : retVal) {
 			if (!v)
@@ -41,8 +44,17 @@ public class ValidationProfessor {
 		return true;
 	}
 
-	public boolean validate(String input, int fieldNum) {
-		System.out.println(input + "---" + Integer.toString(fieldNum));
+	public boolean professorValidEdit() {
+
+		for (Boolean v : retValEdit) {
+			if (!v)
+				return false;
+		}
+
+		return true;
+	}
+
+	private void fieldValidationAdd(String input, int fieldNum) {
 		switch (fieldNum) {
 		case 0:
 			retVal[fieldNum] = checkIme(input);
@@ -75,14 +87,65 @@ public class ValidationProfessor {
 			retVal[fieldNum] = checkZvanje(input);
 			break;
 		}
+	}
 
-		if (professorValid()) {
+	private void fieldValidationEdit(String input, int fieldNum) {
+		switch (fieldNum) {
+		case 0:
+			retValEdit[fieldNum] = checkIme(input);
+			break;
+		case 1:
+			retValEdit[fieldNum] = checkPrezime(input);
+			break;
+		case 2:
+			retValEdit[fieldNum] = checkDate(input);
+			break;
+		case 3:
+			retValEdit[fieldNum] = checkAdresa(input);
+			break;
+		case 4:
+			retValEdit[fieldNum] = checkPhoneNumber(input);
+			break;
+		case 5:
+			retValEdit[fieldNum] = checkMail(input);
+			break;
+		case 6:
+			retValEdit[fieldNum] = checkAdresa(input);
+			break;
+		case 7:
+			retValEdit[fieldNum] = checkLKNumber(input);
+			break;
+		case 8:
+			retValEdit[fieldNum] = checkTitula(input);
+			break;
+		case 9:
+			retValEdit[fieldNum] = checkZvanje(input);
+			break;
+		}
+	}
+
+	public boolean validateAdd(String input, int fieldNum) {
+		fieldValidationAdd(input, fieldNum);
+
+		if (professorValidAdd()) {
 			AddProfessorDialog.getOk().setEnabled(true);
 		} else {
 			AddProfessorDialog.getOk().setEnabled(false);
 		}
 
-		return professorValid();
+		return professorValidAdd();
+	}
+
+	public boolean validateEdit(String input, int fieldNum) {
+		fieldValidationEdit(input, fieldNum);
+
+		if (professorValidEdit()) {
+			EditProfessorDialogInformacije.getOk().setEnabled(true);
+		} else {
+			EditProfessorDialogInformacije.getOk().setEnabled(false);
+		}
+
+		return professorValidEdit();
 	}
 
 	public boolean checkIme(String input) {
