@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.PredmetJTable;
+import view.ProfessorJTable;
+
 public class BazaPredmeta {
 	private static BazaPredmeta instance = null;
 	private List<Predmet> predmeti;
@@ -34,6 +37,21 @@ public class BazaPredmeta {
 		predmeti.add(new Predmet("E224", "Teorija nepokretne tačke", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
 		predmeti.add(new Predmet("E225", "Topologija 4", Predmet.Semestar.ZIMSKI, 4, null, 13, null, null));
 
+	}
+	
+	public void izbrisiPredmet() {
+		String sifra = predmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
+		int index = 1;
+		for (Predmet predmet : predmeti) {
+
+			if (predmet.getSifra().equalsIgnoreCase(sifra)) {
+				predmeti.remove(index - 1);
+				break;
+			}
+			index++;
+		}
+
+		ProfessorJTable.getInstance().azuriraj();
 	}
 
 	public void dodajPredmet(Predmet predmet) {
