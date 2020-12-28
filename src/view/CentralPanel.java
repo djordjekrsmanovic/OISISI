@@ -26,7 +26,6 @@ public class CentralPanel extends JTabbedPane {
 		
 		this.addTab("Studenti", studenti);
 		studenti.setLayout(new BorderLayout());
-		//TODO Dodati tab studenti.
 		studenti.add(StudentTab.getInstance());
 		
 		this.addTab("Profesori", profesori);
@@ -35,7 +34,7 @@ public class CentralPanel extends JTabbedPane {
 		
 		this.addTab("Predmeti", predmeti);
 		predmeti.setLayout(new BorderLayout());
-		//TODO Dodati tab predmeti.
+		predmeti.add(PredmetTab.getInstance());
 	}
 
 }
