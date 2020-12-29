@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ocena {
 	private Student s;
 	private Predmet p;
-	private int vrijednostOcjene;
+	private Integer vrijednostOcjene;
 	private Date datumPolaganja;
 	public Ocena(Student s, int vrijednostOcjene, Date datumPolaganja) {
 		super();
@@ -25,10 +25,10 @@ public class Ocena {
 	public void setS(Student s) {
 		this.s = s;
 	}
-	public int getVrijednostOcjene() {
+	public Integer getVrijednostOcjene() {
 		return vrijednostOcjene;
 	}
-	public void setVrijednostOcjene(int vrijednostOcjene) {
+	public void setVrijednostOcjene(Integer vrijednostOcjene) {
 		this.vrijednostOcjene = vrijednostOcjene;
 	}
 	public Date getDatumPolaganja() {
