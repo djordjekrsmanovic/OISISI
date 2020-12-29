@@ -94,7 +94,7 @@ public class GlobalController {
 	public void deleteEntity() {
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0:
-			BazaStudenata.getInstance().brisiStudenta();
+			StudentControler.getInstance().brisiStudenta();
 			StudentJTable.getInstance().azuriraj();
 			break;
 		case 1:

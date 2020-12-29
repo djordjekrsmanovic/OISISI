@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import model.BazaStudenata;
 import model.Student;
@@ -95,6 +96,26 @@ public class StudentControler {
 		}
 		StudentJTable.getInstance().azuriraj();;
 		
+	}
+	
+	public void brisiStudenta() {
+		int row=StudentJTable.getInstance().convertRowIndexToModel(StudentJTable.getInstance().getSelectedRow());
+		Student s=new Student(BazaStudenata.getInstance().findStudentByRow(row));
+		List<Student> studenti=BazaStudenata.getInstance().getStudenti();
+		int index=1;
+		for (Student student:studenti) {
+			
+			if (student.getBrojIndeksa().equalsIgnoreCase(s.getBrojIndeksa())) {
+//				System.out.println("Usao u brisanje");
+				studenti.remove(index-1);
+				break;
+			}
+			index++;
+		}
+		for (Student st:studenti) {
+			System.out.println(st);
+		}
+		StudentJTable.getInstance().azuriraj();
 	}
 
 	public Date convertStringtoDate(String date) {
