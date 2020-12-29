@@ -2,11 +2,10 @@ package model;
 
 import java.util.HashSet;
 
-enum Semestar {
-	LETNJI, ZIMSKI
-}
-
 public class Predmet {
+	public enum Semestar {
+		LETNJI, ZIMSKI
+	}
 
 	String sifra;
 	String naziv;
