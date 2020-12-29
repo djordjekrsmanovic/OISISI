@@ -1,10 +1,16 @@
 package controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import model.BazaPredmeta;
+import model.BazaStudenata;
+import model.Predmet;
+import model.Student;
+import view.AddStudentDialog;
 import view.AddSubjectDialog;
 
 public class ValidationSubject {
@@ -65,6 +71,15 @@ public class ValidationSubject {
 			JOptionPane.showMessageDialog(null, "Pogrešan fromat . Šifra može samo da sadrži slova i brojeve.");
 		}
 		// TODO uraditi provjeru da li predmet sa unesenom sifrom vec postoji u bazi
+		List<Predmet> predmeti = BazaPredmeta.getInstance().getPredmeti();
+		for (Predmet p:predmeti) {
+			if (p.getSifra().equalsIgnoreCase(AddSubjectDialog.getFieldSifra().getText().trim())) {
+				JOptionPane.showMessageDialog(null, "Predmet sa unešenom šifrom  već postoji u bazi");
+				return false;
+			}
+		}
+
+	
 		return ret;
 	}
 

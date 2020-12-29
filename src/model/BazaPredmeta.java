@@ -91,4 +91,13 @@ public class BazaPredmeta {
 			return null;
 		}
 	}
+
+	public List<Predmet> getPredmeti() {
+		return predmeti;
+	}
+
+	public void setPredmeti(List<Predmet> predmeti) {
+		this.predmeti = predmeti;
+	}
+	
 }

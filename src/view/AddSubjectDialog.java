@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import listeners.AddSubjectListener;
 import model.BazaPredmeta;
 import model.Predmet;
+import controller.PredmetController;
 import controller.ValidationSubject;
 
 public class AddSubjectDialog extends JDialog {
@@ -35,6 +36,8 @@ public class AddSubjectDialog extends JDialog {
 	private static JTextField fieldNaziv;
 	private static JTextField fieldESPB;
 	private static Button ok;
+	private static JComboBox<String> godinaCombo;
+	private static JComboBox<String> comboSemestar;
 
 	public AddSubjectDialog(JFrame parent) {
 
@@ -66,7 +69,7 @@ public class AddSubjectDialog extends JDialog {
 
 		JPanel panSemestar = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		String semestar[] = { "Ljetnji", "Zimski" };
-		JComboBox<String> comboSemestar = new JComboBox<String>(semestar);
+		comboSemestar = new JComboBox<String>(semestar);
 		comboSemestar.setPreferredSize(preferredDim);
 		JLabel lblSemestar = new JLabel("Semestar*");
 		lblSemestar.setToolTipText("Semestar u kom se predmet izvodi");
@@ -76,7 +79,7 @@ public class AddSubjectDialog extends JDialog {
 
 		// TODO dodavanje profesora
 		String godina[] = { "I (prva)", "II (druga)", "III (treća)", "IV (četvrta)" };
-		JComboBox<String> godinaCombo = new JComboBox<String>(godina);
+		godinaCombo = new JComboBox<String>(godina);
 		godinaCombo.setPreferredSize(preferredDim);
 		godinaCombo.setSelectedIndex(0);
 		JPanel godinaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -121,7 +124,7 @@ public class AddSubjectDialog extends JDialog {
 				if (ValidationSubject.getInstance().subjectValid()) {
 					ok.setEnabled(true);
 					ValidationSubject.getInstance().setLogickeVirjednost();
-					// TODO uraditi dodavanje predmeta u bazu
+					PredmetController.getInstance().addSubject();
 					
 					dispose();
 				}
@@ -184,4 +187,19 @@ public class AddSubjectDialog extends JDialog {
 	public static void setFieldESPB(JTextField fieldESPB) {
 		AddSubjectDialog.fieldESPB = fieldESPB;
 	}
+
+	public static JComboBox<String> getGodinaCombo() {
+		return godinaCombo;
+	}
+
+	public static void setGodinaCombo(JComboBox<String> godinaCombo) {
+		AddSubjectDialog.godinaCombo = godinaCombo;
+	}
+
+	public static JComboBox<String> getComboSemestar() {
+		return comboSemestar;
+	}
+
+	
+	
 }
