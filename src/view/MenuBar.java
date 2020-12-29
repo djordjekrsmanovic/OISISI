@@ -58,6 +58,18 @@ public class MenuBar extends JMenuBar {
 		deleteI.setIcon(new ImageIcon("images_project"+File.separator+"delete_icon.png"));
 		deleteI.setMnemonic(KeyEvent.VK_D);
 		deleteI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		deleteI.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (GlobalController.getInstance().isSelected() == true) {
+					GlobalController.getInstance().showDeleteDialog();
+
+				}
+			}
+
+		});
 		
 		edit.add(editI);
 		edit.addSeparator();

@@ -3,11 +3,13 @@ package controller;
 import javax.swing.JOptionPane;
 
 import model.BazaPredmeta;
+import model.BazaStudenata;
 import view.AddProfessorDialog;
 import view.AddStudentDialog;
 import view.AddSubjectDialog;
 import view.CentralPanel;
 import view.DeletePredmetDialog;
+import view.DeleteStudentDialog;
 import view.EditProfessorDialog;
 import view.MainWindow;
 import view.PredmetJTable;
@@ -86,7 +88,8 @@ public class GlobalController {
 	public void deleteEntity() {
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0:
-			// TODO BazaStudenata.getInstance().izbrisiStudenta();
+			BazaStudenata.getInstance().brisiStudenta();
+			StudentJTable.getInstance().azuriraj();
 			break;
 		case 1:
 			// TODO BazaProfesora.getInstance().izbrisiProfesora();
@@ -100,9 +103,8 @@ public class GlobalController {
 	public void showDeleteDialog() {
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0:
-			// DeleteStudentDialog deleteStudentDialog = new
-			// DeleteStudentDialog(MainWindow.getInstance());
-			// deleteStudentDialog.setVisible(true);
+			DeleteStudentDialog deleteStudentDialog=new DeleteStudentDialog(MainWindow.getInstance());
+			deleteStudentDialog.setVisible(true);
 			break;
 		case 1:
 			// TODO implementirati pokazivanje dijaloga za profesora

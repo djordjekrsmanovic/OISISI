@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Student.Status;
+import view.StudentJTable;
 
 public class BazaStudenata {
 	private static BazaStudenata instance=null;
@@ -110,4 +111,26 @@ public class BazaStudenata {
 		this.studenti = studenti;
 	}
 	
+	public void brisiStudenta() {
+		int row=StudentJTable.getInstance().getSelectedRow();
+
+		Student s=new Student(findStudentByRow(row));
+		int index=1;
+		for (Student student:studenti) {
+			
+			if (student.getBrojIndeksa().equalsIgnoreCase(s.getBrojIndeksa())) {
+//				System.out.println("Usao u brisanje");
+				studenti.remove(index-1);
+				break;
+			}
+			index++;
+		}
+		for (Student st:studenti) {
+			System.out.println(st);
+		}
+		StudentJTable.getInstance().azuriraj();
+	}
+	private Student findStudentByRow(int row) {
+		return studenti.get(row);
+	}
 }

@@ -36,6 +36,20 @@ public class Student {
 	public Student() {
 		// TODO Auto-generated c
 	}
+	public Student(Student s) {
+		this.ime = s.ime;
+		this.prezime = s.prezime;
+		this.datumRodjenja = s.datumRodjenja;
+		this.adresaStanovanja = s.adresaStanovanja;
+		this.telefon = s.telefon;
+		this.mail = s.mail;
+		this.brojIndeksa = s.brojIndeksa;
+		this.godinaUpisa = s.godinaUpisa;
+		this.trenutnaGodinaStudija = s.trenutnaGodinaStudija;
+		this.status = s.status;
+		this.prosjecnaOcjena = s.prosjecnaOcjena;
+		
+	}
 	public String getPrezime() {
 		return prezime;
 	}
