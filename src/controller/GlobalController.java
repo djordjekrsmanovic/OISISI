@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import model.BazaPredmeta;
 import view.AddProfessorDialog;
 import view.AddStudentDialog;
+import view.AddSubjectDialog;
 import view.CentralPanel;
 import view.DeletePredmetDialog;
 import view.EditProfessorDialog;
@@ -30,7 +31,8 @@ public class GlobalController {
 			addProfessorDialog.setVisible(true);
 			break;
 		case 2: // tab 2 - Predmeti
-			// TODO dodati dijalog za predmete
+			AddSubjectDialog  addSubjectDialog=new AddSubjectDialog(MainWindow.getInstance());
+			addSubjectDialog.setVisible(true);
 			break;
 		}
 
