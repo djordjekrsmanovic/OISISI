@@ -131,7 +131,7 @@ public class ValidationStudent {
 
 	private boolean checkMail(String mail) {
 		boolean ret = true;
-		ret = Pattern.matches("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$", mail); // https://stackoverflow.com/questions/8204680/java-regex-email
+		ret = Pattern.matches("^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}(.)+[a-z]{2,}$", mail); // https://stackoverflow.com/questions/8204680/java-regex-email
 		if (ret == false && mail.isEmpty() == false) {
 			JOptionPane.showMessageDialog(null, "Pogrešan format mail adrese");
 		}
