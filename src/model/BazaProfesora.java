@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.ProfessorJTable;
+
 public class BazaProfesora {
 	private static BazaProfesora instance = null;
 	private List<Profesor> profesori;
@@ -57,7 +59,20 @@ public class BazaProfesora {
 		profesori.add(profesor);
 	}
 	
-
+	public void izbrisiProfesora() {
+		String brojLicneKarte=profesori.get(ProfessorJTable.getInstance().getSelectedRow()).brojLicneKarte;
+		int index=1;
+		for (Profesor profesor:profesori) {
+			
+			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
+				profesori.remove(index-1);
+				break;
+			}
+			index++;
+		}
+		
+		ProfessorJTable.getInstance().azuriraj();
+	}
 	public int getNumberOfColumns() {
 		return kolone.size();
 	}
