@@ -13,6 +13,7 @@ import view.DeletePredmetDialog;
 import view.DeleteProfessorDialog;
 import view.DeleteStudentDialog;
 import view.EditProfessorDialog;
+import view.EditStudentDialog;
 import view.MainWindow;
 import view.PredmetJTable;
 import view.ProfessorJTable;
@@ -46,7 +47,8 @@ public class GlobalController {
 
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0: // tab 0 - Studenti
-			// TODO Dodati izmenu studenta.
+			EditStudentDialog editStudentDialog=EditStudentDialog.getInstance();
+			editStudentDialog.setVisible(true);
 			break;
 		case 1: // tab 1 - Profesori
 			EditProfessorDialog editProfessorDialog = EditProfessorDialog.getInstance();

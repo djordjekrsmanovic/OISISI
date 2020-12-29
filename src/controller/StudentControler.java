@@ -9,6 +9,7 @@ import model.BazaStudenata;
 import model.Student;
 import model.Student.Status;
 import view.AddStudentDialog;
+import view.OsnovneInformacijaTab;
 import view.StudentJTable;
 
 public class StudentControler {
@@ -59,6 +60,41 @@ public class StudentControler {
 		bazaStudenata.dodajStudenta(student);
 		StudentJTable.getInstance().azuriraj();
 
+	}
+	
+	public void editStudent() {
+		String ime=OsnovneInformacijaTab.getFieldIme().getText().trim();
+		String prezime=OsnovneInformacijaTab.getFieldPrezime().getText().trim();
+		String datumRodjenja=OsnovneInformacijaTab.getFieldDatum().getText().trim();
+		String adresaStanovanja=OsnovneInformacijaTab.getFieldAdresa().getText().trim();
+		String brojTelefona=OsnovneInformacijaTab.getFieldBrTel().getText().trim();
+		String mailAdresa=OsnovneInformacijaTab.getFieldMail().getText().trim();
+		String brojIndeksa=OsnovneInformacijaTab.getFieldBrIndeks().getText().trim();
+		String godinaUpisa=OsnovneInformacijaTab.getFieldGodUpis().getText().trim();
+		int trenutnaGodinaStudija=OsnovneInformacijaTab.getComboGodinaStudija().getSelectedIndex()+1;
+		int nacinFinansiranja=OsnovneInformacijaTab.getComboStatus().getSelectedIndex();
+		
+		for (Student s:BazaStudenata.getInstance().getStudenti()) {
+			if (s.getBrojIndeksa().equalsIgnoreCase(OsnovneInformacijaTab.getStudent().getBrojIndeksa())) {
+				s.setIme(ime);
+				s.setPrezime(prezime);
+				s.setDatumRodjenja(convertStringtoDate(datumRodjenja));
+				s.setAdresaStanovanja(adresaStanovanja);
+				s.setTelefon(brojTelefona);
+				s.setMail(mailAdresa);
+				s.setBrojIndeksa(brojIndeksa);
+				s.setGodinaUpisa(Integer.parseInt(godinaUpisa));
+				s.setTrenutnaGodinaStudija(trenutnaGodinaStudija);
+				if (nacinFinansiranja==0) {
+					s.setStatus(Status.B);
+				}else {
+					s.setStatus(Status.S);
+				}
+				break;
+			}
+		}
+		StudentJTable.getInstance().azuriraj();;
+		
 	}
 
 	public Date convertStringtoDate(String date) {

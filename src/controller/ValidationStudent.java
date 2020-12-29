@@ -13,10 +13,12 @@ import javax.swing.JOptionPane;
 import model.BazaStudenata;
 import model.Student;
 import view.AddStudentDialog;
+import view.OsnovneInformacijaTab;
 
 public class ValidationStudent {
 
 	private Boolean[] ret = new Boolean[10];
+	private Boolean[] retEdit = new Boolean[10];
 	private static ValidationStudent instance = null;
 
 	public static ValidationStudent getInstance() {
@@ -28,6 +30,7 @@ public class ValidationStudent {
 
 	private ValidationStudent() {
 		Arrays.fill(ret, Boolean.FALSE);
+		Arrays.fill(retEdit, Boolean.TRUE);
 	}
 
 	public boolean studentValid() {
@@ -77,6 +80,55 @@ public class ValidationStudent {
 
 			AddStudentDialog.getOK().setEnabled(false);
 		}
+		return povratnaVrijednost;
+	}
+	
+	public boolean validateEdit(String input, int redniBroj) {
+		// String naziv=component.getName();
+		boolean povratnaVrijednost = true;
+		switch (redniBroj) {
+		case 0:
+			retEdit[0] = checkIme(input);
+
+			break;
+		case 1:
+			retEdit[1] = checkPrezime(input);
+
+			break;
+		case 2:
+			retEdit[2] = checkDate(input);
+
+			break;
+		case 3:
+			retEdit[3] = checkAdresa(input);
+
+			break;
+		case 4:
+			retEdit[4] = checkPhoneNumber(input);
+
+			break;
+		case 5:
+			retEdit[5] = checkMail(input);
+
+			break;
+		case 6:
+			retEdit[6] = checkBrojIndeksaEdit(input);
+			break;
+		case 7:
+			retEdit[7] = checkGodinaUpisa(input);
+			break;
+		}
+		for (int i = 0; i < 8; i++) {
+			povratnaVrijednost &= retEdit[i];
+		}
+		if (povratnaVrijednost == true) {
+
+			OsnovneInformacijaTab.getOK().setEnabled(true);
+
+		} else {
+			OsnovneInformacijaTab.getOK().setEnabled(false);
+		}
+
 		return povratnaVrijednost;
 	}
 
@@ -171,6 +223,45 @@ public class ValidationStudent {
 
 		return ret;
 	}
+	
+
+	private Boolean checkBrojIndeksaEdit(String br) {
+		boolean ret = true;
+		String regex = "[a-zA-Z]{2,3}[\\-][0-9]{1,3}[\\-][0-9]{4}";
+
+		ret = Pattern.matches(regex, br);
+//		System.out.println(ret);
+		if (ret == false && br.isEmpty() == false) {
+			JOptionPane.showMessageDialog(null, "Pogrešan format indeksa.Format treba da bude smjer-broj-godina upisa");
+			return ret;
+		}
+
+		if (provjeriJednoznacnostIndeksEdit() == false) {
+			return false;
+		}
+
+		System.out.println("broj indeksa     " + ret);
+		return ret;
+	}
+	
+	
+	private boolean provjeriJednoznacnostIndeksEdit() {
+		List<Student> studenti = BazaStudenata.getInstance().getStudenti();
+
+		for (Student s : studenti) {
+
+			if (s.getBrojIndeksa().equalsIgnoreCase(OsnovneInformacijaTab.getFieldBrIndeks().getText().trim())) {
+				if (s.getBrojIndeksa() == OsnovneInformacijaTab.getStudent().getBrojIndeksa()) {
+					continue;
+				} else {
+					JOptionPane.showMessageDialog(null, "Student sa unešenim brojem indeksa već postoji u bazi");
+					return false;
+				}
+			}
+
+		}
+		return true;
+	}
 
 	private boolean checkAdresa(String adresa) {
 		boolean ret = true;
@@ -226,5 +317,10 @@ public class ValidationStudent {
 	public void setLogickeVirjednost() {
 		Arrays.fill(ret, Boolean.FALSE); // posto koristimo signleton onda nakon sto se zatvori dijalog
 											// postavljamo ove vrijednosti na false
+	}
+	
+	public void setEditLogickeVirjednost() {
+		Arrays.fill(retEdit, Boolean.TRUE); // posto koristimo signleton onda nakon sto se zatvori dijalog
+		// postavljamo ove vrijednosti na false
 	}
 }
