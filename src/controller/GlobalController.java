@@ -14,6 +14,7 @@ import view.DeleteProfessorDialog;
 import view.DeleteStudentDialog;
 import view.EditProfessorDialog;
 import view.EditStudentDialog;
+import view.EditSubjectDialog;
 import view.MainWindow;
 import view.PredmetJTable;
 import view.ProfessorJTable;
@@ -55,7 +56,8 @@ public class GlobalController {
 			editProfessorDialog.setVisible(true);
 			break;
 		case 2: // tab 2 - Predmeti
-			// TODO Dodati izmenu predmeta.
+			EditSubjectDialog editSubjectDialog=EditSubjectDialog.getInstance();
+			editSubjectDialog.setVisible(true);
 			break;
 		}
 

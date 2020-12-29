@@ -143,7 +143,7 @@ private static final long serialVersionUID = 3629017807555286854L;
 		godUpis.add(labGodUpis);
 		godUpis.add(fieldGodUpis);
 		
-		String godina[]= {"I (prva)","II (druga)","III (treća)","IV (�?etvrta)"};
+		String godina[]= {"I (prva)","II (druga)","III (treća)","IV (četvrta)"};
 		JPanel godinaStudija=new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel labGodinaStudija=new JLabel("Godina studija*");
 		labGodinaStudija.setPreferredSize(preferredDim);

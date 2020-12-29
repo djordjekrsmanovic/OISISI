@@ -8,39 +8,48 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import listeners.AddSubjectListener;
-import model.BazaPredmeta;
-import model.Predmet;
 import controller.PredmetController;
 import controller.ValidationSubject;
+import listeners.EditSubjectListener;
+import model.BazaPredmeta;
+import model.Predmet;
 
-public class AddSubjectDialog extends JDialog {
+public class EditSubjectDialog extends JDialog {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5731607876309753006L;
+	private static final long serialVersionUID = 4481555156394650793L;
 
 	private static JTextField fieldSifra;
 	private static JTextField fieldNaziv;
 	private static JTextField fieldESPB;
 	private static Button ok;
+	private static EditSubjectDialog instance = null;
+	private static Predmet predmet = null;
 	private static JComboBox<String> godinaCombo;
 	private static JComboBox<String> comboSemestar;
 
-	public AddSubjectDialog(JFrame parent) {
+	public static EditSubjectDialog getInstance() {
+		if (instance == null) {
+			instance = new EditSubjectDialog();
+		}
+		return instance;
+	}
 
+	public EditSubjectDialog() {
 		setModal(true);
 		setTitle("Dodavanje predmeta");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -49,13 +58,17 @@ public class AddSubjectDialog extends JDialog {
 		Dimension preferredDim = new Dimension(200, 25);
 		Dimension buttonDim = new Dimension(70, 30);
 		setResizable(false);
-		setLocationRelativeTo(parent);
+		setLocationRelativeTo(MainWindow.getInstance());
+
+		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
+		predmet = BazaPredmeta.getInstance().getRow(row);
 
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
 		lblSifra.setPreferredSize(preferredDim);
 		fieldSifra = new JTextField();
 		fieldSifra.setPreferredSize(preferredDim);
+		fieldSifra.setText(predmet.getSifra());
 		sifra.add(lblSifra);
 		sifra.add(fieldSifra);
 
@@ -64,25 +77,29 @@ public class AddSubjectDialog extends JDialog {
 		lblNaziv.setPreferredSize(preferredDim);
 		fieldNaziv = new JTextField();
 		fieldNaziv.setPreferredSize(preferredDim);
+		fieldNaziv.setText(predmet.getNaziv());
 		naziv.add(lblNaziv);
 		naziv.add(fieldNaziv);
 
+		int indeksSemestra = 0;
+		if (predmet.getSemestar() == Predmet.Semestar.ZIMSKI) {
+			indeksSemestra = 1;
+		}
 		JPanel panSemestar = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		String semestar[] = { "Ljetnji", "Zimski" };
 		comboSemestar = new JComboBox<String>(semestar);
 		comboSemestar.setPreferredSize(preferredDim);
-		comboSemestar.setSelectedIndex(0);
+		comboSemestar.setSelectedIndex(indeksSemestra);
 		JLabel lblSemestar = new JLabel("Semestar*");
 		lblSemestar.setToolTipText("Semestar u kom se predmet izvodi");
 		lblSemestar.setPreferredSize(preferredDim);
 		panSemestar.add(lblSemestar);
 		panSemestar.add(comboSemestar);
 
-		// TODO dodavanje profesora
 		String godina[] = { "I (prva)", "II (druga)", "III (treća)", "IV (četvrta)" };
 		godinaCombo = new JComboBox<String>(godina);
 		godinaCombo.setPreferredSize(preferredDim);
-		godinaCombo.setSelectedIndex(0);
+		godinaCombo.setSelectedIndex(predmet.getGodinaStudija() - 1);
 		JPanel godinaPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblGodina = new JLabel("Godina studija*");
 		lblGodina.setToolTipText("Godina studija u kojoj se predmet izvodi");
@@ -95,6 +112,7 @@ public class AddSubjectDialog extends JDialog {
 		lblESPB.setPreferredSize(preferredDim);
 		fieldESPB = new JTextField();
 		fieldESPB.setPreferredSize(preferredDim);
+		fieldESPB.setText(Integer.toString(predmet.getEspb()));
 		brojESPB.add(lblESPB);
 		brojESPB.add(fieldESPB);
 
@@ -109,26 +127,23 @@ public class AddSubjectDialog extends JDialog {
 
 		add(central, BorderLayout.NORTH);
 
-		fieldSifra.addFocusListener(new AddSubjectListener(fieldSifra, 0));
-		fieldNaziv.addFocusListener(new AddSubjectListener(fieldNaziv, 1));
-		fieldESPB.addFocusListener(new AddSubjectListener(fieldESPB, 2));
+		fieldSifra.addFocusListener(new EditSubjectListener(fieldSifra, 0));
+		fieldNaziv.addFocusListener(new EditSubjectListener(fieldNaziv, 1));
+		fieldESPB.addFocusListener(new EditSubjectListener(fieldESPB, 2));
 
 		ok = new Button("Potvrdi");
 		ok.setPreferredSize(buttonDim);
-		ok.setEnabled(false);
+		ok.setEnabled(true);
 		ok.addActionListener(new ActionListener() {
-			
-		
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (ValidationSubject.getInstance().subjectValid()) {
-					ok.setEnabled(true);
-					ValidationSubject.getInstance().setLogickeVirjednost();
-					PredmetController.getInstance().addSubject();
-					
-					dispose();
-				}
+
+				ok.setEnabled(true);
+				ValidationSubject.getInstance().setLogickeVirjednost();
+				ValidationSubject.getInstance().setLogickeVrijednostEdit();
+				PredmetController.getInstance().editPredmet();
+				dispose();
 
 			}
 		});
@@ -140,6 +155,7 @@ public class AddSubjectDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				ValidationSubject.getInstance().setLogickeVirjednost();
+				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				dispose();
 			}
 
@@ -154,6 +170,56 @@ public class AddSubjectDialog extends JDialog {
 		bottom.add(cancel);
 
 		add(bottom, BorderLayout.SOUTH);
+		this.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) { // ukoliko se zatvori prozor na X potrebno je postaviti
+															// logicke vrijednosti
+				// TODO Auto-generated method stub
+				EditSubjectDialog.setInstance();
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+	}
+
+	private static void setInstance() {
+		instance = null;
 
 	}
 
@@ -162,7 +228,7 @@ public class AddSubjectDialog extends JDialog {
 	}
 
 	public static void setOk(Button ok) {
-		AddSubjectDialog.ok = ok;
+		EditSubjectDialog.ok = ok;
 	}
 
 	public static JTextField getFieldSifra() {
@@ -170,7 +236,7 @@ public class AddSubjectDialog extends JDialog {
 	}
 
 	public static void setFieldSifra(JTextField fieldSifra) {
-		AddSubjectDialog.fieldSifra = fieldSifra;
+		EditSubjectDialog.fieldSifra = fieldSifra;
 	}
 
 	public static JTextField getFieldNaziv() {
@@ -178,7 +244,7 @@ public class AddSubjectDialog extends JDialog {
 	}
 
 	public static void setFieldNaziv(JTextField fieldNaziv) {
-		AddSubjectDialog.fieldNaziv = fieldNaziv;
+		EditSubjectDialog.fieldNaziv = fieldNaziv;
 	}
 
 	public static JTextField getFieldESPB() {
@@ -186,7 +252,15 @@ public class AddSubjectDialog extends JDialog {
 	}
 
 	public static void setFieldESPB(JTextField fieldESPB) {
-		AddSubjectDialog.fieldESPB = fieldESPB;
+		EditSubjectDialog.fieldESPB = fieldESPB;
+	}
+
+	public static Predmet getPredmet() {
+		return predmet;
+	}
+
+	public static void setPredmet(Predmet predmet) {
+		EditSubjectDialog.predmet = predmet;
 	}
 
 	public static JComboBox<String> getGodinaCombo() {
@@ -194,13 +268,16 @@ public class AddSubjectDialog extends JDialog {
 	}
 
 	public static void setGodinaCombo(JComboBox<String> godinaCombo) {
-		AddSubjectDialog.godinaCombo = godinaCombo;
+		EditSubjectDialog.godinaCombo = godinaCombo;
 	}
 
 	public static JComboBox<String> getComboSemestar() {
 		return comboSemestar;
 	}
 
+	public static void setComboSemestar(JComboBox<String> comboSemestar) {
+		EditSubjectDialog.comboSemestar = comboSemestar;
+	}
 	
-	
+
 }

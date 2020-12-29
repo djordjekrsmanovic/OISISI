@@ -3,7 +3,7 @@ package model;
 import java.util.HashSet;
 
 public class Predmet {
-	enum Semestar {
+	public enum Semestar {
 		LETNJI, ZIMSKI
 	}
 
