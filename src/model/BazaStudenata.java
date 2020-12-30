@@ -65,12 +65,21 @@ public class BazaStudenata {
 		Student s;
 		s = studenti.get(0);
 		
-		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(0));
-		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(1));
-		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(2));
-		s.polozeniPredmeti.add(BazaOcena.getInstance().getOcjene().get(0));
-		s.polozeniPredmeti.add(BazaOcena.getInstance().getOcjene().get(1));
+		s.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(0));
+		s.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(1));
+		s.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(2));
+		s.getPolozeniPredmeti().add(BazaOcena.getInstance().getOcjene().get(0));
+		s.getPolozeniPredmeti().add(BazaOcena.getInstance().getOcjene().get(1));
 		
+	}
+	
+	public Student getStudentByBrojIndeksa(String brojIndeksa) {
+		for (Student s : studenti) {
+			if (s.getBrojIndeksa() == brojIndeksa) {
+				return s;
+			}
+		}
+		return null;
 	}
 
 	public void dodajStudenta(Student s){

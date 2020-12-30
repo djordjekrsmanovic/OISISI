@@ -16,8 +16,8 @@ public class Student {
 	private int trenutnaGodinaStudija;
 	private Status status;
 	private double prosjecnaOcjena;
-	ArrayList<Ocena> polozeniPredmeti;
-	ArrayList<Predmet> nepolozeniIspiti;
+	private ArrayList<Ocena> polozeniPredmeti;
+	private ArrayList<Predmet> nepolozeniIspiti;
 	public Student(String ime,String prezime, Date datumRodjenja, String adresaStanovanja, String telefon, String mail,
 			String brojIndeksa, int godinaUpisa, int trenutnaGodinaStudija, Status status, double prosjecnaOcjena) {
 		super();
@@ -125,6 +125,19 @@ public class Student {
 				+ ", brojIndeksa=" + brojIndeksa + ", godinaUpisa=" + godinaUpisa + ", trenutnaGodinaStudija="
 				+ trenutnaGodinaStudija + ", prosjecnaOcjena=" + prosjecnaOcjena + "]";
 	}
+	public ArrayList<Ocena> getPolozeniPredmeti() {
+		return polozeniPredmeti;
+	}
+	public void setPolozeniPredmeti(ArrayList<Ocena> polozeniPredmeti) {
+		this.polozeniPredmeti = polozeniPredmeti;
+	}
+	public ArrayList<Predmet> getNepolozeniIspiti() {
+		return nepolozeniIspiti;
+	}
+	public void setNepolozeniIspiti(ArrayList<Predmet> nepolozeniIspiti) {
+		this.nepolozeniIspiti = nepolozeniIspiti;
+	}
+	
 	
 	
 }
