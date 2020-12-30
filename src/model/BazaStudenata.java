@@ -40,6 +40,8 @@ public class BazaStudenata {
 		DateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
 		studenti=new ArrayList<Student>();
 		try {
+			
+			
 			studenti.add(new Student("Luka", "Jovanović", datum.parse("01.01.2000."), "Karađorđeva 83, Novi Sad", "021/333-555",
 					 "luka.jovanovic@mailinator.com", "RA-1-2019", 2019, 1, Status.B, 0));
 			studenti.add(new Student("Milenko", "Jovanović", datum.parse("03.01.1999."), "Alekse Šantića 4, Novi Sad", "021/333-555",
@@ -48,12 +50,26 @@ public class BazaStudenata {
 					 "djordje1499@gmail.com", "RA-71-2018", 2018, 1, Status.B, 0));
 			studenti.add(new Student("Jelena", "Nikolić", datum.parse("01.01.2000."), "Gogoljeva 4, Novi Sad", "021/333-555",
 					 "luka.jovanovic@mailinator.com", "RA-8-2019", 2019, 1, Status.B, 0));
+			
+		
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+	}
+	public void dodajPredmet() {
+		DateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+		Student s;
+		s = studenti.get(0);
+		
+		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(0));
+		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(1));
+		s.nepolozeniIspiti.add(BazaPredmeta.getInstance().getPredmeti().get(2));
+		s.polozeniPredmeti.add(BazaOcena.getInstance().getOcjene().get(0));
+		s.polozeniPredmeti.add(BazaOcena.getInstance().getOcjene().get(1));
 		
 	}
 

@@ -7,9 +7,10 @@ public class Ocena {
 	private Predmet p;
 	private Integer vrijednostOcjene;
 	private Date datumPolaganja;
-	public Ocena(Student s, int vrijednostOcjene, Date datumPolaganja) {
+	public Ocena(Student s,Predmet p, int vrijednostOcjene, Date datumPolaganja) {
 		super();
 		this.s = s;
+		this.p= p;
 		this.vrijednostOcjene = vrijednostOcjene;
 		this.datumPolaganja = datumPolaganja;
 	}

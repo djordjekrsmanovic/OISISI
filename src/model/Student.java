@@ -32,6 +32,8 @@ public class Student {
 		this.trenutnaGodinaStudija = trenutnaGodinaStudija;
 		this.status = status;
 		this.prosjecnaOcjena = prosjecnaOcjena;
+		this.polozeniPredmeti=new ArrayList<Ocena>();
+		this.nepolozeniIspiti=new ArrayList<Predmet>();
 	}
 	public Student() {
 		// TODO Auto-generated c

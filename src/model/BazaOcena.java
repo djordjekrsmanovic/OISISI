@@ -1,7 +1,12 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class BazaOcena {
 	
@@ -24,6 +29,28 @@ public class BazaOcena {
 		kolone.add("ESPB");
 		kolone.add("Ocena");
 		kolone.add("Datum");
+		
+		
+	}
+	
+	
+	public void initOcjene() {
+		Locale.setDefault(Locale.ENGLISH);
+		DateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+		Student s=BazaStudenata.getInstance().getStudenti().get(0);
+		Predmet p=BazaPredmeta.getInstance().getPredmeti().get(3);
+		
+		try {
+			//o1Date = datum.parse("10.1.2020.");
+			Ocena o1=new Ocena(s,p,8,datum.parse("10.1.2020"));
+			ocjene.add(o1);
+			Predmet p2=BazaPredmeta.getInstance().getPredmeti().get(4);
+			Ocena o2=new Ocena(s,p2,10,datum.parse("3.3.2020"));
+			ocjene.add(o2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
@@ -62,4 +89,12 @@ public class BazaOcena {
 			return null;
 		}
 	}
+	public List<Ocena> getOcjene() {
+		return ocjene;
+	}
+	public void setOcjene(List<Ocena> ocjene) {
+		this.ocjene = ocjene;
+	}
+	
+	
 }
