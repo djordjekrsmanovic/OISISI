@@ -1,6 +1,7 @@
 package main;
 
 import model.BazaOcena;
+import model.BazaStudenata;
 import view.MainWindow;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
 		MainWindow glavniProzor = MainWindow.getInstance();
 		glavniProzor.setVisible(true);
 		BazaOcena.getInstance().initOcjene();
+		BazaStudenata.getInstance().dodajPredmet();
 	}
 
 }

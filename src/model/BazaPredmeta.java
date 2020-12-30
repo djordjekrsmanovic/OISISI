@@ -99,5 +99,28 @@ public class BazaPredmeta {
 	public void setPredmeti(List<Predmet> predmeti) {
 		this.predmeti = predmeti;
 	}
+
+	
+	public int getNepolozeniNumberOfRows(String brojIndeksa) {
+		return BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa).getNepolozeniIspiti().size();
+	}
+	
+	public Object getNepolozeniValueAt(int rowIndex, int columnIndex, String brojIndeksa) {
+		Predmet predmet = BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa).getNepolozeniIspiti().get(rowIndex);
+		switch (columnIndex) {
+		case 0:
+			return predmet.getSifra();
+		case 1:
+			return predmet.getNaziv();
+		case 2:
+			return predmet.getEspb().toString();
+		case 3:
+			return predmet.getGodinaStudija().toString();
+		case 4:
+			return predmet.getSemestar().name();
+		default:
+			return null;
+		}
+	}
 	
 }

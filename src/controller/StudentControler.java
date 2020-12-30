@@ -7,11 +7,17 @@ import java.util.Date;
 import java.util.List;
 
 import model.BazaStudenata;
+import model.Ocena;
+import model.Predmet;
 import model.Student;
 import model.Student.Status;
+import view.AbstractTableNepolozeni;
 import view.AddStudentDialog;
+import view.NepolozeniJTable;
+import view.OcenaJTable;
 import view.OsnovneInformacijaTab;
 import view.StudentJTable;
+import view.UpisOceneDialog;
 
 public class StudentControler {
 
@@ -62,20 +68,20 @@ public class StudentControler {
 		StudentJTable.getInstance().azuriraj();
 
 	}
-	
+
 	public void editStudent() {
-		String ime=OsnovneInformacijaTab.getFieldIme().getText().trim();
-		String prezime=OsnovneInformacijaTab.getFieldPrezime().getText().trim();
-		String datumRodjenja=OsnovneInformacijaTab.getFieldDatum().getText().trim();
-		String adresaStanovanja=OsnovneInformacijaTab.getFieldAdresa().getText().trim();
-		String brojTelefona=OsnovneInformacijaTab.getFieldBrTel().getText().trim();
-		String mailAdresa=OsnovneInformacijaTab.getFieldMail().getText().trim();
-		String brojIndeksa=OsnovneInformacijaTab.getFieldBrIndeks().getText().trim();
-		String godinaUpisa=OsnovneInformacijaTab.getFieldGodUpis().getText().trim();
-		int trenutnaGodinaStudija=OsnovneInformacijaTab.getComboGodinaStudija().getSelectedIndex()+1;
-		int nacinFinansiranja=OsnovneInformacijaTab.getComboStatus().getSelectedIndex();
-		
-		for (Student s:BazaStudenata.getInstance().getStudenti()) {
+		String ime = OsnovneInformacijaTab.getFieldIme().getText().trim();
+		String prezime = OsnovneInformacijaTab.getFieldPrezime().getText().trim();
+		String datumRodjenja = OsnovneInformacijaTab.getFieldDatum().getText().trim();
+		String adresaStanovanja = OsnovneInformacijaTab.getFieldAdresa().getText().trim();
+		String brojTelefona = OsnovneInformacijaTab.getFieldBrTel().getText().trim();
+		String mailAdresa = OsnovneInformacijaTab.getFieldMail().getText().trim();
+		String brojIndeksa = OsnovneInformacijaTab.getFieldBrIndeks().getText().trim();
+		String godinaUpisa = OsnovneInformacijaTab.getFieldGodUpis().getText().trim();
+		int trenutnaGodinaStudija = OsnovneInformacijaTab.getComboGodinaStudija().getSelectedIndex() + 1;
+		int nacinFinansiranja = OsnovneInformacijaTab.getComboStatus().getSelectedIndex();
+
+		for (Student s : BazaStudenata.getInstance().getStudenti()) {
 			if (s.getBrojIndeksa().equalsIgnoreCase(OsnovneInformacijaTab.getStudent().getBrojIndeksa())) {
 				s.setIme(ime);
 				s.setPrezime(prezime);
@@ -86,36 +92,55 @@ public class StudentControler {
 				s.setBrojIndeksa(brojIndeksa);
 				s.setGodinaUpisa(Integer.parseInt(godinaUpisa));
 				s.setTrenutnaGodinaStudija(trenutnaGodinaStudija);
-				if (nacinFinansiranja==0) {
+				if (nacinFinansiranja == 0) {
 					s.setStatus(Status.B);
-				}else {
+				} else {
 					s.setStatus(Status.S);
 				}
 				break;
 			}
 		}
-		StudentJTable.getInstance().azuriraj();;
-		
+		StudentJTable.getInstance().azuriraj();
+		;
+
 	}
-	
+
 	public void brisiStudenta() {
-		int row=StudentJTable.getInstance().convertRowIndexToModel(StudentJTable.getInstance().getSelectedRow());
-		Student s=new Student(BazaStudenata.getInstance().findStudentByRow(row));
-		List<Student> studenti=BazaStudenata.getInstance().getStudenti();
-		int index=1;
-		for (Student student:studenti) {
-			
+		int row = StudentJTable.getInstance().convertRowIndexToModel(StudentJTable.getInstance().getSelectedRow());
+		Student s = new Student(BazaStudenata.getInstance().findStudentByRow(row));
+		List<Student> studenti = BazaStudenata.getInstance().getStudenti();
+		int index = 1;
+		for (Student student : studenti) {
+
 			if (student.getBrojIndeksa().equalsIgnoreCase(s.getBrojIndeksa())) {
 //				System.out.println("Usao u brisanje");
-				studenti.remove(index-1);
+				studenti.remove(index - 1);
 				break;
 			}
 			index++;
 		}
-		for (Student st:studenti) {
+		for (Student st : studenti) {
 			System.out.println(st);
 		}
 		StudentJTable.getInstance().azuriraj();
+	}
+
+	public void upisOcene() {
+		AbstractTableNepolozeni atn = new AbstractTableNepolozeni();
+		Student student = atn.getStudentAtRow(NepolozeniJTable.getInstance().getSelectedRow());
+		int index = 0;
+		for (Predmet predmet : student.getNepolozeniIspiti()) {
+			if (predmet.getSifra().equals(UpisOceneDialog.getFieldSifra().getText())) {
+				System.out.println("qdfgsgsdg");
+				student.getNepolozeniIspiti().remove(index);
+				Ocena ocena = OcenaController.getInstance().addOcena(student, predmet);
+				student.getPolozeniPredmeti().add(ocena);
+				NepolozeniJTable.getInstance().azuriraj();
+				OcenaJTable.getInstance().azuriraj();
+				return;
+			}
+			++index;
+		}
 	}
 
 	public Date convertStringtoDate(String date) {

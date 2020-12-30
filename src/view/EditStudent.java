@@ -36,6 +36,8 @@ public class EditStudent extends JTabbedPane {
 
 		nepolozeni.setLayout(new BorderLayout());
 		this.add(nepolozeni, "Nepoloženi");
+		nepolozeni.add(new NepolozeniTab());
+		
 		this.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 	}
 
