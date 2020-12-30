@@ -8,13 +8,15 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import model.BazaProfesora;
+import model.Profesor;
 import view.AddProfessorDialog;
 import view.EditProfessorDialogInformacije;
 
 public class ValidationProfessor {
 
-	Boolean[] retVal = new Boolean[10];
-	Boolean[] retValEdit = new Boolean[10];
+	Boolean[] retVal = new Boolean[8];
+	Boolean[] retValEdit = new Boolean[8];
 
 	private static ValidationProfessor instance = null;
 
@@ -80,12 +82,6 @@ public class ValidationProfessor {
 		case 7:
 			retVal[fieldNum] = checkLKNumber(input);
 			break;
-		case 8:
-			retVal[fieldNum] = checkTitula(input);
-			break;
-		case 9:
-			retVal[fieldNum] = checkZvanje(input);
-			break;
 		}
 	}
 
@@ -114,12 +110,6 @@ public class ValidationProfessor {
 			break;
 		case 7:
 			retValEdit[fieldNum] = checkLKNumber(input);
-			break;
-		case 8:
-			retValEdit[fieldNum] = checkTitula(input);
-			break;
-		case 9:
-			retValEdit[fieldNum] = checkZvanje(input);
 			break;
 		}
 	}
@@ -232,6 +222,14 @@ public class ValidationProfessor {
 	}
 
 	public boolean checkLKNumber(String number) {
+		for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
+			System.out.println(p.getBrojLicneKarte());
+				if (number.equals(p.getBrojLicneKarte())) {
+					JOptionPane.showMessageDialog(null, "Unijeli ste postojeći broj lične karte");	
+					return false;
+				}
+		}
+		
 		boolean ret = true;
 		String regex = "^[0-9]*$";
 		ret = Pattern.matches(regex, number);
@@ -251,51 +249,6 @@ public class ValidationProfessor {
 		return ret;
 	}
 
-	public boolean checkTitula(String input) {
-		boolean ret = true;
-		if (input.contains(" ")) {
-			String[] parts = input.split(" ");
-			for (String p : parts) {
-				if (p.isEmpty())
-					continue;
-				ret = Pattern.matches("\\p{L}+", p);
-				if (ret == false && !input.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Format titule nije dobar");
-					return ret;
-				}
-			}
-		} else {
-			ret = Pattern.matches("\\p{L}+", input);
-
-		}
-		if (ret == false) {
-			JOptionPane.showMessageDialog(null, "Format titule nije dobar");
-		}
-		return ret;
-	}
-
-	public boolean checkZvanje(String input) {
-		boolean ret = true;
-		if (input.contains(" ")) {
-			String[] parts = input.split(" ");
-			for (String p : parts) {
-				if (p.isEmpty())
-					continue;
-				ret = Pattern.matches("\\p{L}+", p);
-				if (ret == false && !input.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Format zvanja nije dobar");
-					return ret;
-				}
-			}
-		} else {
-			ret = Pattern.matches("\\p{L}+", input);
-
-		}
-		if (ret == false && !input.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Format zvanja nije dobar");
-		}
-		return ret;
-	}
 
 	public Date convertStringtoDate(String date) {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");

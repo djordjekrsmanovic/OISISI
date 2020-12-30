@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -35,8 +36,8 @@ public class EditProfessorDialogInformacije extends JPanel {
 	private static JTextField fieldMail;
 	private static JTextField fieldAdrKanc;
 	private static JTextField fieldBrLK;
-	private static JTextField fieldTitula;
-	private static JTextField fieldZvanje;
+	private static JComboBox<String> comboTitula;
+	private static JComboBox<String> comboZvanje;
 	private static Button ok;
 	private static Button cancel;
 	private static Profesor profesor;
@@ -118,21 +119,27 @@ public class EditProfessorDialogInformacije extends JPanel {
 		brLK.add(labBrLK);
 		brLK.add(fieldBrLK);
 
+		String titule[] = { "BSC", "MSC", "MR", "DR", "PROF" };
 		JPanel titula = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel labTitula = new JLabel("Titula*");
 		labTitula.setPreferredSize(preferredDim);
-		fieldTitula = new JTextField();
-		fieldTitula.setPreferredSize(preferredDim);
+		comboTitula = new JComboBox<String>(titule);
+		comboTitula.setPreferredSize(preferredDim);
+		comboTitula.setSelectedIndex(0);
+		comboTitula.setName("Titula");
 		titula.add(labTitula);
-		titula.add(fieldTitula);
+		titula.add(comboTitula);
 
+		String zvanja[] = { "ASISTENT", "DOCENT", "PROFESOR", "EMERITUS" };
 		JPanel zvanje = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel labZvanje = new JLabel("Zvanje*");
 		labZvanje.setPreferredSize(preferredDim);
-		fieldZvanje = new JTextField();
-		fieldZvanje.setPreferredSize(preferredDim);
+		comboZvanje = new JComboBox<String>(zvanja);
+		comboZvanje.setSelectedIndex(0);
+		comboZvanje.setPreferredSize(preferredDim);
+		comboZvanje.setName("Zvanje");
 		zvanje.add(labZvanje);
-		zvanje.add(fieldZvanje);
+		zvanje.add(comboZvanje);
 
 		refreshProfessor();
 
@@ -161,8 +168,6 @@ public class EditProfessorDialogInformacije extends JPanel {
 		fieldMail.addFocusListener(new EditProfessorListener(fieldMail, 5));
 		fieldAdrKanc.addFocusListener(new EditProfessorListener(fieldAdrKanc, 6));
 		fieldBrLK.addFocusListener(new EditProfessorListener(fieldBrLK, 7));
-		fieldTitula.addFocusListener(new EditProfessorListener(fieldTitula, 8));
-		fieldZvanje.addFocusListener(new EditProfessorListener(fieldZvanje, 9));
 
 		ok = new Button("Potvrdi");
 		ok.setPreferredSize(buttonDim);
@@ -216,9 +221,8 @@ public class EditProfessorDialogInformacije extends JPanel {
 		fieldMail.setText(profesor.getEmail());
 		fieldAdrKanc.setText(profesor.getAdresaKancelarije());
 		fieldBrLK.setText(profesor.getBrojLicneKarte());
-		fieldTitula.setText(profesor.getTitula());
-		fieldZvanje.setText(profesor.getZvanje());
-
+		comboTitula.setSelectedIndex(profesor.getTitula().ordinal());
+		comboZvanje.setSelectedIndex(profesor.getZvanje().ordinal());
 	}
 
 	public static long getSerialversionuid() {
@@ -257,12 +261,12 @@ public class EditProfessorDialogInformacije extends JPanel {
 		return fieldBrLK;
 	}
 
-	public static JTextField getFieldTitula() {
-		return fieldTitula;
+	public static JComboBox<String> getComboTitula() {
+		return comboTitula;
 	}
 
-	public static JTextField getFieldZvanje() {
-		return fieldZvanje;
+	public static JComboBox<String> getComboZvanje() {
+		return comboZvanje;
 	}
 
 	public static Button getOk() {

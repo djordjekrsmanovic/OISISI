@@ -31,8 +31,48 @@ public class ProfessorController {
 		String email = AddProfessorDialog.getFieldMail().getText().trim();
 		String adresaKancelarije = AddProfessorDialog.getFieldAdrKanc().getText().trim();
 		String brojLicneKarte = AddProfessorDialog.getFieldBrLK().getText().trim();
-		String titula = AddProfessorDialog.getFieldTitula().getText().trim();
-		String zvanje = AddProfessorDialog.getFieldZvanje().getText().trim();
+
+		int titulaInd = AddProfessorDialog.getComboTitula().getSelectedIndex();
+		Profesor.Titula titula;
+		int zvanjeInd = AddProfessorDialog.getComboZvanje().getSelectedIndex();
+		Profesor.Zvanje zvanje;
+
+		switch (titulaInd) {
+		case 0:
+			titula = Profesor.Titula.BSC;
+			break;
+		case 1:
+			titula = Profesor.Titula.MSC;
+			break;
+		case 2:
+			titula = Profesor.Titula.MR;
+			break;
+		case 3:
+			titula = Profesor.Titula.DR;
+			break;
+		case 4:
+			titula = Profesor.Titula.PROF;
+			break;
+		default:
+			titula = Profesor.Titula.PROF;
+		}
+
+		switch (zvanjeInd) {
+		case 0:
+			zvanje = Profesor.Zvanje.ASISTENT;
+			break;
+		case 1:
+			zvanje = Profesor.Zvanje.DOCENT;
+			break;
+		case 2:
+			zvanje = Profesor.Zvanje.PROFESOR;
+			break;
+		case 3:
+			zvanje = Profesor.Zvanje.EMERITUS;
+			break;
+		default:
+			zvanje = Profesor.Zvanje.EMERITUS;
+		}
 
 		Profesor profesor = new Profesor(prezime, ime, datumRodjenja, adresaStanovanja, telefon, email,
 				adresaKancelarije, brojLicneKarte, titula, zvanje);
@@ -51,8 +91,46 @@ public class ProfessorController {
 		String email = EditProfessorDialogInformacije.getFieldMail().getText().trim();
 		String adresaKancelarije = EditProfessorDialogInformacije.getFieldAdrKanc().getText().trim();
 		String brojLicneKarte = EditProfessorDialogInformacije.getFieldBrLK().getText().trim();
-		String titula = EditProfessorDialogInformacije.getFieldTitula().getText().trim();
-		String zvanje = EditProfessorDialogInformacije.getFieldZvanje().getText().trim();
+		int titulaInd = EditProfessorDialogInformacije.getComboTitula().getSelectedIndex();
+		int zvanjeInd = EditProfessorDialogInformacije.getComboZvanje().getSelectedIndex();
+		Profesor.Titula titula;
+		Profesor.Zvanje zvanje;
+		switch (titulaInd) {
+		case 0:
+			titula = Profesor.Titula.BSC;
+			break;
+		case 1:
+			titula = Profesor.Titula.MSC;
+			break;
+		case 2:
+			titula = Profesor.Titula.MR;
+			break;
+		case 3:
+			titula = Profesor.Titula.DR;
+			break;
+		case 4:
+			titula = Profesor.Titula.PROF;
+			break;
+		default:
+			titula = Profesor.Titula.PROF;
+		}
+
+		switch (zvanjeInd) {
+		case 0:
+			zvanje = Profesor.Zvanje.ASISTENT;
+			break;
+		case 1:
+			zvanje = Profesor.Zvanje.DOCENT;
+			break;
+		case 2:
+			zvanje = Profesor.Zvanje.PROFESOR;
+			break;
+		case 3:
+			zvanje = Profesor.Zvanje.EMERITUS;
+			break;
+		default:
+			zvanje = Profesor.Zvanje.EMERITUS;
+		}
 
 		for (Profesor profesor : BazaProfesora.getInstance().getProfesori()) {
 			if (profesor.getBrojLicneKarte()

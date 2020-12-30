@@ -4,6 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class Profesor {
+	public enum Titula {
+		BSC, MSC, MR, DR, PROF
+	}
+
+	public enum Zvanje {
+		ASISTENT, DOCENT, PROFESOR, EMERITUS
+	}
+
 	String prezime;
 	String ime;
 	Date datumRodjenja;
@@ -12,12 +20,12 @@ public class Profesor {
 	String email;
 	String adresaKancelarije;
 	String brojLicneKarte;
-	String titula;
-	String zvanje;
+	Titula titula;
+	Zvanje zvanje;
 	HashSet<Predmet> predajeNaPredmetima;
-	
+
 	public Profesor(String prezime, String ime, Date datumRodjenja, String adresaStanovanja, String telefon,
-			String email, String adresaKancelarije, String brojLicneKarte, String titula, String zvanje) {
+			String email, String adresaKancelarije, String brojLicneKarte, Titula titula, Zvanje zvanje) {
 		super();
 		this.prezime = prezime;
 		this.ime = ime;
@@ -30,8 +38,6 @@ public class Profesor {
 		this.titula = titula;
 		this.zvanje = zvanje;
 	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	public Profesor(Profesor p) {
@@ -45,17 +51,15 @@ public class Profesor {
 		this.brojLicneKarte = p.brojLicneKarte;
 		this.titula = p.titula;
 		this.zvanje = p.zvanje;
-		this.predajeNaPredmetima = (HashSet<Predmet>)p.predajeNaPredmetima.clone();
+		this.predajeNaPredmetima = (HashSet<Predmet>) p.predajeNaPredmetima.clone();
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "Profesor [prezime=" + prezime + ", ime=" + ime + ", datumRodjenja=" + datumRodjenja
 				+ ", adresaStanovanja=" + adresaStanovanja + ", telefon=" + telefon + ", email=" + email
 				+ ", adresaKancelarije=" + adresaKancelarije + ", brojLicneKarte=" + brojLicneKarte + ", titula="
-				+ titula + ", zvanje=" + zvanje + ", predajeNaPredmetima=" + predajeNaPredmetima + "]";
+				+ titula.name() + ", zvanje=" + zvanje.name() + ", predajeNaPredmetima=" + predajeNaPredmetima + "]";
 	}
 
 	public String getPrezime() {
@@ -122,19 +126,19 @@ public class Profesor {
 		this.brojLicneKarte = brojLicneKarte;
 	}
 
-	public String getTitula() {
+	public Titula getTitula() {
 		return titula;
 	}
 
-	public void setTitula(String titula) {
+	public void setTitula(Titula titula) {
 		this.titula = titula;
 	}
 
-	public String getZvanje() {
+	public Zvanje getZvanje() {
 		return zvanje;
 	}
 
-	public void setZvanje(String zvanje) {
+	public void setZvanje(Zvanje zvanje) {
 		this.zvanje = zvanje;
 	}
 
