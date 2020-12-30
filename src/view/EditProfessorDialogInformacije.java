@@ -50,7 +50,6 @@ public class EditProfessorDialogInformacije extends JPanel {
 		Dimension buttonDim = new Dimension(70, 30);
 		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
 		if (row == -1) {
-			System.out.println("Eve ga");
 			return;
 		}
 		profesor = BazaProfesora.getInstance().getRow(row);

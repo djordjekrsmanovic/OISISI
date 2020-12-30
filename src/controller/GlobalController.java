@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 
 import model.BazaPredmeta;
 import model.BazaProfesora;
-import model.BazaStudenata;
 import view.AddProfessorDialog;
 import view.AddStudentDialog;
 import view.AddSubjectDialog;
@@ -28,7 +27,6 @@ public class GlobalController {
 
 		switch (CentralPanel.getInstance().getSelectedIndex()) {
 		case 0: // tab 0 - Studenti
-			// TODO dodati dijalog za studente
 			AddStudentDialog addStudentDialog=new AddStudentDialog(MainWindow.getInstance());
 			addStudentDialog.setVisible(true);
 			break;

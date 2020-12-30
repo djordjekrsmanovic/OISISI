@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -12,12 +14,16 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import controller.GlobalController;
+import model.BazaPredmeta;
+import model.BazaProfesora;
 
 public class ToolBar extends JToolBar {
 
 	private static final long serialVersionUID = 1L;
 
 	private static ToolBar instance = null;
+	
+	private JTextField searchTextField;
 
 	public ToolBar() {
 		ImageIcon imageIcon = new ImageIcon("images_project" + File.separator + "add_icon.png");
@@ -114,9 +120,44 @@ public class ToolBar extends JToolBar {
 
 		add(Box.createHorizontalGlue());
 
-		JTextField searchTextField = new JTextField();
+		searchTextField = new JTextField();
 		searchTextField.setMaximumSize(new Dimension(10000, 50));
 		this.add(searchTextField);
+		searchTextField.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				BazaProfesora.getInstance().filterProfesori();
+				ProfessorJTable.getInstance().azuriraj();
+
+				BazaPredmeta.getInstance().filterPredmeti();
+				PredmetJTable.getInstance().azuriraj();
+				
+				//TODO za studente
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				BazaProfesora.getInstance().filterProfesori();
+				ProfessorJTable.getInstance().azuriraj();
+				
+				BazaPredmeta.getInstance().filterPredmeti();
+				PredmetJTable.getInstance().azuriraj();
+				
+				//TODO za studente
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				BazaProfesora.getInstance().filterProfesori();
+				ProfessorJTable.getInstance().azuriraj();
+				
+				BazaPredmeta.getInstance().filterPredmeti();
+				PredmetJTable.getInstance().azuriraj();
+				
+				//TODO za studente
+			}
+		});
 
 		imageIcon = new ImageIcon("images_project" + File.separator + "search_icon.png");
 		JButton searchButton = new JButton(imageIcon);
@@ -129,5 +170,11 @@ public class ToolBar extends JToolBar {
 		}
 		return instance;
 	}
+
+	public JTextField getSearchTextField() {
+		return searchTextField;
+	}
+	
+	
 
 }

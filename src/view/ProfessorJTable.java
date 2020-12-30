@@ -6,12 +6,14 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 public class ProfessorJTable extends JTable {
 
 	private static final long serialVersionUID = -9084637287335579509L;
 	private static ProfessorJTable instance = null;
-
+	private TableRowSorter<AbstractTableProfessor> sorter;
+	
 	public static ProfessorJTable getInstance() {
 		if (instance == null) {
 			instance = new ProfessorJTable();
@@ -24,7 +26,10 @@ public class ProfessorJTable extends JTable {
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.getTableHeader().setReorderingAllowed(false);
-		this.setModel(new AbstractTableProfessor());
+		AbstractTableProfessor model = new AbstractTableProfessor();
+		this.setModel(model);
+		sorter = new TableRowSorter<AbstractTableProfessor>(model);
+		this.setRowSorter(sorter);
 	}
 
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {

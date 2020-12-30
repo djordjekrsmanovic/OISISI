@@ -6,12 +6,13 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 public class PredmetJTable extends JTable {
 
 	private static final long serialVersionUID = -6307955004257041625L;
 	private static PredmetJTable instance = null;
-
+	private TableRowSorter<AbstractTablePredmet> sorter;
 	public static PredmetJTable getInstance() {
 		if (instance == null) {
 			instance = new PredmetJTable();
@@ -24,7 +25,10 @@ public class PredmetJTable extends JTable {
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.getTableHeader().setReorderingAllowed(false);
-		this.setModel(new AbstractTablePredmet());
+		AbstractTablePredmet model = new AbstractTablePredmet();
+		this.setModel(model);
+		sorter = new TableRowSorter<AbstractTablePredmet>(model);
+		this.setRowSorter(sorter);
 	}
 
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
