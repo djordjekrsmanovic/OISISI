@@ -4,6 +4,7 @@ import model.BazaOcena;
 import model.BazaPredmeta;
 import model.BazaProfesora;
 import model.BazaStudenata;
+import model.Predmet;
 import model.Profesor;
 import view.MainWindow;
 
@@ -19,6 +20,8 @@ public class Main {
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(0));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(1));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(2));
+
+	
 		
 	}
 

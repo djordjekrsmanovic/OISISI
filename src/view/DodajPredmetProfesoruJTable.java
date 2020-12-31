@@ -8,28 +8,27 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
-public class ProfPredJTable extends JTable{
+public class DodajPredmetProfesoruJTable extends JTable {
+	private static final long serialVersionUID = 5827701628854622228L;
 	
-	private static final long serialVersionUID = 7777690246583576484L;
-	private AbstractTableProfPred model;
-	private TableRowSorter<AbstractTableProfPred> sorter;
-	private static ProfPredJTable instance = null;
+	private static DodajPredmetProfesoruJTable instance = null;
+	private TableRowSorter<AbstractTableDodajPredmetProfesoru> sorter;
 
-	public static ProfPredJTable getInstance() {
+	public static DodajPredmetProfesoruJTable getInstance() {
 		if (instance == null) {
-			instance = new ProfPredJTable();
+			instance = new DodajPredmetProfesoruJTable();
 		}
 		return instance;
 	}
 
-	private ProfPredJTable() {
-		model = new AbstractTableProfPred();
+	private DodajPredmetProfesoruJTable() {
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.getTableHeader().setReorderingAllowed(false);
+		AbstractTableDodajPredmetProfesoru model = new AbstractTableDodajPredmetProfesoru();
 		this.setModel(model);
-		sorter = new TableRowSorter<AbstractTableProfPred>(model);
+		sorter = new TableRowSorter<AbstractTableDodajPredmetProfesoru>(model);
 		this.setRowSorter(sorter);
 	}
 
@@ -44,6 +43,7 @@ public class ProfPredJTable extends JTable{
 	}
 
 	public void azuriraj() {
+		AbstractTableDodajPredmetProfesoru model = (AbstractTableDodajPredmetProfesoru) this.getModel();
 		model.fireTableDataChanged();
 	}
 }

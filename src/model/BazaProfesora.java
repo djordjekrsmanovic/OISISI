@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
 public class BazaProfesora {
@@ -66,6 +67,24 @@ public class BazaProfesora {
 		profesori.add(profesor);
 	}
 
+	public List<Predmet> getPredmetiKojeProfesorNePredaje() {
+		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
+		Profesor p =  BazaProfesora.getInstance().findProfessorByRow(row);
+		String brojLicneKarte = p.getBrojLicneKarte();
+		ArrayList<Predmet> ret = null;
+		for (Profesor profesor : profesori) {
+			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
+				ret = new ArrayList<Predmet>(BazaPredmeta.getInstance().getPredmeti());
+				for (Predmet predmet : profesor.getPredajeNaPredmetima()) {
+					if (ret.contains(predmet)) {
+						ret.remove(predmet);
+					}
+				}
+				return ret;
+			}
+		}
+		return null;
+	}
 
 	public void izbrisiProfesora() {
 		String brojLicneKarte = profesori.get(ProfessorJTable.getInstance().getSelectedRow()).brojLicneKarte;
@@ -123,7 +142,6 @@ public class BazaProfesora {
 	public Profesor findProfessorByRow(int row) {
 		return profesori.get(row);
 	}
-	
 
 	public int getPredmetiNumberOfRows(String brojLicneKarte) {
 		for (Profesor p : profesori) {
@@ -141,6 +159,20 @@ public class BazaProfesora {
 			}
 		}
 		return null;
+	}
+
+	public void dodajPredmet() {
+		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
+		Profesor p =  BazaProfesora.getInstance().findProfessorByRow(row);
+		String brojLicneKarte = p.getBrojLicneKarte();
+		Predmet predmet = getPredmetiKojeProfesorNePredaje().get(DodajPredmetProfesoruJTable.getInstance().getSelectedRow());
+		for (Profesor profesor : profesori) {
+
+			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
+				profesor.getPredajeNaPredmetima().add(predmet);
+				return;
+			}
+		}
 	}
 
 }
