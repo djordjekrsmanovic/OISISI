@@ -141,4 +141,27 @@ public class BazaProfesora {
 		return profesori;
 	}
 
+	public Profesor findProfessorByRow(int row) {
+		return filteredProfesori.get(row);
+	}
+	
+
+	public int getPredmetiNumberOfRows(String brojLicneKarte) {
+		for (Profesor p : profesori) {
+			if (p.getBrojLicneKarte().equals(brojLicneKarte)) {
+				return p.getPredajeNaPredmetima().size();
+			}
+		}
+		return 0;
+	}
+
+	public Profesor getProfesorByBrojLicneKarte(String brojLicneKarte) {
+		for (Profesor p : profesori) {
+			if (p.getBrojLicneKarte().equals(brojLicneKarte)) {
+				return p;
+			}
+		}
+		return null;
+	}
+
 }

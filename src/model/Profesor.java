@@ -1,7 +1,7 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public class Profesor {
 	public enum Titula {
@@ -22,7 +22,7 @@ public class Profesor {
 	String brojLicneKarte;
 	Titula titula;
 	Zvanje zvanje;
-	HashSet<Predmet> predajeNaPredmetima;
+	ArrayList<Predmet> predajeNaPredmetima;
 
 	public Profesor(String prezime, String ime, Date datumRodjenja, String adresaStanovanja, String telefon,
 			String email, String adresaKancelarije, String brojLicneKarte, Titula titula, Zvanje zvanje) {
@@ -37,6 +37,7 @@ public class Profesor {
 		this.brojLicneKarte = brojLicneKarte;
 		this.titula = titula;
 		this.zvanje = zvanje;
+		predajeNaPredmetima = new ArrayList<>();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -51,7 +52,7 @@ public class Profesor {
 		this.brojLicneKarte = p.brojLicneKarte;
 		this.titula = p.titula;
 		this.zvanje = p.zvanje;
-		this.predajeNaPredmetima = (HashSet<Predmet>) p.predajeNaPredmetima.clone();
+		this.predajeNaPredmetima = (ArrayList<Predmet>) p.predajeNaPredmetima.clone();
 	}
 
 	@Override
@@ -142,11 +143,11 @@ public class Profesor {
 		this.zvanje = zvanje;
 	}
 
-	public HashSet<Predmet> getPredajeNaPredmetima() {
+	public ArrayList<Predmet> getPredajeNaPredmetima() {
 		return predajeNaPredmetima;
 	}
 
-	public void setPredajeNaPredmetima(HashSet<Predmet> predajeNaPredmetima) {
+	public void setPredajeNaPredmetima(ArrayList<Predmet> predajeNaPredmetima) {
 		this.predajeNaPredmetima = predajeNaPredmetima;
 	}
 

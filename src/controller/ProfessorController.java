@@ -77,7 +77,9 @@ public class ProfessorController {
 		Profesor profesor = new Profesor(prezime, ime, datumRodjenja, adresaStanovanja, telefon, email,
 				adresaKancelarije, brojLicneKarte, titula, zvanje);
 
+		
 		BazaProfesora bazaProfesora = BazaProfesora.getInstance();
+		bazaProfesora.filterProfesori();
 		bazaProfesora.dodajProfesora(profesor);
 		ProfessorJTable.getInstance().azuriraj();
 	}
@@ -149,6 +151,8 @@ public class ProfessorController {
 			}
 		}
 
+		BazaProfesora bazaProfesora = BazaProfesora.getInstance();
+		bazaProfesora.filterProfesori();
 		ProfessorJTable.getInstance().azuriraj();
 	}
 

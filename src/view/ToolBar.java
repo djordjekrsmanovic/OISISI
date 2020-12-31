@@ -123,6 +123,9 @@ public class ToolBar extends JToolBar {
 		searchTextField = new JTextField();
 		searchTextField.setMaximumSize(new Dimension(10000, 50));
 		this.add(searchTextField);
+		
+		//Pre bih stavio ovo umesto dugmeta za pretragu.
+		/*
 		searchTextField.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -158,10 +161,49 @@ public class ToolBar extends JToolBar {
 				//TODO za studente
 			}
 		});
+		
+		*/
 
 		imageIcon = new ImageIcon("images_project" + File.separator + "search_icon.png");
 		JButton searchButton = new JButton(imageIcon);
 		this.add(searchButton);
+		searchButton.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				BazaProfesora.getInstance().filterProfesori();
+				ProfessorJTable.getInstance().azuriraj();
+				
+				BazaPredmeta.getInstance().filterPredmeti();
+				PredmetJTable.getInstance().azuriraj();
+			
+				//TODO za studente
+			}
+		});
 	}
 
 	public static ToolBar getInstance() {
