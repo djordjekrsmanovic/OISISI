@@ -34,9 +34,13 @@ public class Student {
 		this.prosjecnaOcjena = prosjecnaOcjena;
 		this.polozeniPredmeti=new ArrayList<Ocena>();
 		this.nepolozeniIspiti=new ArrayList<Predmet>();
+		polozeniPredmeti=new ArrayList<Ocena>();
+		nepolozeniIspiti=new ArrayList<Predmet>();
 	}
 	public Student() {
 		// TODO Auto-generated c
+		polozeniPredmeti=new ArrayList<Ocena>();
+		nepolozeniIspiti=new ArrayList<Predmet>();
 	}
 	public Student(Student s) {
 		this.ime = s.ime;
@@ -50,6 +54,8 @@ public class Student {
 		this.trenutnaGodinaStudija = s.trenutnaGodinaStudija;
 		this.status = s.status;
 		this.prosjecnaOcjena = s.prosjecnaOcjena;
+		this.nepolozeniIspiti=s.nepolozeniIspiti;
+		this.polozeniPredmeti=s.polozeniPredmeti;
 		
 	}
 	public String getPrezime() {
