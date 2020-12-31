@@ -2,10 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
-
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
@@ -44,6 +46,39 @@ public class StudentJTable extends JTable {
 			c.setBackground(Color.WHITE);
 		}
 		return c;
+	}
+	
+	public void pretraga(String filter) {
+		String [] dijelovi;
+		
+		if (filter.contains(" ")) {
+			 dijelovi=filter.split(" ");
+			 int k=dijelovi.length;
+			 if (k==2) {
+				 
+				 RowFilter<AbstractTableStudent, Integer> prezimeFilter=RowFilter.regexFilter(".*"+"(?i)"+ dijelovi[0]+".*", 2);
+				 RowFilter<AbstractTableStudent, Integer> imeFilter=RowFilter.regexFilter(".*"+"(?i)"+ dijelovi[1]+".*", 1);
+				 List<RowFilter<AbstractTableStudent, Integer>> filteri = Arrays.asList(prezimeFilter, imeFilter);
+				 sorter.setRowFilter(RowFilter.andFilter(filteri));
+				 return;
+			 }else {
+				 RowFilter<AbstractTableStudent, Integer> prezimeFilter=RowFilter.regexFilter(".*"+"(?i)"+ dijelovi[0]+".*", 2);
+				 RowFilter<AbstractTableStudent, Integer> imeFilter=RowFilter.regexFilter(".*"+"(?i)"+ dijelovi[1]+".*", 1);
+				 RowFilter<AbstractTableStudent, Integer> indeksFilter=RowFilter.regexFilter(".*"+"(?i)"+ dijelovi[2]+".*", 0);
+				 List<RowFilter<AbstractTableStudent, Integer>> filteri = Arrays.asList(prezimeFilter, imeFilter,indeksFilter);
+				 sorter.setRowFilter(RowFilter.andFilter(filteri));
+				 return;
+			 }
+			 
+			
+		}else {
+			sorter.setRowFilter(RowFilter.regexFilter((".*" +"(?i)"+ filter+".*"),2));
+		}
+		
+		
+	
+		
+		
 	}
 	
 	public void azuriraj() {
