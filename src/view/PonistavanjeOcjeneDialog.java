@@ -54,6 +54,7 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 					PolozeniTab.getProsjekLbl().setText(prosjekTxt);
 					int espb=BazaStudenata.getInstance().getESPB(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje broja espb bodova
 					String espbTxt=String.format("Ukupno ESPB: %d", espb);
+					PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
 					
 					PolozeniTab.getEspbLbl().setText(espbTxt);
 					validate();

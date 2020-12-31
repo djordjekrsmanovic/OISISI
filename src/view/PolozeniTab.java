@@ -20,12 +20,14 @@ import model.BazaStudenata;
 
 public class PolozeniTab extends JPanel {
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8466933127613604835L;
 	private static JLabel prosjekLbl;
 	private static JLabel espbLbl;
+	private static Button ponistiOcjenu;
 
 	public PolozeniTab() {
 
@@ -35,7 +37,7 @@ public class PolozeniTab extends JPanel {
 		OcenaJTable tabelaOcena = OcenaJTable.getInstance();
 		JScrollPane scrollPane = new JScrollPane(tabelaOcena);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-		Button ponistiOcjenu = new Button("Poništi ocjenu");
+		ponistiOcjenu = new Button("Poništi ocjenu");
 		ponistiOcjenu.setPreferredSize(buttonDim);
 		ponistiOcjenu.setBackground(Color.decode("#86b4e3"));
 		JPanel top = new JPanel(new BorderLayout());
@@ -90,6 +92,7 @@ public class PolozeniTab extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				if (OcenaJTable.getInstance().getSelectedRow() != -1) {
+					ponistiOcjenu.setBackground(Color.decode("#ed3241"));
 					PonistavanjeOcjeneDialog p = new PonistavanjeOcjeneDialog(EditStudentDialog.getInstance());
 					p.setVisible(true);
 				} else {
@@ -117,4 +120,14 @@ public class PolozeniTab extends JPanel {
 	public static void setEspbLbl(JLabel espbLbl) {
 		PolozeniTab.espbLbl = espbLbl;
 	}
+
+	public static Button getPonistiOcjenu() {
+		return ponistiOcjenu;
+	}
+
+	public static void setPonistiOcjenu(Button ponistiOcjenu) {
+		PolozeniTab.ponistiOcjenu = ponistiOcjenu;
+	}
+	
+	
 }
