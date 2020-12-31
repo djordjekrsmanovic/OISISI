@@ -55,7 +55,8 @@ public class BazaPredmeta {
 	}
 
 	public void izbrisiPredmet() {
-		String sifra = predmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
+		filterPredmeti();
+		String sifra = filteredPredmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
 		int index = 1;
 		for (Predmet predmet : predmeti) {
 
@@ -79,6 +80,7 @@ public class BazaPredmeta {
 	}
 
 	public int getNumberOfRows() {
+		filterPredmeti();
 		return filteredPredmeti.size();
 	}
 
@@ -133,6 +135,22 @@ public class BazaPredmeta {
 		case 3:
 			return predmet.getGodinaStudija().toString();
 		case 4:
+			return predmet.getSemestar().name();
+		default:
+			return null;
+		}
+	}
+	
+	public Object getProfessorValueAt(int rowIndex, int columnIndex, String brojLicneKarte) {
+		Predmet predmet = BazaProfesora.getInstance().getProfesorByBrojLicneKarte(brojLicneKarte).getPredajeNaPredmetima().get(rowIndex);
+		switch (columnIndex) {
+		case 0:
+			return predmet.getSifra();
+		case 1:
+			return predmet.getNaziv();
+		case 2:
+			return predmet.getGodinaStudija().toString();
+		case 3:
 			return predmet.getSemestar().name();
 		default:
 			return null;
