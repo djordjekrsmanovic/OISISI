@@ -2,17 +2,14 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import view.PredmetJTable;
 import view.ProfessorJTable;
-import view.ToolBar;
 
 public class BazaPredmeta {
 	private static BazaPredmeta instance = null;
 	private List<Predmet> predmeti;
 	private List<String> kolone;
-	private List<Predmet> filteredPredmeti;
 
 	public static BazaPredmeta getInstance() {
 		if (instance == null) {
@@ -30,7 +27,6 @@ public class BazaPredmeta {
 		this.kolone.add("Godina");
 		this.kolone.add("Semestar");
 		predmeti = new ArrayList<Predmet>();
-		filteredPredmeti = new ArrayList<Predmet>();
 		initPredmeti();
 	}
 
@@ -43,20 +39,9 @@ public class BazaPredmeta {
 
 	}
 
-	public void filterPredmeti() {
-		filteredPredmeti = new ArrayList<>(predmeti);
-
-		String searchArg = ToolBar.getInstance().getSearchTextField().getText();
-
-		filteredPredmeti = filteredPredmeti.stream()
-				.filter(pred -> pred.getNaziv().toLowerCase().contains(searchArg.toLowerCase()))
-				.collect(Collectors.toList());
-
-	}
 
 	public void izbrisiPredmet() {
-		filterPredmeti();
-		String sifra = filteredPredmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
+		String sifra = predmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
 		int index = 1;
 		for (Predmet predmet : predmeti) {
 
@@ -75,13 +60,11 @@ public class BazaPredmeta {
 	}
 
 	public int getNumberOfColumns() {
-		filterPredmeti();
 		return kolone.size();
 	}
 
 	public int getNumberOfRows() {
-		filterPredmeti();
-		return filteredPredmeti.size();
+		return predmeti.size();
 	}
 
 	public String getColumnName(int indeks) {
@@ -89,11 +72,11 @@ public class BazaPredmeta {
 	}
 
 	public Predmet getRow(int rowIndex) {
-		return filteredPredmeti.get(rowIndex);
+		return predmeti.get(rowIndex);
 	}
 
 	public String getValueAt(int row, int column) {
-		Predmet predmet = filteredPredmeti.get(row);
+		Predmet predmet = predmeti.get(row);
 		switch (column) {
 		case 0:
 			return predmet.getSifra();

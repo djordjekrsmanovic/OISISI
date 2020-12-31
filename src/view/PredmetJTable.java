@@ -2,9 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
@@ -13,6 +16,7 @@ public class PredmetJTable extends JTable {
 	private static final long serialVersionUID = -6307955004257041625L;
 	private static PredmetJTable instance = null;
 	private TableRowSorter<AbstractTablePredmet> sorter;
+
 	public static PredmetJTable getInstance() {
 		if (instance == null) {
 			instance = new PredmetJTable();
@@ -44,5 +48,13 @@ public class PredmetJTable extends JTable {
 	public void azuriraj() {
 		AbstractTablePredmet model = (AbstractTablePredmet) this.getModel();
 		model.fireTableDataChanged();
+	}
+
+	public void pretraga(String filter) {
+
+		RowFilter<AbstractTablePredmet, Integer> imeFilter = RowFilter.regexFilter(".*" + "(?i)" + filter + ".*");
+		List<RowFilter<AbstractTablePredmet, Integer>> filteri = Arrays.asList(imeFilter);
+		sorter.setRowFilter(RowFilter.andFilter(filteri));
+
 	}
 }

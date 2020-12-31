@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -14,8 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import controller.GlobalController;
-import model.BazaPredmeta;
-import model.BazaProfesora;
 
 public class ToolBar extends JToolBar {
 
@@ -195,13 +191,9 @@ public class ToolBar extends JToolBar {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				BazaProfesora.getInstance().filterProfesori();
-				ProfessorJTable.getInstance().azuriraj();
-				
-				BazaPredmeta.getInstance().filterPredmeti();
-				PredmetJTable.getInstance().azuriraj();
-			
-				//TODO za studente
+				ProfessorJTable.getInstance().pretraga(searchTextField.getText());
+				PredmetJTable.getInstance().pretraga(searchTextField.getText());
+				StudentJTable.getInstance().pretraga(searchTextField.getText());
 			}
 		});
 	}

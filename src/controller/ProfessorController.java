@@ -79,7 +79,6 @@ public class ProfessorController {
 
 		
 		BazaProfesora bazaProfesora = BazaProfesora.getInstance();
-		bazaProfesora.filterProfesori();
 		bazaProfesora.dodajProfesora(profesor);
 		ProfessorJTable.getInstance().azuriraj();
 	}
@@ -151,8 +150,6 @@ public class ProfessorController {
 			}
 		}
 
-		BazaProfesora bazaProfesora = BazaProfesora.getInstance();
-		bazaProfesora.filterProfesori();
 		ProfessorJTable.getInstance().azuriraj();
 	}
 

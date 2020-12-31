@@ -5,18 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.swing.JTextField;
 
 import view.ProfessorJTable;
-import view.ToolBar;
 
 public class BazaProfesora {
 	private static BazaProfesora instance = null;
 	private List<Profesor> profesori;
 	private List<String> kolone;
-	private List<Profesor> filteredProfesori;
 
 	public static BazaProfesora getInstance() {
 		if (instance == null) {
@@ -33,7 +28,6 @@ public class BazaProfesora {
 		this.kolone.add("Titula");
 		this.kolone.add("Zvanje");
 		profesori = new ArrayList<Profesor>();
-		filteredProfesori = new ArrayList<Profesor>();
 		initProfesori();
 	}
 
@@ -72,20 +66,6 @@ public class BazaProfesora {
 		profesori.add(profesor);
 	}
 
-	public void filterProfesori() {
-		filteredProfesori = new ArrayList<>(profesori);
-
-		String[] searchArgs = ToolBar.getInstance().getSearchTextField().getText().split(" ");
-
-		if (searchArgs.length == 1 || searchArgs.length == 2) {
-			filteredProfesori = filteredProfesori.stream().filter(prof -> prof.getPrezime().toLowerCase().contains(searchArgs[0].toLowerCase()))
-					.collect(Collectors.toList());
-		}
-		if (searchArgs.length == 2) {
-			filteredProfesori = filteredProfesori.stream().filter(prof -> prof.getIme().toLowerCase().contains(searchArgs[1].toLowerCase()))
-					.collect(Collectors.toList());
-		}
-	}
 
 	public void izbrisiProfesora() {
 		String brojLicneKarte = profesori.get(ProfessorJTable.getInstance().getSelectedRow()).brojLicneKarte;
@@ -103,12 +83,11 @@ public class BazaProfesora {
 	}
 
 	public int getNumberOfColumns() {
-		filterProfesori();
 		return kolone.size();
 	}
 
 	public int getNumberOfRows() {
-		return filteredProfesori.size();
+		return profesori.size();
 	}
 
 	public String getColumnName(int indeks) {
@@ -116,12 +95,12 @@ public class BazaProfesora {
 	}
 
 	public Profesor getRow(int rowIndex) {
-		return filteredProfesori.get(rowIndex);
+		return profesori.get(rowIndex);
 	}
 
 	public String getValueAt(int row, int column) {
 
-		Profesor profesor = filteredProfesori.get(row);
+		Profesor profesor = profesori.get(row);
 
 		switch (column) {
 		case 0:
@@ -142,7 +121,7 @@ public class BazaProfesora {
 	}
 
 	public Profesor findProfessorByRow(int row) {
-		return filteredProfesori.get(row);
+		return profesori.get(row);
 	}
 	
 
