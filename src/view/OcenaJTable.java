@@ -47,7 +47,6 @@ public class OcenaJTable extends JTable {
 	}
 
 	public void azuriraj() {
-		AbstractTableStudent model = (AbstractTableStudent) this.getModel();
 		model.fireTableDataChanged();
 	}
 }

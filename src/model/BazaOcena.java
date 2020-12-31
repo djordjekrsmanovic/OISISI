@@ -72,8 +72,8 @@ public class BazaOcena {
 		return ocjene.get(rowIndex);
 	}
     
-	public String getValueAt(int row, int column) {
-		Ocena ocjena = ocjene.get(row);
+	public String getValueAt(int row, int column,String brojIndeksa) {
+		Ocena ocjena = BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa).getPolozeniPredmeti().get(row);
 		switch (column) {
 		case 0:
 			return ocjena.getP().getSifra();

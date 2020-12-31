@@ -61,7 +61,7 @@ public class BazaStudenata {
 		
 	}
 	public void dodajPredmet() {
-		DateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+		
 		Student s;
 		s = studenti.get(0);
 		
@@ -70,6 +70,10 @@ public class BazaStudenata {
 		s.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(2));
 		s.getPolozeniPredmeti().add(BazaOcena.getInstance().getOcjene().get(0));
 		s.getPolozeniPredmeti().add(BazaOcena.getInstance().getOcjene().get(1));
+		Student s1=studenti.get(1);
+		s1.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(2));
+		s1.getNepolozeniIspiti().add(BazaPredmeta.getInstance().getPredmeti().get(3));
+		s1.getPolozeniPredmeti().add(BazaOcena.getInstance().getOcjene().get(1));
 		
 	}
 	
@@ -80,6 +84,36 @@ public class BazaStudenata {
 			}
 		}
 		return null;
+	}
+	
+	public float getProsjek(String indeks) {
+		float prosjek=0;
+		for (Student s:studenti) {
+			if (s.getBrojIndeksa().equalsIgnoreCase(indeks)) {
+				for (Ocena o:s.getPolozeniPredmeti()) {
+					prosjek+=o.getVrijednostOcjene();
+				}
+				if (s.getPolozeniPredmeti().size()>0) {
+					prosjek=prosjek/s.getPolozeniPredmeti().size();
+				}
+				break;
+			}
+		}
+		return prosjek;
+	}
+	
+	public int getESPB(String indeks) {
+		int espb=0;
+		for (Student s:studenti) {
+			if (s.getBrojIndeksa().equalsIgnoreCase(indeks)) {
+				for (Ocena o:s.getPolozeniPredmeti()) {
+					espb+=o.getP().getEspb();
+				}
+				break;
+			}
+			
+		}
+		return espb;
 	}
 
 	public void dodajStudenta(Student s){

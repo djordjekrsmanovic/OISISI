@@ -142,6 +142,16 @@ public class StudentControler {
 			++index;
 		}
 	}
+	
+	public void ponistiOcjenu(String brojIndeksa) {
+		Student student=BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
+		int indeksPredmetaZaPonistavanje=OcenaJTable.getInstance().convertRowIndexToModel(OcenaJTable.getInstance().getSelectedRow());
+		Predmet p=student.getPolozeniPredmeti().get(indeksPredmetaZaPonistavanje).getP();
+		student.getPolozeniPredmeti().remove(indeksPredmetaZaPonistavanje); //ponistavanje ocjene 
+		student.getNepolozeniIspiti().add(p); //dodavanje predmeta u nepolozene predmete
+		OcenaJTable.getInstance().azuriraj();
+		NepolozeniJTable.getInstance().azuriraj();
+	}
 
 	public Date convertStringtoDate(String date) {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");

@@ -6,21 +6,40 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.table.TableRowSorter;
+
+import controller.StudentControler;
+import model.BazaStudenata;
 
 public class PolozeniTab extends JPanel{
+		
+		private static JLabel prosjekLbl;
+		private static JLabel espbLbl;
+		private static PolozeniTab instance=null;
+		
+//		public static PolozeniTab getInstance() {
+//			if (instance==null) {
+//				instance=new PolozeniTab();
+//			}
+//			return instance;
+//		}
 	
-	
-	PolozeniTab(){
+	public PolozeniTab(){
 //		Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
 //		this.setSize(d.width*3/8,(d.height*3/4)*97/100);;
 //		Dimension preferredDim=new Dimension(200,20);
+		
+		//pravljenje grafickih komponenti
 		Dimension buttonDim=new Dimension(125,25);
 		this.setLayout(new BorderLayout());
 		OcenaJTable tabelaOcena=OcenaJTable.getInstance();
@@ -34,18 +53,57 @@ public class PolozeniTab extends JPanel{
 		top.add(ponistiOcjenu,BorderLayout.WEST);
 		add(scrollPane,BorderLayout.CENTER);
 		JPanel bottom=new JPanel();
-		JLabel prosjek=new JLabel("Prosečna ocena: 10");
-		JLabel espb=new JLabel("Ukupno ESPB: 60");
+		float prosjek=BazaStudenata.getInstance().getProsjek(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje prosjeka kako bi se ipisao
+		String prosjekTxt=String.format("Prosečna ocena: %.2f",prosjek );
+		prosjekLbl=new JLabel(prosjekTxt);
+		int espb=BazaStudenata.getInstance().getESPB(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje broja espb bodova
+		String espbTxt=String.format("Ukupno ESPB: %d", espb);
+		espbLbl=new JLabel(espbTxt);
 		JPanel informacije=new JPanel();
 		informacije.setLayout(new BoxLayout(informacije, BoxLayout.Y_AXIS));
-		informacije.add(prosjek);
+		informacije.add(prosjekLbl);
 		informacije.add(Box.createRigidArea(new Dimension(0,10)));
-		informacije.add(espb);
+		informacije.add(espbLbl);
 		bottom.setLayout(new BorderLayout());
 		bottom.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		bottom.add(informacije,BorderLayout.EAST);
 		this.add(bottom,BorderLayout.SOUTH);
 		this.add(top,BorderLayout.NORTH);
 		this.add(scrollPane,BorderLayout.CENTER);
+	
+		OcenaJTable.getInstance().setRowSorter(new TableRowSorter<AbstractTableOcena>(new AbstractTableOcena())); //pri otvaranju taba postavlja se sorter zbog toga sto tabela nema uvijek isti broj kolona
+		ponistiOcjenu.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				if (OcenaJTable.getInstance().getSelectedRow()!=-1) {
+					PonistavanjeOcjeneDialog p=new PonistavanjeOcjeneDialog(EditStudentDialog.getInstance());
+					p.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Morate da selektujete predmet");
+				}
+				
+			}
+			
+		});
+		
+		
+	}
+
+	public static JLabel getProsjekLbl() {
+		return prosjekLbl;
+	}
+
+	public static void setProsjekLbl(JLabel prosjekLbl) {
+		PolozeniTab.prosjekLbl = prosjekLbl;
+	}
+
+	public static JLabel getEspbLbl() {
+		return espbLbl;
+	}
+
+	public static void setEspbLbl(JLabel espbLbl) {
+		PolozeniTab.espbLbl = espbLbl;
 	}
 }
