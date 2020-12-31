@@ -28,6 +28,7 @@ public class EditProfessor extends JTabbedPane {
 
 		predmeti.setLayout(new BorderLayout());
 		this.add(predmeti, "Predmeti");
+		predmeti.add(new EditProfessorDialogPredmeti());
 
 		this.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 	}
