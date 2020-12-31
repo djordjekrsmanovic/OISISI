@@ -19,11 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import listeners.AddSubjectListener;
-import model.BazaPredmeta;
-import model.Predmet;
 import controller.PredmetController;
 import controller.ValidationSubject;
+import listeners.AddSubjectListener;
 
 public class AddSubjectDialog extends JDialog {
 

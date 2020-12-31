@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -48,7 +47,7 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-					StudentControler.getInstance().ponistiOcjenu(OsnovneInformacijaTab.getStudent().getBrojIndeksa());
+				StudentControler.getInstance().ponistiOcjenu(OsnovneInformacijaTab.getStudent().getBrojIndeksa());
 					float prosjek=BazaStudenata.getInstance().getProsjek(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje prosjeka kako bi se ipisao
 					String prosjekTxt=String.format("Prosečna ocena: %.2f",prosjek );
 					

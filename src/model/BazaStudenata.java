@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Student.Status;
-import view.StudentJTable;
 
 public class BazaStudenata {
 	private static BazaStudenata instance=null;
