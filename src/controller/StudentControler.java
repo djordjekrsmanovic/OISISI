@@ -152,6 +152,13 @@ public class StudentControler {
 		OcenaJTable.getInstance().azuriraj();
 		NepolozeniJTable.getInstance().azuriraj();
 	}
+	
+	public void ukloniPredmet(String brojIndeksa) {
+		Student student=BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
+		int indeksPredmetaZaUklanjanje=NepolozeniJTable.getInstance().convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow());
+		student.getNepolozeniIspiti().remove(indeksPredmetaZaUklanjanje);
+		NepolozeniJTable.getInstance().azuriraj();
+	}
 
 	public Date convertStringtoDate(String date) {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
