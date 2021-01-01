@@ -8,7 +8,7 @@ import view.PredmetJTable;
 import view.ProfessorJTable;
 
 public class BazaPredmeta implements Serializable {
-	
+
 	private static final long serialVersionUID = -5711928753247067199L;
 	private static BazaPredmeta instance = null;
 	private List<Predmet> predmeti;
@@ -42,10 +42,13 @@ public class BazaPredmeta implements Serializable {
 
 	}
 
-
 	public void izbrisiPredmet() {
-		String sifra = predmeti.get(PredmetJTable.getInstance().getSelectedRow()).getSifra();
+		String sifra = predmeti
+				.get(PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow()))
+				.getSifra();
 		int index = 1;
+
+		// Uklanjanje iz liste predmeta.
 		for (Predmet predmet : predmeti) {
 
 			if (predmet.getSifra().equalsIgnoreCase(sifra)) {
@@ -54,6 +57,44 @@ public class BazaPredmeta implements Serializable {
 			}
 			index++;
 		}
+		
+		// Ukljanjanje iz liste predmeta koje predaje profesor.
+				for (Profesor s : BazaProfesora.getInstance().getProfesori()) {
+					index = 1;
+					for (Predmet p : s.getPredajeNaPredmetima()) {
+						if (p.getSifra().equalsIgnoreCase(sifra)) {
+							s.getPredajeNaPredmetima().remove(index - 1);
+							break;
+						}
+						index++;
+					}
+				}
+
+		// Ukljanjanje iz liste nepolozenih ispita svakog studenta.
+		for (Student s : BazaStudenata.getInstance().getStudenti()) {
+			index = 1;
+			for (Predmet p : s.getNepolozeniIspiti()) {
+				if (p.getSifra().equalsIgnoreCase(sifra)) {
+					s.getNepolozeniIspiti().remove(index - 1);
+					break;
+				}
+				index++;
+			}
+		}
+
+		// Ukljanjanje iz liste polozenih ispita svakog studenta. (Zakomentarisano jer nema smisla da se, ako se neki predmet više ne predaje, on briše studentima koji su ga položili.)
+		/*
+				for (Student s : BazaStudenata.getInstance().getStudenti()) {
+					index = 1;
+					for (Predmet p : s.getPolozeniIspiti()) {
+						if (p.getSifra().equalsIgnoreCase(sifra)) {
+							s.getPolozeniIspiti().remove(index - 1);
+							break;
+						}
+						index++;
+					}
+				}
+		*/
 
 		ProfessorJTable.getInstance().azuriraj();
 	}
@@ -126,9 +167,10 @@ public class BazaPredmeta implements Serializable {
 			return null;
 		}
 	}
-	
+
 	public Object getProfessorValueAt(int rowIndex, int columnIndex, String brojLicneKarte) {
-		Predmet predmet = BazaProfesora.getInstance().getProfesorByBrojLicneKarte(brojLicneKarte).getPredajeNaPredmetima().get(rowIndex);
+		Predmet predmet = BazaProfesora.getInstance().getProfesorByBrojLicneKarte(brojLicneKarte)
+				.getPredajeNaPredmetima().get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return predmet.getSifra();
