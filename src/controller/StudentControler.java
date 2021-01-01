@@ -152,6 +152,7 @@ public class StudentControler {
 		OcenaJTable.getInstance().azuriraj();
 		NepolozeniJTable.getInstance().azuriraj();
 		OcenaController.getInstance().removeOcjena(OsnovneInformacijaTab.getStudent(),p);
+		student.setProsjecnaOcjena(BazaStudenata.getInstance().getProsjek(brojIndeksa));
 	}
 	
 	public void ukloniPredmet(String brojIndeksa) {

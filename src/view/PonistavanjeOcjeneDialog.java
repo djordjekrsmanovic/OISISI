@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -71,6 +73,7 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
 				dispose();
 
 			}
@@ -82,6 +85,51 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 		down.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.add(central, BorderLayout.CENTER);
 		this.add(down, BorderLayout.SOUTH);
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 
