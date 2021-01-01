@@ -44,6 +44,7 @@ public class EditSubjectDialog extends JDialog {
 	private static Button minus;
 	private static Button plus;
 	private static JTextField fieldProfesor;
+	private static boolean flag;
 
 	public static EditSubjectDialog getInstance() {
 		if (instance == null) {
@@ -53,6 +54,7 @@ public class EditSubjectDialog extends JDialog {
 	}
 
 	public EditSubjectDialog() {
+		flag = true;
 		setModal(true);
 		setTitle("Izmeni predmet");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -65,7 +67,7 @@ public class EditSubjectDialog extends JDialog {
 
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
-		
+
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
 		lblSifra.setPreferredSize(preferredDim);
@@ -118,21 +120,28 @@ public class EditSubjectDialog extends JDialog {
 		fieldESPB.setText(Integer.toString(predmet.getEspb()));
 		brojESPB.add(lblESPB);
 		brojESPB.add(fieldESPB);
-		
-		JPanel profesor=new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel lblProfesor=new JLabel("Profesor*");
+
+		JPanel profesor = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JLabel lblProfesor = new JLabel("Profesor*");
 		lblProfesor.setPreferredSize(preferredDim);
-		fieldProfesor=new JTextField();
-		fieldProfesor.setPreferredSize(new Dimension(140,25));
-		minus=new Button("-");
-		minus.setPreferredSize(new Dimension(25,25));
-		plus=new Button("+");
-		plus.setPreferredSize(new Dimension(25,25));
+		fieldProfesor = new JTextField();
+		fieldProfesor.setPreferredSize(new Dimension(140, 25));
+		minus = new Button("-");
+		minus.setPreferredSize(new Dimension(25, 25));
+		plus = new Button("+");
+		plus.setPreferredSize(new Dimension(25, 25));
 		profesor.add(lblProfesor);
 		profesor.add(fieldProfesor);
 		profesor.add(plus);
 		profesor.add(minus);
-		
+		// logika za dugmadi
+		if (predmet.getProfesor() == null) {
+			plus.setEnabled(true);
+		} else {
+			plus.setEnabled(false);
+			fieldProfesor.setText(predmet.getProfesor().getIme() + "  " + predmet.getProfesor().getPrezime());
+		}
+
 		JPanel central = new JPanel();
 		central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
 		central.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
@@ -161,6 +170,7 @@ public class EditSubjectDialog extends JDialog {
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				PredmetController.getInstance().editPredmet();
+				instance = null;
 				dispose();
 
 			}
@@ -174,6 +184,11 @@ public class EditSubjectDialog extends JDialog {
 				// TODO Auto-generated method stub
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
+				if (flag == false) { // ukoliko je pritisnuto dugme potvrdi to znaci da pri pritisku odustani ne
+										// treba da se mijenja dodjeljeni profesor
+					predmet.setProfesor(null);
+				}
+				instance = null;
 				dispose();
 			}
 
@@ -206,6 +221,10 @@ public class EditSubjectDialog extends JDialog {
 															// logicke vrijednosti
 				// TODO Auto-generated method stub
 				EditSubjectDialog.setInstance();
+				instance = null; // pri zatvaranju dijaloga na X hocemo da se sledeci put pravi nova instanca
+				if (EditSubjectDialog.isFlag() == false) {
+					predmet.setProfesor(null); // ako se izadje na X ne mijenjaj vrijednost profesora
+				}
 
 			}
 
@@ -230,6 +249,16 @@ public class EditSubjectDialog extends JDialog {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				// TODO Auto-generated method stub
+
+			}
+
+		});
+		plus.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				OdaberiProfesoraDialog opd = new OdaberiProfesoraDialog();
+				opd.setVisible(true);
 
 			}
 
@@ -320,6 +349,13 @@ public class EditSubjectDialog extends JDialog {
 	public static void setFieldProfesor(JTextField fieldProfesor) {
 		EditSubjectDialog.fieldProfesor = fieldProfesor;
 	}
-	
+
+	public static boolean isFlag() {
+		return flag;
+	}
+
+	public static void setFlag(boolean flag) {
+		EditSubjectDialog.flag = flag;
+	}
 
 }
