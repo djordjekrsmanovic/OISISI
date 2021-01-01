@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.BazaPredmeta;
 import model.BazaProfesora;
 import model.Predmet;
 import model.Profesor;
