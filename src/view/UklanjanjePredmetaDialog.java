@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -32,7 +34,7 @@ public class UklanjanjePredmetaDialog extends JDialog {
 
 		JPanel central = new JPanel();
 		JLabel txt = new JLabel();
-		txt.setText("Da li ste sigurni da želite da poništite ocenu?");
+		txt.setText("Da li ste sigurni da želite da uklonite predmet?");
 		central.add(txt);
 		central.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -63,6 +65,7 @@ public class UklanjanjePredmetaDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				NepolozeniTab.getObrisi().setBackground(Color.decode("#86b4e3"));
 				dispose();
 
 			}
@@ -74,6 +77,51 @@ public class UklanjanjePredmetaDialog extends JDialog {
 		down.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.add(central, BorderLayout.CENTER);
 		this.add(down, BorderLayout.SOUTH);
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				NepolozeniTab.getObrisi().setBackground(Color.decode("#86b4e3"));
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 

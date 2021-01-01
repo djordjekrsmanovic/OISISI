@@ -173,4 +173,13 @@ public class BazaStudenata {
 	public Student findStudentByRow(int row) {
 		return studenti.get(row);
 	}
+	
+	public Student findStudentByIndeks(String indeks) {
+		for (Student s:studenti) {
+			if (s.getBrojIndeksa().equalsIgnoreCase(indeks)) {
+				return s;
+			}
+		}
+		return null;
+	}
 }
