@@ -71,6 +71,10 @@ public class NepolozeniTab extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				if (NepolozeniJTable.getInstance().getSelectedRow() == -1) {
+					JOptionPane.showMessageDialog(null, "Nije selektovan ispit.");
+					return;
+				}
 				UpisOceneDialog uod = new UpisOceneDialog();
 				uod.setVisible(true);
 			}

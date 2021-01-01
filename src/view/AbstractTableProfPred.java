@@ -4,7 +4,6 @@ import javax.swing.table.AbstractTableModel;
 
 import model.BazaPredmeta;
 import model.BazaProfesora;
-import model.BazaStudenata;
 import model.Profesor;
 
 public class AbstractTableProfPred extends AbstractTableModel {

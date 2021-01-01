@@ -39,7 +39,7 @@ public class UpisOceneDialog extends JDialog {
 		this.setTitle("Unos ocene");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocationRelativeTo(parent);
-		this.setSize(d.width * 3 / 12, (d.height * 3 / 8) * 97 / 100);
+		this.setSize(d.width * 3 / 8, (d.height * 1 / 2) * 97 / 100);
 		setLayout(new BorderLayout());
 		Dimension preferredDim = new Dimension(200, 25);
 		Dimension buttonDim = new Dimension(70, 30);
@@ -52,7 +52,7 @@ public class UpisOceneDialog extends JDialog {
 		labSifra.setPreferredSize(preferredDim);
 		fieldSifra = new JTextField();
 		fieldSifra.setPreferredSize(preferredDim);
-		fieldSifra.setText((String)(new AbstractTableNepolozeni().getValueAt(NepolozeniJTable.getInstance().getSelectedRow(), 0)));
+		fieldSifra.setText((String)(new AbstractTableNepolozeni().getValueAt(NepolozeniJTable.getInstance().convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow()), 0)));
 		fieldSifra.setEnabled(false);
 		sifra.add(labSifra);
 		sifra.add(fieldSifra);
@@ -62,7 +62,7 @@ public class UpisOceneDialog extends JDialog {
 		labNaziv.setPreferredSize(preferredDim);
 		fieldNaziv = new JTextField();
 		fieldNaziv.setPreferredSize(preferredDim);
-		fieldNaziv.setText((String)(new AbstractTableNepolozeni().getValueAt(NepolozeniJTable.getInstance().getSelectedRow(), 1)));
+		fieldNaziv.setText((String)(new AbstractTableNepolozeni().getValueAt(NepolozeniJTable.getInstance().convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow()), 1)));
 		fieldNaziv.setEnabled(false);
 		naziv.add(labNaziv);
 		naziv.add(fieldNaziv);

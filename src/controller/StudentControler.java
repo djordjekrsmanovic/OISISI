@@ -127,11 +127,10 @@ public class StudentControler {
 
 	public void upisOcene() {
 		AbstractTableNepolozeni atn = new AbstractTableNepolozeni();
-		Student student = atn.getStudentAtRow(NepolozeniJTable.getInstance().getSelectedRow());
+		Student student = atn.getStudentAtRow(NepolozeniJTable.getInstance().convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow()));
 		int index = 0;
 		for (Predmet predmet : student.getNepolozeniIspiti()) {
 			if (predmet.getSifra().equals(UpisOceneDialog.getFieldSifra().getText())) {
-				System.out.println("qdfgsgsdg");
 				student.getNepolozeniIspiti().remove(index);
 				Ocena ocena = OcenaController.getInstance().addOcena(student, predmet);
 				student.getPolozeniPredmeti().add(ocena);
