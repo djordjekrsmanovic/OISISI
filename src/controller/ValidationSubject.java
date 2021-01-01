@@ -62,11 +62,11 @@ public class ValidationSubject {
 		}
 		if (povratnaVrijednost == true) {
 
-			EditSubjectDialog.getOk().setEnabled(true);
+			AddSubjectDialog.getOk().setEnabled(true);
 
 		} else {
 
-			EditSubjectDialog.getOk().setEnabled(false);
+			AddSubjectDialog.getOk().setEnabled(false);
 		}
 		return povratnaVrijednost;
 
