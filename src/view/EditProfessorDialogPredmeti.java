@@ -5,16 +5,21 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class EditProfessorDialogPredmeti extends JPanel{
 
 	private static final long serialVersionUID = -1185428626558966587L;
+	
+	private static Button ukloni; 
 	
 	EditProfessorDialogPredmeti() {
 		
@@ -62,9 +67,22 @@ public class EditProfessorDialogPredmeti extends JPanel{
 			}
 		});
 		
-		Button ukloni = new Button("Ukloni predmet");
+		ukloni = new Button("Ukloni predmet");
 		ukloni.setPreferredSize(buttonDim);
 		ukloni.setBackground(Color.decode("#86b4e3"));
+		ukloni.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (ProfPredJTable.getInstance().getSelectedRow()!=-1) {
+					ukloni.setBackground(Color.decode("#ed3241"));
+					UklanjanjePredmetaSaProfesora upsp=new UklanjanjePredmetaSaProfesora(EditProfessorDialog.getInstance());
+					upsp.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(EditProfessorDialog.getInstance(), "Potrebno je da označite predmet");
+				}
+			}
+		});
 		
 		
 		JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -77,4 +95,14 @@ public class EditProfessorDialogPredmeti extends JPanel{
 		this.add(top, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
+
+	public static Button getUkloni() {
+		return ukloni;
+	}
+
+	public static void setUkloni(Button ukloni) {
+		EditProfessorDialogPredmeti.ukloni = ukloni;
+	}
+	
+	
 }

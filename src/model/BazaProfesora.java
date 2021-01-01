@@ -178,5 +178,14 @@ public class BazaProfesora implements Serializable {
 			}
 		}
 	}
+	
+	public Profesor findProfesorByLicna(String brojLicne) {
+		for (Profesor p:profesori) {
+			if (p.getBrojLicneKarte().equalsIgnoreCase(brojLicne)) {
+				return p;
+			}
+		}
+		return null;
+	}
 
 }

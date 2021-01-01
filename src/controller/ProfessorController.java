@@ -8,6 +8,7 @@ import model.BazaProfesora;
 import model.Profesor;
 import view.AddProfessorDialog;
 import view.EditProfessorDialogInformacije;
+import view.ProfPredJTable;
 import view.ProfessorJTable;
 
 public class ProfessorController {
@@ -151,6 +152,13 @@ public class ProfessorController {
 		}
 
 		ProfessorJTable.getInstance().azuriraj();
+	}
+	
+	public void ukloniPredmet(String brojLicne) {
+		int row=ProfPredJTable.getInstance().convertRowIndexToModel(ProfPredJTable.getInstance().getSelectedRow());
+		Profesor profesor=BazaProfesora.getInstance().findProfesorByLicna(brojLicne);
+		profesor.getPredajeNaPredmetima().remove(row);
+		ProfPredJTable.getInstance().azuriraj();
 	}
 
 	public Date convertStringtoDate(String date) {
