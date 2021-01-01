@@ -11,7 +11,7 @@ import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
 public class BazaProfesora implements Serializable {
-	
+
 	private static final long serialVersionUID = -6207105318745118741L;
 	private static BazaProfesora instance = null;
 	private List<Profesor> profesori;
@@ -70,23 +70,35 @@ public class BazaProfesora implements Serializable {
 		profesori.add(profesor);
 	}
 
+	// Varijanta funkcije koja vraća sve predmete koje profesor ne predaje, koristi
+	// se u slučaju kad jedan predmet može držati više profesora.
+	/*
+	 * public List<Predmet> getPredmetiKojeProfesorNePredaje() { int row =
+	 * ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.
+	 * getInstance().getSelectedRow()); Profesor p =
+	 * BazaProfesora.getInstance().findProfessorByRow(row); String brojLicneKarte =
+	 * p.getBrojLicneKarte(); ArrayList<Predmet> ret = null; for (Profesor profesor
+	 * : profesori) { if
+	 * (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) { ret = new
+	 * ArrayList<Predmet>(BazaPredmeta.getInstance().getPredmeti()); for (Predmet
+	 * predmet : profesor.getPredajeNaPredmetima()) { if (ret.contains(predmet)) {
+	 * ret.remove(predmet); } } return ret; } } return null; }
+	 */
+
+	// Varijanta funkcije koja vraća sve predmete koje niko ne predaje, koristi se u
+	// slučaju kad jedan predmet drži isključivo jedan profesor.
+
 	public List<Predmet> getPredmetiKojeProfesorNePredaje() {
-		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
-		Profesor p = BazaProfesora.getInstance().findProfessorByRow(row);
-		String brojLicneKarte = p.getBrojLicneKarte();
-		ArrayList<Predmet> ret = null;
+
+		ArrayList<Predmet> ret = new ArrayList<Predmet>(BazaPredmeta.getInstance().getPredmeti());
 		for (Profesor profesor : profesori) {
-			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
-				ret = new ArrayList<Predmet>(BazaPredmeta.getInstance().getPredmeti());
-				for (Predmet predmet : profesor.getPredajeNaPredmetima()) {
-					if (ret.contains(predmet)) {
-						ret.remove(predmet);
-					}
+			for (Predmet predmet : profesor.getPredajeNaPredmetima()) {
+				if (ret.contains(predmet)) {
+					ret.remove(predmet);
 				}
-				return ret;
 			}
 		}
-		return null;
+		return ret;
 	}
 
 	public void izbrisiProfesora() {
@@ -96,6 +108,9 @@ public class BazaProfesora implements Serializable {
 
 			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
 				profesori.remove(index - 1);
+				for (Predmet p : profesor.getPredajeNaPredmetima()) {
+					p.setProfesor(null);
+				}
 				break;
 			}
 			index++;
@@ -174,13 +189,14 @@ public class BazaProfesora implements Serializable {
 
 			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
 				profesor.getPredajeNaPredmetima().add(predmet);
+				predmet.setProfesor(profesor);
 				return;
 			}
 		}
 	}
-	
+
 	public Profesor findProfesorByLicna(String brojLicne) {
-		for (Profesor p:profesori) {
+		for (Profesor p : profesori) {
 			if (p.getBrojLicneKarte().equalsIgnoreCase(brojLicne)) {
 				return p;
 			}

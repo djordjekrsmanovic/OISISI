@@ -17,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -25,6 +26,7 @@ import controller.ValidationSubject;
 import listeners.EditSubjectListener;
 import model.BazaPredmeta;
 import model.Predmet;
+import model.Profesor;
 
 public class EditSubjectDialog extends JDialog {
 
@@ -45,6 +47,7 @@ public class EditSubjectDialog extends JDialog {
 	private static Button plus;
 	private static JTextField fieldProfesor;
 	private static boolean flag;
+	private static int uklonitiIliNe;
 
 	public static EditSubjectDialog getInstance() {
 		if (instance == null) {
@@ -67,6 +70,8 @@ public class EditSubjectDialog extends JDialog {
 
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
+
+		Profesor aktuelniProfesor = predmet.getProfesor();
 
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
@@ -128,6 +133,18 @@ public class EditSubjectDialog extends JDialog {
 		fieldProfesor.setPreferredSize(new Dimension(140, 25));
 		minus = new Button("-");
 		minus.setPreferredSize(new Dimension(25, 25));
+
+		minus.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				uklonitiIliNe = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite ukloniti profesora?");
+				if (uklonitiIliNe == 0) {
+					fieldProfesor.setText("");
+				}
+			}
+		});
+
 		plus = new Button("+");
 		plus.setPreferredSize(new Dimension(25, 25));
 		profesor.add(lblProfesor);
@@ -137,8 +154,10 @@ public class EditSubjectDialog extends JDialog {
 		// logika za dugmadi
 		if (predmet.getProfesor() == null) {
 			plus.setEnabled(true);
+			minus.setEnabled(false);
 		} else {
 			plus.setEnabled(false);
+			minus.setEnabled(true);
 			fieldProfesor.setText(predmet.getProfesor().getIme() + "  " + predmet.getProfesor().getPrezime());
 		}
 
@@ -167,6 +186,10 @@ public class EditSubjectDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ok.setEnabled(true);
+				if (uklonitiIliNe == 0) {
+					predmet.setProfesor(null);
+					aktuelniProfesor.getPredajeNaPredmetima().remove(predmet);
+				}
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				PredmetController.getInstance().editPredmet();

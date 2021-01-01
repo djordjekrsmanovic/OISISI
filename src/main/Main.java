@@ -19,7 +19,9 @@ public class Main {
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(0));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(1));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(2));
-
+		BazaPredmeta.getInstance().getPredmeti().get(0).setProfesor(p);
+		BazaPredmeta.getInstance().getPredmeti().get(1).setProfesor(p);
+		BazaPredmeta.getInstance().getPredmeti().get(2).setProfesor(p);
 	}
 
 }
