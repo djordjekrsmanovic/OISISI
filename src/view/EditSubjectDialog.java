@@ -41,6 +41,9 @@ public class EditSubjectDialog extends JDialog {
 	private static Predmet predmet = null;
 	private static JComboBox<String> godinaCombo;
 	private static JComboBox<String> comboSemestar;
+	private static Button minus;
+	private static Button plus;
+	private static JTextField fieldProfesor;
 
 	public static EditSubjectDialog getInstance() {
 		if (instance == null) {
@@ -51,7 +54,7 @@ public class EditSubjectDialog extends JDialog {
 
 	public EditSubjectDialog() {
 		setModal(true);
-		setTitle("Dodavanje predmeta");
+		setTitle("Izmeni predmet");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(d.width * 3 / 8, (d.height * 3 / 4) * 80 / 100);
 		setLayout(new BorderLayout());
@@ -62,7 +65,7 @@ public class EditSubjectDialog extends JDialog {
 
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
-
+		
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
 		lblSifra.setPreferredSize(preferredDim);
@@ -115,7 +118,21 @@ public class EditSubjectDialog extends JDialog {
 		fieldESPB.setText(Integer.toString(predmet.getEspb()));
 		brojESPB.add(lblESPB);
 		brojESPB.add(fieldESPB);
-
+		
+		JPanel profesor=new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JLabel lblProfesor=new JLabel("Profesor*");
+		lblProfesor.setPreferredSize(preferredDim);
+		fieldProfesor=new JTextField();
+		fieldProfesor.setPreferredSize(new Dimension(140,25));
+		minus=new Button("-");
+		minus.setPreferredSize(new Dimension(25,25));
+		plus=new Button("+");
+		plus.setPreferredSize(new Dimension(25,25));
+		profesor.add(lblProfesor);
+		profesor.add(fieldProfesor);
+		profesor.add(plus);
+		profesor.add(minus);
+		
 		JPanel central = new JPanel();
 		central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
 		central.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
@@ -124,6 +141,7 @@ public class EditSubjectDialog extends JDialog {
 		central.add(panSemestar);
 		central.add(godinaPanel);
 		central.add(brojESPB);
+		central.add(profesor);
 
 		add(central, BorderLayout.NORTH);
 
@@ -277,6 +295,30 @@ public class EditSubjectDialog extends JDialog {
 
 	public static void setComboSemestar(JComboBox<String> comboSemestar) {
 		EditSubjectDialog.comboSemestar = comboSemestar;
+	}
+
+	public static Button getMinus() {
+		return minus;
+	}
+
+	public static void setMinus(Button minus) {
+		EditSubjectDialog.minus = minus;
+	}
+
+	public static Button getPlus() {
+		return plus;
+	}
+
+	public static void setPlus(Button plus) {
+		EditSubjectDialog.plus = plus;
+	}
+
+	public static JTextField getFieldProfesor() {
+		return fieldProfesor;
+	}
+
+	public static void setFieldProfesor(JTextField fieldProfesor) {
+		EditSubjectDialog.fieldProfesor = fieldProfesor;
 	}
 	
 
