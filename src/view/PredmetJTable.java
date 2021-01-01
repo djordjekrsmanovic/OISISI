@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -32,6 +33,20 @@ public class PredmetJTable extends JTable {
 		AbstractTablePredmet model = new AbstractTablePredmet();
 		this.setModel(model);
 		sorter = new TableRowSorter<AbstractTablePredmet>(model);
+		sorter.setComparator(2, new Comparator<String>() {
+
+			@Override
+			public int compare(String a, String b) {
+				if (Integer.parseInt(a) > Integer.parseInt(b)) {
+					return -1;
+				} else if (Integer.parseInt(a) < Integer.parseInt(b)) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+
+		});
 		this.setRowSorter(sorter);
 	}
 

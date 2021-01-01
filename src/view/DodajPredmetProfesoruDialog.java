@@ -13,7 +13,11 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import model.BazaProfesora;
 
 public class DodajPredmetProfesoruDialog extends JDialog {
 	/**
@@ -36,10 +40,17 @@ public class DodajPredmetProfesoruDialog extends JDialog {
 		setLocationRelativeTo(parent);
 		
 		JPanel central = new JPanel();
-		central.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		central.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
-
-		//central.add();
+		
+		DodajPredmetProfesoruJTable.getInstance().azuriraj();
+		DodajPredmetProfesoruJTable tabela = DodajPredmetProfesoruJTable.getInstance();
+		JScrollPane scrollPane = new JScrollPane(tabela);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+		
+		central.add(new JLabel("Predmeti:"));
+		central.add(new JLabel(" "));
+		central.add(tabela);
 
 		add(central, BorderLayout.NORTH);
 
@@ -50,6 +61,8 @@ public class DodajPredmetProfesoruDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				BazaProfesora.getInstance().dodajPredmet();
+				ProfPredJTable.getInstance().azuriraj();
 				dispose();
 			}
 

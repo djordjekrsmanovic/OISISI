@@ -1,8 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class Predmet {
+public class Predmet implements Serializable {
+	
+	private static final long serialVersionUID = -3888488376100247644L;
+
 	public enum Semestar {
 		LETNJI, ZIMSKI
 	}

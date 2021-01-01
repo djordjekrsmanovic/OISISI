@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Profesor {
+public class Profesor implements Serializable {
+	
+	private static final long serialVersionUID = 7006222375457275897L;
+
 	public enum Titula {
 		BSC, MSC, MR, DR, PROF
 	}

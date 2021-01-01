@@ -19,6 +19,9 @@ public class Main {
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(0));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(1));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(2));
+
+	
+	
 		
 	}
 

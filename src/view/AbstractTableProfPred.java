@@ -4,6 +4,7 @@ import javax.swing.table.AbstractTableModel;
 
 import model.BazaPredmeta;
 import model.BazaProfesora;
+import model.BazaStudenata;
 import model.Profesor;
 
 public class AbstractTableProfPred extends AbstractTableModel {
@@ -34,16 +35,14 @@ public class AbstractTableProfPred extends AbstractTableModel {
 
 	}
 
-	public Profesor getProfessorAtRow(int rowIndex) {
+	public Profesor getProfessor() {
 		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
 		return BazaProfesora.getInstance().findProfessorByRow(row);
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return BazaPredmeta.getInstance().getProfessorValueAt(rowIndex, columnIndex,
-				getProfessorAtRow(rowIndex).getBrojLicneKarte());
+		return BazaPredmeta.getInstance().getProfessorValueAt(rowIndex, columnIndex, getProfessor().getBrojLicneKarte());
 	}
 
 }
