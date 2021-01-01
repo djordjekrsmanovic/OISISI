@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +9,8 @@ import java.util.List;
 
 import model.Student.Status;
 
-public class BazaStudenata {
+public class BazaStudenata implements Serializable {
+	private static final long serialVersionUID = -7548306499131622476L;
 	private static BazaStudenata instance=null;
 	private List<Student> studenti;
 	private List<String> kolone;

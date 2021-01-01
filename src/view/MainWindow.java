@@ -3,7 +3,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import persistence.Serijalizacija;
 
 public class MainWindow extends JFrame {
 	
@@ -30,8 +38,32 @@ public class MainWindow extends JFrame {
 		this.add(statusBar, BorderLayout.SOUTH);
 		this.add(ToolBar.getInstance(), BorderLayout.NORTH);
 		this.add(CentralPanel.getInstance(), BorderLayout.CENTER);
-	}
+		
+		addWindowListener(new WindowAdapter() {
 
+	        @Override
+	        public void windowClosing(WindowEvent e) {
+	            super.windowClosing(e); 
+	            try {
+					Serijalizacija.execute();
+				} catch (FileNotFoundException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u upisu u fajl!");
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u toku podataka!");
+				}
+	            
+	        }
+
+	        @Override
+	        public void windowOpened(WindowEvent e) {
+	            super.windowOpened(e); 
+	           	//TODO Deserijalizacija.
+	        }
+
+	    });
+	}
+	
+	
 	public static MainWindow getInstance() {
 		if (instance == null) {
 			instance = new MainWindow();

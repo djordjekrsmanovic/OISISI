@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +10,9 @@ import java.util.List;
 import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
-public class BazaProfesora {
+public class BazaProfesora implements Serializable {
+	
+	private static final long serialVersionUID = -6207105318745118741L;
 	private static BazaProfesora instance = null;
 	private List<Profesor> profesori;
 	private List<String> kolone;
@@ -69,7 +72,7 @@ public class BazaProfesora {
 
 	public List<Predmet> getPredmetiKojeProfesorNePredaje() {
 		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
-		Profesor p =  BazaProfesora.getInstance().findProfessorByRow(row);
+		Profesor p = BazaProfesora.getInstance().findProfessorByRow(row);
 		String brojLicneKarte = p.getBrojLicneKarte();
 		ArrayList<Predmet> ret = null;
 		for (Profesor profesor : profesori) {
@@ -163,9 +166,10 @@ public class BazaProfesora {
 
 	public void dodajPredmet() {
 		int row = ProfessorJTable.getInstance().convertRowIndexToModel(ProfessorJTable.getInstance().getSelectedRow());
-		Profesor p =  BazaProfesora.getInstance().findProfessorByRow(row);
+		Profesor p = BazaProfesora.getInstance().findProfessorByRow(row);
 		String brojLicneKarte = p.getBrojLicneKarte();
-		Predmet predmet = getPredmetiKojeProfesorNePredaje().get(DodajPredmetProfesoruJTable.getInstance().getSelectedRow());
+		Predmet predmet = getPredmetiKojeProfesorNePredaje()
+				.get(DodajPredmetProfesoruJTable.getInstance().getSelectedRow());
 		for (Profesor profesor : profesori) {
 
 			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {

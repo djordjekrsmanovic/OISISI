@@ -1,12 +1,15 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import view.PredmetJTable;
 import view.ProfessorJTable;
 
-public class BazaPredmeta {
+public class BazaPredmeta implements Serializable {
+	
+	private static final long serialVersionUID = -5711928753247067199L;
 	private static BazaPredmeta instance = null;
 	private List<Predmet> predmeti;
 	private List<String> kolone;
