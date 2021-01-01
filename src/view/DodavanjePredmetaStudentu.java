@@ -43,6 +43,7 @@ public class DodavanjePredmetaStudentu extends JDialog {
 		setSize(d.width * 3 / 8*80/100, (d.height * 3 / 4) * 60 / 100);
 		Dimension buttonDim=new Dimension(50,20);
 		DefaultListModel<String> listaIspis = new DefaultListModel<>(); 
+		setLocationRelativeTo(EditStudentDialog.getInstance());
 		s = BazaStudenata.getInstance().findStudentByIndeks(brojIndeksa);
 		List<Predmet> polozeniPredmeti; // predmeti koje je student polozio
 		predmetiZaDodavanje =new ArrayList<Predmet>(BazaPredmeta.getInstance().getPredmeti()); // stavljanje svih predmeta iz baze i posle cemo
@@ -63,7 +64,7 @@ public class DodavanjePredmetaStudentu extends JDialog {
 		polozeniPredmeti = dobijanjePredmetaNaOsnovuOcjena(s, BazaOcena.getInstance().getOcjene()); // uzimanje predmeta
 																									// koje je student
 																									// polozio
-		setLocationRelativeTo(EditStudentDialog.getInstance());
+		
 		izbacivanjePolozenih(predmetiZaDodavanje,polozeniPredmeti);
 		
 		for (Predmet p:predmetiZaDodavanje) {
@@ -84,6 +85,9 @@ public class DodavanjePredmetaStudentu extends JDialog {
 		JPanel bottom=new JPanel();
 		bottom.setBorder(BorderFactory.createEmptyBorder(0, 30, 20, 30));
 		Button dodaj=new Button("Dodaj");
+		if (predmetiZaDodavanje.isEmpty()) {
+			dodaj.setEnabled(false);
+		}
 		dodaj.addActionListener(new ActionListener() {
 			
 			@Override
