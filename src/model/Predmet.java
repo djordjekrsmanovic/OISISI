@@ -1,7 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Predmet implements Serializable {
 	
@@ -17,11 +17,11 @@ public class Predmet implements Serializable {
 	Integer godinaStudija;
 	Profesor profesor;
 	Integer espb;
-	HashSet<Student> polozili;
-	HashSet<Student> nisuPolozili;
+	ArrayList<Student> polozili;
+	ArrayList<Student> nisuPolozili;
 
 	public Predmet(String sifra, String naziv, Semestar semestar, Integer godinaStudija, Profesor profesor,
-			Integer espb, HashSet<Student> polozili, HashSet<Student> nisuPolozili) {
+			Integer espb, ArrayList<Student> polozili, ArrayList<Student> nisuPolozili) {
 		super();
 		this.sifra = sifra;
 		this.naziv = naziv;
@@ -85,19 +85,19 @@ public class Predmet implements Serializable {
 		this.espb = espb;
 	}
 
-	public HashSet<Student> getPolozili() {
+	public ArrayList<Student> getPolozili() {
 		return polozili;
 	}
 
-	public void setPolozili(HashSet<Student> polozili) {
+	public void setPolozili(ArrayList<Student> polozili) {
 		this.polozili = polozili;
 	}
 
-	public HashSet<Student> getNisuPolozili() {
+	public ArrayList<Student> getNisuPolozili() {
 		return nisuPolozili;
 	}
 
-	public void setNisuPolozili(HashSet<Student> nisuPolozili) {
+	public void setNisuPolozili(ArrayList<Student> nisuPolozili) {
 		this.nisuPolozili = nisuPolozili;
 	}
 
