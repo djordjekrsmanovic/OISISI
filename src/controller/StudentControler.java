@@ -151,6 +151,7 @@ public class StudentControler {
 		student.getNepolozeniIspiti().add(p); //dodavanje predmeta u nepolozene predmete
 		OcenaJTable.getInstance().azuriraj();
 		NepolozeniJTable.getInstance().azuriraj();
+		OcenaController.getInstance().removeOcjena(OsnovneInformacijaTab.getStudent(),p);
 	}
 	
 	public void ukloniPredmet(String brojIndeksa) {

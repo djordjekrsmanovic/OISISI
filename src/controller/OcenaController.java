@@ -37,4 +37,16 @@ public class OcenaController {
 
 		return retDate;
 	}
+
+	public void removeOcjena(Student student, Predmet p) {
+		int index=0;
+		for (Ocena o:BazaOcena.getInstance().getOcjene()) {
+			if (o.getP().getSifra().equalsIgnoreCase(p.getSifra()) && o.getS().getBrojIndeksa().equalsIgnoreCase(student.getBrojIndeksa())) {
+				BazaOcena.getInstance().getOcjene().remove(index);
+				break;
+			}
+			index++;
+		}
+		
+	}
 }
