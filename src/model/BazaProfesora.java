@@ -186,7 +186,9 @@ public class BazaProfesora {
 		for (Profesor profesor : profesori) {
 
 			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
-				profesor.getPredajeNaPredmetima().add(predmet);
+				if(!profesor.getPredajeNaPredmetima().contains(predmet)) {
+					profesor.getPredajeNaPredmetima().add(predmet);					
+				}
 				predmet.setProfesor(profesor);
 				return;
 			}
