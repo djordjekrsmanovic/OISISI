@@ -48,19 +48,10 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
-				    StudentControler.getInstance().ponistiOcjenu(OsnovneInformacijaTab.getStudent().getBrojIndeksa());
-					float prosjek=BazaStudenata.getInstance().getProsjek(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje prosjeka kako bi se ipisao
-					String prosjekTxt=String.format("Prosečna ocena: %.2f",prosjek );
-					
-					PolozeniTab.getProsjekLbl().setText(prosjekTxt);
-					int espb=BazaStudenata.getInstance().getESPB(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); //racunanje broja espb bodova
-					String espbTxt=String.format("Ukupno ESPB: %d", espb);
-					PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
-					
-					PolozeniTab.getEspbLbl().setText(espbTxt);
-					validate();
-					dispose();
+				StudentControler.getInstance().ponistiOcjenu(OsnovneInformacijaTab.getStudent().getBrojIndeksa());
+				izmjeniLabele();
+				validate();
+				dispose();
 
 			}
 		});
@@ -86,51 +77,72 @@ public class PonistavanjeOcjeneDialog extends JDialog {
 		this.add(central, BorderLayout.CENTER);
 		this.add(down, BorderLayout.SOUTH);
 		this.addWindowListener(new WindowListener() {
-			
+
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowIconified(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeiconified(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeactivated(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				// TODO Auto-generated method stub
 				PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
-				
+
 			}
-			
+
 			@Override
 			public void windowClosed(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowActivated(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
+	}
+
+	public static void izmjeniLabele() {
+
+		float prosjek = BazaStudenata.getInstance().getProsjek(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); // racunanje
+																														// prosjeka
+																														// kako
+																														// bi
+																														// se
+																														// ipisao
+		String prosjekTxt = String.format("Prosečna ocena: %.2f", prosjek);
+
+		PolozeniTab.getProsjekLbl().setText(prosjekTxt);
+		int espb = BazaStudenata.getInstance().getESPB(OsnovneInformacijaTab.getStudent().getBrojIndeksa()); // racunanje
+																												// broja
+																												// espb
+																												// bodova
+		String espbTxt = String.format("Ukupno ESPB: %d", espb);
+		PolozeniTab.getPonistiOcjenu().setBackground(Color.decode("#86b4e3"));
+
+		PolozeniTab.getEspbLbl().setText(espbTxt);
 	}
 
 }

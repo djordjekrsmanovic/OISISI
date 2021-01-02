@@ -106,6 +106,7 @@ public class UpisOceneDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StudentControler.getInstance().upisOcene();
+				PonistavanjeOcjeneDialog.izmjeniLabele();
 				dispose();
 			}
 
