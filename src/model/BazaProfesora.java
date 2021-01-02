@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +9,8 @@ import java.util.List;
 import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
-public class BazaProfesora implements Serializable {
+public class BazaProfesora {
 
-	private static final long serialVersionUID = -6207105318745118741L;
 	private static BazaProfesora instance = null;
 	private List<Profesor> profesori;
 	private List<String> kolone;

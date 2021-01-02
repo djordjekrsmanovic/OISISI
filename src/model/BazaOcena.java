@@ -1,15 +1,13 @@
 package model;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class BazaOcena implements Serializable {
+public class BazaOcena {
 
-	private static final long serialVersionUID = 1953612786908528686L;
 	private static BazaOcena instance = null;
 	private List<Ocena> ocjene;
 	private List<String> kolone;

@@ -18,34 +18,34 @@ public class Serijalizacija {
 		File f;
 		ObjectOutputStream oos;
 
-		f = new File("BazaOcena.txt");
+		f = new File("ListaOcena.txt");
 		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
 		try {
-			oos.writeObject(BazaOcena.getInstance());
+			oos.writeObject(BazaOcena.getInstance().getOcjene());
 		} finally {
 			oos.close();
 		}
 
-		f = new File("BazaPredmeta.txt");
+		f = new File("ListaPredmeta.txt");
 		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
 		try {
-			oos.writeObject(BazaPredmeta.getInstance());
+			oos.writeObject(BazaPredmeta.getInstance().getPredmeti());
 		} finally {
 			oos.close();
 		}
 
-		f = new File("BazaProfesora.txt");
+		f = new File("ListaProfesora.txt");
 		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
 		try {
-			oos.writeObject(BazaProfesora.getInstance());
+			oos.writeObject(BazaProfesora.getInstance().getProfesori());
 		} finally {
 			oos.close();
 		}
 
-		f = new File("BazaStudenata.txt");
+		f = new File("ListaStudenata.txt");
 		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
 		try {
-			oos.writeObject(BazaStudenata.getInstance());
+			oos.writeObject(BazaStudenata.getInstance().getStudenti());
 		} finally {
 			oos.close();
 		}
