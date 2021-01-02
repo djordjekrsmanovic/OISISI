@@ -27,7 +27,7 @@ public class Deserijalizacija {
 
 	@SuppressWarnings("unchecked")
 	public  ArrayList<Student> deserijalizacijaStudenata() throws ClassNotFoundException {
-		String naziv = "BazaStudenata.txt";
+		String naziv = "ListaStudenata.txt";
 		ArrayList<Student> studenti = new ArrayList<Student>();
 		try {
 			FileInputStream file = new FileInputStream(naziv);
@@ -49,7 +49,7 @@ public class Deserijalizacija {
 
 	@SuppressWarnings("unchecked")
 	public  ArrayList<Predmet> deserijalizacijaPredmeta() throws ClassNotFoundException {
-		String naziv = "BazaPredmeta.txt";
+		String naziv = "ListaPredmeta.txt";
 		ArrayList<Predmet> predmeti = new ArrayList<>();
 		try {
 			FileInputStream file = new FileInputStream(naziv);
@@ -70,7 +70,7 @@ public class Deserijalizacija {
 	}
 	@SuppressWarnings("unchecked")
 	public ArrayList<Profesor> deserijalizacijaProfesora() throws ClassNotFoundException {
-		String naziv = "BazaProfesora.txt";
+		String naziv = "ListaProfesora.txt";
 		ArrayList<Profesor> profesori = new ArrayList<>();
 		try {
 			FileInputStream file = new FileInputStream(naziv);
@@ -92,7 +92,7 @@ public class Deserijalizacija {
 	
 	@SuppressWarnings("unchecked")
 	public  ArrayList<Ocena> deserijalizacijaOcena() throws ClassNotFoundException {
-		String naziv = "BazaOcena.txt";
+		String naziv = "ListaOcena.txt";
 		ArrayList<Ocena> ocene = new ArrayList<>();
 		try {
 			FileInputStream file = new FileInputStream(naziv);
