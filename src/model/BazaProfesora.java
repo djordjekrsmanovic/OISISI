@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.Deserijalizacija;
 import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
@@ -61,6 +62,9 @@ public class BazaProfesora {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+
+		// TODO zakomentarisati prethodni dio koda i pozvati funkciju za
+		// deserijalizaciju Deserijalizacija.getInstance().deserijalizacijaProfesora();
 
 	}
 
@@ -186,8 +190,8 @@ public class BazaProfesora {
 		for (Profesor profesor : profesori) {
 
 			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
-				if(!profesor.getPredajeNaPredmetima().contains(predmet)) {
-					profesor.getPredajeNaPredmetima().add(predmet);					
+				if (!profesor.getPredajeNaPredmetima().contains(predmet)) {
+					profesor.getPredajeNaPredmetima().add(predmet);
 				}
 				predmet.setProfesor(profesor);
 				return;

@@ -37,7 +37,8 @@ public class BazaPredmeta {
 		predmeti.add(new Predmet("E223", "Odbojka", Predmet.Semestar.ZIMSKI, 1, null, 6, null, null));
 		predmeti.add(new Predmet("E224", "Teorija nepokretne tačke", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
 		predmeti.add(new Predmet("E225", "Topologija 4", Predmet.Semestar.ZIMSKI, 4, null, 13, null, null));
-
+		// TODO zakomentarisati prethodni dio koda i pozvati funkciju za
+		// deserijalizaciju Deserijalizacija.getInstance().deserijalizacijaPredmeta();
 	}
 
 	public void izbrisiPredmet() {

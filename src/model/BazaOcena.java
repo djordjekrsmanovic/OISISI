@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import persistence.Deserijalizacija;
+
 public class BazaOcena {
 
 	private static BazaOcena instance = null;
@@ -22,6 +24,7 @@ public class BazaOcena {
 	private BazaOcena() {
 
 		ocjene = new ArrayList<Ocena>();
+		initOcjene();
 		kolone = new ArrayList<String>();
 		kolone.add("Šifra predmeta");
 		kolone.add("Naziv predmeta");
@@ -32,19 +35,25 @@ public class BazaOcena {
 	}
 
 	public void initOcjene() {
-		Locale.setDefault(Locale.ENGLISH);
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-		Student s = BazaStudenata.getInstance().getStudenti().get(0);
-		Predmet p = BazaPredmeta.getInstance().getPredmeti().get(3);
-
+//		Locale.setDefault(Locale.ENGLISH);
+//		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+//		Student s = BazaStudenata.getInstance().getStudenti().get(0);
+//		Predmet p = BazaPredmeta.getInstance().getPredmeti().get(3);
+//
+//		try {
+//			// o1Date = datum.parse("10.1.2020.");
+//			Ocena o1 = new Ocena(s, p, 8, datum.parse("10.1.2020"));
+//			ocjene.add(o1);
+//			Predmet p2 = BazaPredmeta.getInstance().getPredmeti().get(4);
+//			Ocena o2 = new Ocena(s, p2, 10, datum.parse("3.3.2020"));
+//			ocjene.add(o2);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		try {
-			// o1Date = datum.parse("10.1.2020.");
-			Ocena o1 = new Ocena(s, p, 8, datum.parse("10.1.2020"));
-			ocjene.add(o1);
-			Predmet p2 = BazaPredmeta.getInstance().getPredmeti().get(4);
-			Ocena o2 = new Ocena(s, p2, 10, datum.parse("3.3.2020"));
-			ocjene.add(o2);
-		} catch (Exception e) {
+			ocjene=Deserijalizacija.getInstance().deserijalizacijaOcena();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
