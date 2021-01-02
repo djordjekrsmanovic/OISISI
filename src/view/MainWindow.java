@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import persistence.Deserijalizacija;
 import persistence.Serijalizacija;
 
 public class MainWindow extends JFrame {
@@ -57,7 +58,26 @@ public class MainWindow extends JFrame {
 	        @Override
 	        public void windowOpened(WindowEvent e) {
 	            super.windowOpened(e); 
-	           	//TODO Deserijalizacija.
+	           	try {
+					Deserijalizacija.getInstance().deserijalizacijaOcena();
+				} catch (ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u učitavanju ocena!");
+				}
+	           	try {
+					Deserijalizacija.getInstance().deserijalizacijaPredmeta();
+				} catch (ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u učitavanju predmeta!");
+				}
+	           	try {
+					Deserijalizacija.getInstance().deserijalizacijaProfesora();
+				} catch (ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u učitavanju profesora!");
+				}
+	           	try {
+					Deserijalizacija.getInstance().deserijalizacijaStudenata();
+				} catch (ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(null,"Greška u učitavanju studenata!");
+				}
 	        }
 
 	    });
