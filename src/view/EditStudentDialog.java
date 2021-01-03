@@ -52,6 +52,7 @@ public class EditStudentDialog extends JDialog {
 				// TODO Auto-generated method stub
 				EditStudentDialog.setInstance();
 				EditStudent.setInstance();
+				StudentJTable.getInstance().azuriraj();
 			}
 
 			@Override
