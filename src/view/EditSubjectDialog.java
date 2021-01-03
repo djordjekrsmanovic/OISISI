@@ -46,8 +46,6 @@ public class EditSubjectDialog extends JDialog {
 	private static Button minus;
 	private static Button plus;
 	private static JTextField fieldProfesor;
-	
-	private static int uklonitiIliNe;
 	private static Profesor aktuelniProfesor;
 	private static Profesor bivsiProfesor;
 
@@ -59,7 +57,6 @@ public class EditSubjectDialog extends JDialog {
 	}
 
 	public EditSubjectDialog() {
-		
 		setModal(true);
 		setTitle("Izmeni predmet");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -72,7 +69,6 @@ public class EditSubjectDialog extends JDialog {
 
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
-
 		bivsiProfesor = predmet.getProfesor();
 
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -136,8 +132,6 @@ public class EditSubjectDialog extends JDialog {
 		minus = new Button("-");
 		minus.setPreferredSize(new Dimension(25, 25));
 
-		
-
 		plus = new Button("+");
 		plus.setPreferredSize(new Dimension(25, 25));
 		profesor.add(lblProfesor);
@@ -145,7 +139,7 @@ public class EditSubjectDialog extends JDialog {
 		profesor.add(plus);
 		profesor.add(minus);
 		// logika za dugmadi
-		if (predmet.getProfesor() == null) {
+		if (bivsiProfesor == null) {
 			plus.setEnabled(true);
 			minus.setEnabled(false);
 		} else {
@@ -179,16 +173,19 @@ public class EditSubjectDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ok.setEnabled(true);
-				
+
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				PredmetController.getInstance().editPredmet();
-				System.out.println(aktuelniProfesor.getIme()+ aktuelniProfesor.getPrezime());
+
 				predmet.setProfesor(aktuelniProfesor);
-				if(aktuelniProfesor != null) {					
+				if (aktuelniProfesor != null && aktuelniProfesor != bivsiProfesor) {
 					aktuelniProfesor.getPredajeNaPredmetima().add(predmet);
 				}
-				
+				if (aktuelniProfesor == null && bivsiProfesor != null) {
+					bivsiProfesor.getPredajeNaPredmetima().remove(predmet);
+				}
+
 				instance = null;
 				dispose();
 
@@ -237,7 +234,6 @@ public class EditSubjectDialog extends JDialog {
 				// TODO Auto-generated method stub
 				EditSubjectDialog.setInstance();
 				instance = null; // pri zatvaranju dijaloga na X hocemo da se sledeci put pravi nova instanca
-				
 
 			}
 
@@ -277,16 +273,20 @@ public class EditSubjectDialog extends JDialog {
 			}
 
 		});
-		
+
 		minus.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				uklonitiIliNe = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite ukloniti profesora?");
-				if (uklonitiIliNe == 0) {
+				Object[] dugmad = { "Potvrdi", "Odustani" };
+
+				if (JOptionPane.showOptionDialog(null, "Da li ste sigurni?", "Ukloni profesora",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, dugmad, dugmad[0]) == 0) {
 					fieldProfesor.setText("");
 					plus.setEnabled(true);
 					minus.setEnabled(false);
+					aktuelniProfesor = null;
+
 				}
 			}
 		});
@@ -377,8 +377,6 @@ public class EditSubjectDialog extends JDialog {
 		EditSubjectDialog.fieldProfesor = fieldProfesor;
 	}
 
-	
-
 	public static Profesor getAktuelniProfesor() {
 		return aktuelniProfesor;
 	}
@@ -386,7 +384,5 @@ public class EditSubjectDialog extends JDialog {
 	public static void setAktuelniProfesor(Profesor aktuelniProfesor) {
 		EditSubjectDialog.aktuelniProfesor = aktuelniProfesor;
 	}
-	
-	
 
 }

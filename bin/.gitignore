@@ -1,6 +1,3 @@
-/controller/
-/listeners/
-/main/
-/model/
-/persistence/
 /view/
+/controller/
+/model/

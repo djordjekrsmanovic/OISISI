@@ -96,10 +96,10 @@ public class GlobalController {
 			StudentJTable.getInstance().azuriraj();
 			break;
 		case 1:
-			BazaProfesora.getInstance().izbrisiProfesora();
+			ProfessorController.getInstance().izbrisiProfesora();
 			break;
 		case 2:
-			BazaPredmeta.getInstance().izbrisiPredmet();
+			PredmetController.getInstance().izbrisiPredmet();
 			PredmetJTable.getInstance().azuriraj();
 		}
 	}

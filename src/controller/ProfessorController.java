@@ -3,8 +3,10 @@ package controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import model.BazaProfesora;
+import model.Predmet;
 import model.Profesor;
 import view.AddProfessorDialog;
 import view.EditProfessorDialogInformacije;
@@ -149,6 +151,25 @@ public class ProfessorController {
 				profesor.setZvanje(zvanje);
 				break;
 			}
+		}
+
+		ProfessorJTable.getInstance().azuriraj();
+	}
+	
+	public void izbrisiProfesora() {
+		List<Profesor> profesori = BazaProfesora.getInstance().getProfesori();
+		String brojLicneKarte = profesori.get(ProfessorJTable.getInstance().getSelectedRow()).getBrojLicneKarte();
+		int index = 1;
+		for (Profesor profesor : profesori) {
+
+			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
+				profesori.remove(index - 1);
+				for (Predmet p : profesor.getPredajeNaPredmetima()) {
+					p.setProfesor(null);
+				}
+				break;
+			}
+			index++;
 		}
 
 		ProfessorJTable.getInstance().azuriraj();

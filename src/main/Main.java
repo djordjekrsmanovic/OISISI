@@ -14,7 +14,7 @@ public class Main {
 		glavniProzor.setVisible(true);
 		BazaOcena.getInstance();
 		//BazaStudenata.getInstance().dodajPredmet();
-		
+		/*
 		Profesor p = BazaProfesora.getInstance().getProfesori().get(0);
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(0));
 		p.getPredajeNaPredmetima().add(BazaPredmeta.getInstance().getPredmeti().get(1));
@@ -22,6 +22,7 @@ public class Main {
 		BazaPredmeta.getInstance().getPredmeti().get(0).setProfesor(p);
 		BazaPredmeta.getInstance().getPredmeti().get(1).setProfesor(p);
 		BazaPredmeta.getInstance().getPredmeti().get(2).setProfesor(p);
+		*/
 	}
 
 }

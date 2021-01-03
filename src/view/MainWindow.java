@@ -11,11 +11,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import persistence.Deserijalizacija;
 import persistence.Serijalizacija;
 
 public class MainWindow extends JFrame {
-	
+
 	private static final long serialVersionUID = -4476208371993599163L;
 	MenuBar menuBar;
 	StatusBar statusBar;
@@ -39,51 +38,25 @@ public class MainWindow extends JFrame {
 		this.add(statusBar, BorderLayout.SOUTH);
 		this.add(ToolBar.getInstance(), BorderLayout.NORTH);
 		this.add(CentralPanel.getInstance(), BorderLayout.CENTER);
-		
+
 		addWindowListener(new WindowAdapter() {
 
-	        @Override
-	        public void windowClosing(WindowEvent e) {
-	            super.windowClosing(e); 
-	            try {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				try {
 					Serijalizacija.execute();
 				} catch (FileNotFoundException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u upisu u fajl!");
+					JOptionPane.showMessageDialog(null, "Greška u upisu u fajl!");
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u toku podataka!");
+					JOptionPane.showMessageDialog(null, "Greška u toku podataka!");
 				}
-	            
-	        }
 
-	        @Override
-	        public void windowOpened(WindowEvent e) {
-	            super.windowOpened(e); 
-	           	try {
-					Deserijalizacija.getInstance().deserijalizacijaOcena();
-				} catch (ClassNotFoundException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u učitavanju ocena!");
-				}
-	           	try {
-					Deserijalizacija.getInstance().deserijalizacijaPredmeta();
-				} catch (ClassNotFoundException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u učitavanju predmeta!");
-				}
-	           	try {
-					Deserijalizacija.getInstance().deserijalizacijaProfesora();
-				} catch (ClassNotFoundException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u učitavanju profesora!");
-				}
-	           	try {
-					Deserijalizacija.getInstance().deserijalizacijaStudenata();
-				} catch (ClassNotFoundException e1) {
-					JOptionPane.showMessageDialog(null,"Greška u učitavanju studenata!");
-				}
-	        }
+			}
 
-	    });
+		});
 	}
-	
-	
+
 	public static MainWindow getInstance() {
 		if (instance == null) {
 			instance = new MainWindow();

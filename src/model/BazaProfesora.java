@@ -1,8 +1,5 @@
 package model;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +32,7 @@ public class BazaProfesora {
 	}
 
 	private void initProfesori() {
+		/*
 		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
 		try {
 			profesori.add(new Profesor("Bajagić", "Momčilo", datum.parse("09.02.1960."), "Vase Stajića 16", "555-333",
@@ -62,9 +60,13 @@ public class BazaProfesora {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		// TODO zakomentarisati prethodni dio koda i pozvati funkciju za
-		// deserijalizaciju Deserijalizacija.getInstance().deserijalizacijaProfesora();
+*/
+	try {
+		profesori = Deserijalizacija.getInstance().deserijalizacijaProfesora();
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 
 	}
 
@@ -103,23 +105,7 @@ public class BazaProfesora {
 		return ret;
 	}
 
-	public void izbrisiProfesora() {
-		String brojLicneKarte = profesori.get(ProfessorJTable.getInstance().getSelectedRow()).brojLicneKarte;
-		int index = 1;
-		for (Profesor profesor : profesori) {
-
-			if (profesor.getBrojLicneKarte().equalsIgnoreCase(brojLicneKarte)) {
-				profesori.remove(index - 1);
-				for (Predmet p : profesor.getPredajeNaPredmetima()) {
-					p.setProfesor(null);
-				}
-				break;
-			}
-			index++;
-		}
-
-		ProfessorJTable.getInstance().azuriraj();
-	}
+	
 
 	public int getNumberOfColumns() {
 		return kolone.size();

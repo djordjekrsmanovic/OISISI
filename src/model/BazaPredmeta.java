@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import persistence.Deserijalizacija;
 import view.PredmetJTable;
 import view.ProfessorJTable;
 
@@ -32,75 +33,26 @@ public class BazaPredmeta {
 	}
 
 	private void initPredmeti() {
+		/*
 		predmeti.add(new Predmet("E221", "Helenska filozofija", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
 		predmeti.add(new Predmet("E222", "Estetika", Predmet.Semestar.LETNJI, 2, null, 16, null, null));
 		predmeti.add(new Predmet("E223", "Odbojka", Predmet.Semestar.ZIMSKI, 1, null, 6, null, null));
 		predmeti.add(new Predmet("E224", "Teorija nepokretne tačke", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
 		predmeti.add(new Predmet("E225", "Topologija 4", Predmet.Semestar.ZIMSKI, 4, null, 13, null, null));
-		// TODO zakomentarisati prethodni dio koda i pozvati funkciju za
-		// deserijalizaciju Deserijalizacija.getInstance().deserijalizacijaPredmeta();
-	}
-
-	public void izbrisiPredmet() {
-		String sifra = predmeti
-				.get(PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow()))
-				.getSifra();
-		int index = 1;
-
-		// Uklanjanje iz liste predmeta.
-		for (Predmet predmet : predmeti) {
-
-			if (predmet.getSifra().equalsIgnoreCase(sifra)) {
-				predmeti.remove(index - 1);
-				break;
-			}
-			index++;
-		}
-		
-		// Ukljanjanje iz liste predmeta koje predaje profesor.
-				for (Profesor s : BazaProfesora.getInstance().getProfesori()) {
-					index = 1;
-					for (Predmet p : s.getPredajeNaPredmetima()) {
-						if (p.getSifra().equalsIgnoreCase(sifra)) {
-							s.getPredajeNaPredmetima().remove(index - 1);
-							break;
-						}
-						index++;
-					}
-				}
-
-		// Ukljanjanje iz liste nepolozenih ispita svakog studenta.
-		for (Student s : BazaStudenata.getInstance().getStudenti()) {
-			index = 1;
-			for (Predmet p : s.getNepolozeniIspiti()) {
-				if (p.getSifra().equalsIgnoreCase(sifra)) {
-					s.getNepolozeniIspiti().remove(index - 1);
-					break;
-				}
-				index++;
-			}
-		}
-
-		// Ukljanjanje iz liste polozenih ispita svakog studenta. (Zakomentarisano jer nema smisla da se, ako se neki predmet više ne predaje, on briše studentima koji su ga položili.)
-		/*
-				for (Student s : BazaStudenata.getInstance().getStudenti()) {
-					index = 1;
-					for (Predmet p : s.getPolozeniIspiti()) {
-						if (p.getSifra().equalsIgnoreCase(sifra)) {
-							s.getPolozeniIspiti().remove(index - 1);
-							break;
-						}
-						index++;
-					}
-				}
 		*/
-
-		ProfessorJTable.getInstance().azuriraj();
+		try {
+			predmeti = Deserijalizacija.getInstance().deserijalizacijaPredmeta();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
+
+	
 
 	public void dodajPredmet(Predmet predmet) {
 		predmeti.add(predmet);
 	}
+	
 
 	public int getNumberOfColumns() {
 		return kolone.size();
