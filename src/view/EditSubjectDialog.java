@@ -46,7 +46,7 @@ public class EditSubjectDialog extends JDialog {
 	private static Button minus;
 	private static Button plus;
 	private static JTextField fieldProfesor;
-	private static boolean flag;
+	
 	private static int uklonitiIliNe;
 	private static Profesor aktuelniProfesor;
 	private static Profesor bivsiProfesor;
@@ -59,7 +59,7 @@ public class EditSubjectDialog extends JDialog {
 	}
 
 	public EditSubjectDialog() {
-		flag = true;
+		
 		setModal(true);
 		setTitle("Izmeni predmet");
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -237,9 +237,7 @@ public class EditSubjectDialog extends JDialog {
 				// TODO Auto-generated method stub
 				EditSubjectDialog.setInstance();
 				instance = null; // pri zatvaranju dijaloga na X hocemo da se sledeci put pravi nova instanca
-				if (EditSubjectDialog.isFlag() == false) {
-					predmet.setProfesor(null); // ako se izadje na X ne mijenjaj vrijednost profesora
-				}
+				
 
 			}
 
@@ -379,13 +377,7 @@ public class EditSubjectDialog extends JDialog {
 		EditSubjectDialog.fieldProfesor = fieldProfesor;
 	}
 
-	public static boolean isFlag() {
-		return flag;
-	}
-
-	public static void setFlag(boolean flag) {
-		EditSubjectDialog.flag = flag;
-	}
+	
 
 	public static Profesor getAktuelniProfesor() {
 		return aktuelniProfesor;
