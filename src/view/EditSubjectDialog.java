@@ -48,6 +48,8 @@ public class EditSubjectDialog extends JDialog {
 	private static JTextField fieldProfesor;
 	private static boolean flag;
 	private static int uklonitiIliNe;
+	private static Profesor aktuelniProfesor;
+	private static Profesor bivsiProfesor;
 
 	public static EditSubjectDialog getInstance() {
 		if (instance == null) {
@@ -71,7 +73,7 @@ public class EditSubjectDialog extends JDialog {
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
 
-		Profesor aktuelniProfesor = predmet.getProfesor();
+		bivsiProfesor = predmet.getProfesor();
 
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
@@ -134,16 +136,7 @@ public class EditSubjectDialog extends JDialog {
 		minus = new Button("-");
 		minus.setPreferredSize(new Dimension(25, 25));
 
-		minus.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				uklonitiIliNe = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite ukloniti profesora?");
-				if (uklonitiIliNe == 0) {
-					fieldProfesor.setText("");
-				}
-			}
-		});
+		
 
 		plus = new Button("+");
 		plus.setPreferredSize(new Dimension(25, 25));
@@ -186,13 +179,16 @@ public class EditSubjectDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ok.setEnabled(true);
-				if (uklonitiIliNe == 0) {
-					predmet.setProfesor(null);
-					aktuelniProfesor.getPredajeNaPredmetima().remove(predmet);
-				}
+				
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				PredmetController.getInstance().editPredmet();
+				
+				predmet.setProfesor(aktuelniProfesor);
+				if(aktuelniProfesor != null) {					
+					aktuelniProfesor.getPredajeNaPredmetima().add(predmet);
+				}
+				
 				instance = null;
 				dispose();
 
@@ -207,10 +203,6 @@ public class EditSubjectDialog extends JDialog {
 				// TODO Auto-generated method stub
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
-				if (flag == false) { // ukoliko je pritisnuto dugme potvrdi to znaci da pri pritisku odustani ne
-										// treba da se mijenja dodjeljeni profesor
-					predmet.setProfesor(null);
-				}
 				instance = null;
 				dispose();
 			}
@@ -282,9 +274,23 @@ public class EditSubjectDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				OdaberiProfesoraDialog opd = new OdaberiProfesoraDialog();
 				opd.setVisible(true);
+				minus.setEnabled(true);
 
 			}
 
+		});
+		
+		minus.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				uklonitiIliNe = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da želite ukloniti profesora?");
+				if (uklonitiIliNe == 0) {
+					fieldProfesor.setText("");
+					plus.setEnabled(true);
+					minus.setEnabled(false);
+				}
+			}
 		});
 	}
 
