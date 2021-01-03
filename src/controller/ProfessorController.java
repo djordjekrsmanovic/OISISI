@@ -157,7 +157,9 @@ public class ProfessorController {
 	public void ukloniPredmet(String brojLicne) {
 		int row=ProfPredJTable.getInstance().convertRowIndexToModel(ProfPredJTable.getInstance().getSelectedRow());
 		Profesor profesor=BazaProfesora.getInstance().findProfesorByLicna(brojLicne);
+		profesor.getPredajeNaPredmetima().get(row).setProfesor(null);
 		profesor.getPredajeNaPredmetima().remove(row);
+		
 		ProfPredJTable.getInstance().azuriraj();
 	}
 
