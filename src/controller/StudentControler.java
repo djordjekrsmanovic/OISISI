@@ -136,6 +136,7 @@ public class StudentControler {
 				student.getPolozeniPredmeti().add(ocena);
 				NepolozeniJTable.getInstance().azuriraj();
 				OcenaJTable.getInstance().azuriraj();
+				student.setProsjecnaOcjena(BazaStudenata.getInstance().getProsjek(student.getBrojIndeksa()));
 				return;
 			}
 			++index;
