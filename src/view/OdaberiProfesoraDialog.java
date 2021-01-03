@@ -70,7 +70,6 @@ public class OdaberiProfesoraDialog extends JDialog {
 				String imePrezime = aktuelniProfesor.getIme() + "  " + aktuelniProfesor.getPrezime();
 				EditSubjectDialog.getFieldProfesor().setText(imePrezime);
 				EditSubjectDialog.getPlus().setEnabled(false);
-				EditSubjectDialog.setFlag(false);
 				dispose();
 			}
 		});
