@@ -183,7 +183,7 @@ public class EditSubjectDialog extends JDialog {
 				ValidationSubject.getInstance().setLogickeVirjednost();
 				ValidationSubject.getInstance().setLogickeVrijednostEdit();
 				PredmetController.getInstance().editPredmet();
-				
+				System.out.println(aktuelniProfesor.getIme()+ aktuelniProfesor.getPrezime());
 				predmet.setProfesor(aktuelniProfesor);
 				if(aktuelniProfesor != null) {					
 					aktuelniProfesor.getPredajeNaPredmetima().add(predmet);
@@ -386,5 +386,15 @@ public class EditSubjectDialog extends JDialog {
 	public static void setFlag(boolean flag) {
 		EditSubjectDialog.flag = flag;
 	}
+
+	public static Profesor getAktuelniProfesor() {
+		return aktuelniProfesor;
+	}
+
+	public static void setAktuelniProfesor(Profesor aktuelniProfesor) {
+		EditSubjectDialog.aktuelniProfesor = aktuelniProfesor;
+	}
+	
+	
 
 }

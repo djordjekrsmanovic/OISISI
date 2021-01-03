@@ -63,10 +63,11 @@ public class OdaberiProfesoraDialog extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Profesor p = BazaProfesora.getInstance().getProfesori()
+				Profesor aktuelniProfesor;
+				aktuelniProfesor=BazaProfesora.getInstance().getProfesori()
 						.get(OdaberiProfesoraDialog.getList().getSelectedIndex());
-				EditSubjectDialog.getPredmet().setProfesor(p);
-				String imePrezime = p.getIme() + "  " + p.getPrezime();
+				EditSubjectDialog.setAktuelniProfesor(aktuelniProfesor);
+				String imePrezime = aktuelniProfesor.getIme() + "  " + aktuelniProfesor.getPrezime();
 				EditSubjectDialog.getFieldProfesor().setText(imePrezime);
 				EditSubjectDialog.getPlus().setEnabled(false);
 				EditSubjectDialog.setFlag(false);
