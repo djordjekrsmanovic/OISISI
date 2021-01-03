@@ -211,6 +211,7 @@ private static final long serialVersionUID = 3629017807555286854L;
 				EditStudentDialog.getInstance().dispose();
 				EditStudentDialog.setInstance();
 				EditStudent.setInstance();
+				StudentJTable.getInstance().azuriraj();
 			}
 			
 		});
@@ -224,6 +225,7 @@ private static final long serialVersionUID = 3629017807555286854L;
 					EditStudentDialog.getInstance().dispose();
 					EditStudentDialog.setInstance();
 					EditStudent.setInstance();
+					StudentJTable.getInstance().azuriraj();
 			}
 			
 		});
