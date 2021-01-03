@@ -3,8 +3,8 @@ package model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import persistence.Deserijalizacija;
 
@@ -52,7 +52,7 @@ public class BazaOcena {
 //			e.printStackTrace();
 //		}
 		try {
-			ocjene=Deserijalizacija.getInstance().deserijalizacijaOcena();
+			ocjene = Deserijalizacija.getInstance().deserijalizacijaOcena();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class BazaOcena {
 		case 3:
 			return Integer.toString(ocjena.getVrijednostOcjene());
 		case 4:
-			return ocjena.getDatumPolaganja().toString();
+			return formatDatum(ocjena.getDatumPolaganja());
 		default:
 			return null;
 		}
@@ -100,6 +100,11 @@ public class BazaOcena {
 
 	public void setOcjene(List<Ocena> ocjene) {
 		this.ocjene = ocjene;
+	}
+
+	private String formatDatum(Date date) {
+		DateFormat formatDatuma = new SimpleDateFormat("dd.MM.yyyy.");
+		return formatDatuma.format(date);
 	}
 
 }

@@ -6,7 +6,6 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableRowSorter;
 
 public class OcenaJTable extends JTable {
 	/**
@@ -15,7 +14,7 @@ public class OcenaJTable extends JTable {
 	private static final long serialVersionUID = 2974594625085927787L;
 
 	private AbstractTableOcena model;
-	private TableRowSorter<AbstractTableOcena> sorter;
+
 	private static OcenaJTable instance = null;
 
 	public static OcenaJTable getInstance() {
@@ -32,8 +31,7 @@ public class OcenaJTable extends JTable {
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.getTableHeader().setReorderingAllowed(false);
 		this.setModel(model);
-		sorter = new TableRowSorter<AbstractTableOcena>(model);
-		this.setRowSorter(sorter);
+
 	}
 
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {

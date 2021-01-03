@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,7 +21,6 @@ import model.BazaStudenata;
 
 public class PolozeniTab extends JPanel {
 
-	
 	/**
 	 * 
 	 */
@@ -70,22 +70,38 @@ public class PolozeniTab extends JPanel {
 		this.add(bottom, BorderLayout.SOUTH);
 		this.add(top, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
+		TableRowSorter<AbstractTableOcena> sorter = new TableRowSorter<AbstractTableOcena>(new AbstractTableOcena());
+		sorter.setComparator(2, new Comparator<String>() {
 
-		OcenaJTable.getInstance().setRowSorter(new TableRowSorter<AbstractTableOcena>(new AbstractTableOcena())); // pri
-																													// otvaranju
-																													// taba
-																													// postavlja
-																													// se
-																													// sorter
-																													// zbog
-																													// toga
-																													// sto
-																													// tabela
-																													// nema
-																													// uvijek
-																													// isti
-																													// broj
-																													// kolona
+			@Override
+			public int compare(String a, String b) {
+				return Integer.compare(Integer.parseInt(a), Integer.parseInt(b));
+			}
+
+		});
+		sorter.setComparator(3, new Comparator<String>() {
+
+			@Override
+			public int compare(String a, String b) {
+				return Integer.compare(Integer.parseInt(a), Integer.parseInt(b));
+			}
+
+		});
+		OcenaJTable.getInstance().setRowSorter(sorter); // pri
+														// otvaranju
+														// taba
+														// postavlja
+														// se
+														// sorter
+														// zbog
+														// toga
+														// sto
+														// tabela
+														// nema
+														// uvijek
+														// isti
+														// broj
+														// kolona
 		ponistiOcjenu.addActionListener(new ActionListener() {
 
 			@Override
@@ -128,6 +144,5 @@ public class PolozeniTab extends JPanel {
 	public static void setPonistiOcjenu(Button ponistiOcjenu) {
 		PolozeniTab.ponistiOcjenu = ponistiOcjenu;
 	}
-	
-	
+
 }
