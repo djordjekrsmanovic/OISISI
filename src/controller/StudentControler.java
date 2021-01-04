@@ -134,6 +134,7 @@ public class StudentControler {
 				student.getNepolozeniIspiti().remove(index);
 				Ocena ocena = OcenaController.getInstance().addOcena(student, predmet);
 				student.getPolozeniPredmeti().add(ocena);
+				predmet.getPolozili().add(student);
 				student.setProsjecnaOcjena(BazaStudenata.getInstance().getProsjek(student.getBrojIndeksa()));
 				NepolozeniJTable.getInstance().azuriraj();
 				OcenaJTable.getInstance().azuriraj();

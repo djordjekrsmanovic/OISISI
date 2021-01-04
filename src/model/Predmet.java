@@ -31,10 +31,13 @@ public class Predmet implements Serializable {
 		this.espb = espb;
 		this.polozili = polozili;
 		this.nisuPolozili = nisuPolozili;
+		polozili = new ArrayList<Student>();
+		nisuPolozili = new ArrayList<Student>();
 	}
 
 	public Predmet() {
-
+		polozili = new ArrayList<Student>();
+		nisuPolozili = new ArrayList<Student>();
 	}
 
 	public String getSifra() {
