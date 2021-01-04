@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import model.BazaPredmeta;
 import model.BazaStudenata;
 import model.Ocena;
 import model.Predmet;
@@ -114,6 +115,10 @@ public class StudentControler {
 
 			if (student.getBrojIndeksa().equalsIgnoreCase(s.getBrojIndeksa())) {
 //				System.out.println("Usao u brisanje");
+				// uraditi da se brise student iz svih predmeta koje nije polozio
+				for (Predmet p : BazaPredmeta.getInstance().getPredmeti()) {
+					p.getNisuPolozili().remove(student);
+				}
 				studenti.remove(index - 1);
 				break;
 			}
@@ -145,24 +150,31 @@ public class StudentControler {
 	}
 	
 	public void ponistiOcjenu(String brojIndeksa) {
-		Student student=BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
-		int indeksPredmetaZaPonistavanje=OcenaJTable.getInstance().convertRowIndexToModel(OcenaJTable.getInstance().getSelectedRow());
-		Predmet p=student.getPolozeniPredmeti().get(indeksPredmetaZaPonistavanje).getP();
-		student.getPolozeniPredmeti().remove(indeksPredmetaZaPonistavanje); //ponistavanje ocjene 
-		student.getNepolozeniIspiti().add(p); //dodavanje predmeta u nepolozene predmete
+		Student student = BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
+		int indeksPredmetaZaPonistavanje = OcenaJTable.getInstance()
+				.convertRowIndexToModel(OcenaJTable.getInstance().getSelectedRow());
+		Predmet p = student.getPolozeniPredmeti().get(indeksPredmetaZaPonistavanje).getP();
+		p.getPolozili().remove(student); // izbacivanje iz liste studenata koji su polozili
+		p.getNisuPolozili().add(student); // dodavanje u listu studenata koji nisu polozili
+		student.getPolozeniPredmeti().remove(indeksPredmetaZaPonistavanje); // ponistavanje ocjene
+		student.getNepolozeniIspiti().add(p); // dodavanje predmeta u nepolozene predmete
 		OcenaJTable.getInstance().azuriraj();
 		NepolozeniJTable.getInstance().azuriraj();
-		OcenaController.getInstance().removeOcjena(OsnovneInformacijaTab.getStudent(),p);
+		OcenaController.getInstance().removeOcjena(OsnovneInformacijaTab.getStudent(), p);
 		student.setProsjecnaOcjena(BazaStudenata.getInstance().getProsjek(brojIndeksa));
 	}
 	
 	public void ukloniPredmet(String brojIndeksa) {
-		Student student=BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
-		int indeksPredmetaZaUklanjanje=NepolozeniJTable.getInstance().convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow());
+		Student student = BazaStudenata.getInstance().getStudentByBrojIndeksa(brojIndeksa);
+		int indeksPredmetaZaUklanjanje = NepolozeniJTable.getInstance()
+				.convertRowIndexToModel(NepolozeniJTable.getInstance().getSelectedRow());
+		// kada se predmet izbrise iz liste predmeta koje slusaju studenti tada treba i
+		// ukloniti studenta iz liste studenata koji nisu polozili predmet
+		student.getNepolozeniIspiti().get(indeksPredmetaZaUklanjanje).getNisuPolozili().remove(student);
+
 		student.getNepolozeniIspiti().remove(indeksPredmetaZaUklanjanje);
 		NepolozeniJTable.getInstance().azuriraj();
 	}
-
 	public Date convertStringtoDate(String date) {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 		Date retDate = null;
