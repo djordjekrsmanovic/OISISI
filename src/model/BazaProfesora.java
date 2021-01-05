@@ -61,13 +61,7 @@ public class BazaProfesora {
 			e.printStackTrace();
 		}
 */
-	try {
-		profesori = Deserijalizacija.getInstance().deserijalizacijaProfesora();
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-
+	
 	}
 
 	public void dodajProfesora(Profesor profesor) {

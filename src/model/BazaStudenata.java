@@ -50,12 +50,7 @@ public class BazaStudenata {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		try {
-			studenti = Deserijalizacija.getInstance().deserijalizacijaStudenata();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
 

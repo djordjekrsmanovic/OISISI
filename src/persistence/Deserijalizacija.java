@@ -1,11 +1,17 @@
 package persistence;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+import model.BazaOcena;
+import model.BazaPredmeta;
+import model.BazaProfesora;
+import model.BazaStudenata;
 import model.Ocena;
 import model.Predmet;
 import model.Profesor;
@@ -22,19 +28,30 @@ public class Deserijalizacija {
 		return instance;
 	}
 
+	private ObjectInputStream objectInputStream;
+
 	private Deserijalizacija() {
 	}
 
-	@SuppressWarnings("unchecked")
-	public  ArrayList<Student> deserijalizacijaStudenata() throws ClassNotFoundException {
-		String naziv = "ListaStudenata.txt";
-		ArrayList<Student> studenti = new ArrayList<Student>();
+	public void deserijalizuj(){
+		String naziv = "Baza.txt";
+		SerializationClass src = new SerializationClass();
 		try {
-			FileInputStream file = new FileInputStream(naziv);
-			ObjectInputStream in = new ObjectInputStream(file);
-			studenti = (ArrayList<Student>) in.readObject();
-			in.close();
-			file.close();
+			File file = new File(naziv);
+			if (file.exists() == true && file.length() != 0) {
+				objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+				try {
+					src = (SerializationClass) objectInputStream.readObject();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				BazaStudenata.getInstance().setStudenti(src.getStudenti());
+				BazaOcena.getInstance().setOcjene(src.getOcene());
+				BazaPredmeta.getInstance().setPredmeti(src.getPredmeti());
+				BazaProfesora.getInstance().setProfesori(src.getProfesori());
+				objectInputStream.close();
+			}
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -43,72 +60,7 @@ public class Deserijalizacija {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return studenti;
-
-	}
-
-	@SuppressWarnings("unchecked")
-	public  ArrayList<Predmet> deserijalizacijaPredmeta() throws ClassNotFoundException {
-		String naziv = "ListaPredmeta.txt";
-		ArrayList<Predmet> predmeti = new ArrayList<>();
-		try {
-			FileInputStream file = new FileInputStream(naziv);
-			ObjectInputStream in = new ObjectInputStream(file);
-			predmeti = (ArrayList<Predmet>) in.readObject();
-			in.close();
-			file.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return predmeti;
-
-	}
-	@SuppressWarnings("unchecked")
-	public ArrayList<Profesor> deserijalizacijaProfesora() throws ClassNotFoundException {
-		String naziv = "ListaProfesora.txt";
-		ArrayList<Profesor> profesori = new ArrayList<>();
-		try {
-			FileInputStream file = new FileInputStream(naziv);
-			ObjectInputStream in = new ObjectInputStream(file);
-			profesori = (ArrayList<Profesor>) in.readObject();
-			in.close();
-			file.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return profesori;
-
-	}
 	
-	@SuppressWarnings("unchecked")
-	public  ArrayList<Ocena> deserijalizacijaOcena() throws ClassNotFoundException {
-		String naziv = "ListaOcena.txt";
-		ArrayList<Ocena> ocene = new ArrayList<>();
-		try {
-			FileInputStream file = new FileInputStream(naziv);
-			ObjectInputStream in = new ObjectInputStream(file);
-			ocene= (ArrayList<Ocena>) in.readObject();
-			in.close();
-			file.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ocene;
-
 	}
+
 }

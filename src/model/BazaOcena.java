@@ -51,12 +51,7 @@ public class BazaOcena {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		try {
-			ocjene = Deserijalizacija.getInstance().deserijalizacijaOcena();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
 

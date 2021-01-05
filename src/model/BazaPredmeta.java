@@ -40,11 +40,7 @@ public class BazaPredmeta {
 		predmeti.add(new Predmet("E224", "Teorija nepokretne tačke", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
 		predmeti.add(new Predmet("E225", "Topologija 4", Predmet.Semestar.ZIMSKI, 4, null, 13, null, null));
 		*/
-		try {
-			predmeti = Deserijalizacija.getInstance().deserijalizacijaPredmeta();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	
