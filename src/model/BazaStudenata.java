@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.Deserijalizacija;
-
 public class BazaStudenata {
 	private static BazaStudenata instance = null;
 	private List<Student> studenti;

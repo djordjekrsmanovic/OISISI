@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import persistence.Deserijalizacija;
-
 public class BazaOcena {
 
 	private static BazaOcena instance = null;

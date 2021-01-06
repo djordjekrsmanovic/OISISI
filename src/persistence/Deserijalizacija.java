@@ -6,16 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 import model.BazaOcena;
 import model.BazaPredmeta;
 import model.BazaProfesora;
 import model.BazaStudenata;
-import model.Ocena;
-import model.Predmet;
-import model.Profesor;
-import model.Student;
 
 public class Deserijalizacija {
 
@@ -33,7 +28,7 @@ public class Deserijalizacija {
 	private Deserijalizacija() {
 	}
 
-	public void deserijalizuj(){
+	public void deserijalizuj() {
 		String naziv = "Baza.txt";
 		SerializationClass src = new SerializationClass();
 		try {
@@ -60,7 +55,7 @@ public class Deserijalizacija {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
 
 }
