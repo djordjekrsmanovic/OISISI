@@ -166,10 +166,7 @@ public class ValidationSubject {
 			JOptionPane.showMessageDialog(null, "Pogrešan format.Unos može da sadrži samo brojeve");
 			return false;
 		}
-		if (Integer.parseInt(bodovi) > 15) {
-			JOptionPane.showMessageDialog(null, "Predmet ne može da ima više od 15 ESPB bodova");
-			ret = false;
-		}
+		
 		return ret;
 	}
 
