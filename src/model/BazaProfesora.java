@@ -101,6 +101,10 @@ public class BazaProfesora {
 
 	
 
+	public void setProfesori(List<Profesor> profesori) {
+		this.profesori = profesori;
+	}
+
 	public int getNumberOfColumns() {
 		return kolone.size();
 	}

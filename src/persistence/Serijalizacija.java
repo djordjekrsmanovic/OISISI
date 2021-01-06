@@ -7,48 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import model.BazaOcena;
-import model.BazaPredmeta;
-import model.BazaProfesora;
-import model.BazaStudenata;
-
 public class Serijalizacija {
-	public static void execute() throws FileNotFoundException, IOException {
+		public static void execute(SerializationClass src) throws FileNotFoundException, IOException {
 
-		File f;
-		ObjectOutputStream oos;
+			File f;
+			ObjectOutputStream oos;
 
-		f = new File("ListaOcena.txt");
-		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			oos.writeObject(BazaOcena.getInstance().getOcjene());
-		} finally {
-			oos.close();
+			f = new File("Baza.txt");
+			oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
+			try {
+				oos.writeObject(src);
+			} finally {
+				oos.close();
+			}
+
 		}
-
-		f = new File("ListaPredmeta.txt");
-		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			oos.writeObject(BazaPredmeta.getInstance().getPredmeti());
-		} finally {
-			oos.close();
-		}
-
-		f = new File("ListaProfesora.txt");
-		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			oos.writeObject(BazaProfesora.getInstance().getProfesori());
-		} finally {
-			oos.close();
-		}
-
-		f = new File("ListaStudenata.txt");
-		oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			oos.writeObject(BazaStudenata.getInstance().getStudenti());
-		} finally {
-			oos.close();
-		}
-
-	}
 }

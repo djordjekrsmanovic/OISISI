@@ -11,6 +11,11 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import model.BazaOcena;
+import model.BazaPredmeta;
+import model.BazaProfesora;
+import model.BazaStudenata;
+import persistence.SerializationClass;
 import persistence.Serijalizacija;
 
 public class MainWindow extends JFrame {
@@ -45,7 +50,8 @@ public class MainWindow extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				super.windowClosing(e);
 				try {
-					Serijalizacija.execute();
+					SerializationClass src=new SerializationClass(BazaStudenata.getInstance().getStudenti(), BazaPredmeta.getInstance().getPredmeti(), BazaOcena.getInstance().getOcjene(), BazaProfesora.getInstance().getProfesori());
+					Serijalizacija.execute(src);
 				} catch (FileNotFoundException e1) {
 					JOptionPane.showMessageDialog(null, "Greška u upisu u fajl!");
 				} catch (IOException e1) {
