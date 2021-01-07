@@ -198,7 +198,6 @@ public class ValidationProfessor {
 					"Format datuma nije dobar.Datum mora biti u formatu dd.mm.yyyy. ili d.m.yyyy.");
 			return false;
 		}
-		System.out.println("Datum     " + ret);
 		return true;
 	}
 
@@ -223,7 +222,6 @@ public class ValidationProfessor {
 
 	public boolean checkLKNumber(String number) {
 		for (Profesor p : BazaProfesora.getInstance().getProfesori()) {
-			System.out.println(p.getBrojLicneKarte());
 				if (number.equals(p.getBrojLicneKarte())) {
 					JOptionPane.showMessageDialog(null, "Unijeli ste postojeći broj lične karte");	
 					return false;

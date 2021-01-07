@@ -70,6 +70,7 @@ public class EditSubjectDialog extends JDialog {
 		int row = PredmetJTable.getInstance().convertRowIndexToModel(PredmetJTable.getInstance().getSelectedRow());
 		predmet = BazaPredmeta.getInstance().getRow(row);
 		bivsiProfesor = predmet.getProfesor();
+		aktuelniProfesor = bivsiProfesor;
 
 		JPanel sifra = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel lblSifra = new JLabel("Šifra*");
