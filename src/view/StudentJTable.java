@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -36,6 +37,20 @@ public class StudentJTable extends JTable {
 		this.getTableHeader().setReorderingAllowed(false);
 		this.setModel(model);
 		sorter=new TableRowSorter<AbstractTableStudent>(model);
+		sorter.setComparator(5, new Comparator<String>() {
+
+			@Override
+			public int compare(String a, String b) {
+				if (Double.parseDouble(a) > Double.parseDouble(b)) {
+					return -1;
+				} else if (Double.parseDouble(a) < Double.parseDouble(b)) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+
+		});
 		this.setRowSorter(sorter);
 	}
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
