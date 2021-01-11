@@ -2,8 +2,6 @@ package controller;
 
 import javax.swing.JOptionPane;
 
-import model.BazaPredmeta;
-import model.BazaProfesora;
 import view.AddProfessorDialog;
 import view.AddStudentDialog;
 import view.AddSubjectDialog;

@@ -5,7 +5,6 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-import controller.ValidationStudent;
 import controller.ValidationSubject;
 
 public class EditSubjectListener implements FocusListener {

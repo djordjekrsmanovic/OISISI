@@ -3,10 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.Deserijalizacija;
-import view.PredmetJTable;
-import view.ProfessorJTable;
-
 public class BazaPredmeta {
 
 	private static BazaPredmeta instance = null;
@@ -29,21 +25,7 @@ public class BazaPredmeta {
 		this.kolone.add("Godina");
 		this.kolone.add("Semestar");
 		predmeti = new ArrayList<Predmet>();
-		initPredmeti();
 	}
-
-	private void initPredmeti() {
-		/*
-		predmeti.add(new Predmet("E221", "Helenska filozofija", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
-		predmeti.add(new Predmet("E222", "Estetika", Predmet.Semestar.LETNJI, 2, null, 16, null, null));
-		predmeti.add(new Predmet("E223", "Odbojka", Predmet.Semestar.ZIMSKI, 1, null, 6, null, null));
-		predmeti.add(new Predmet("E224", "Teorija nepokretne tačke", Predmet.Semestar.LETNJI, 1, null, 12, null, null));
-		predmeti.add(new Predmet("E225", "Topologija 4", Predmet.Semestar.ZIMSKI, 4, null, 13, null, null));
-		*/
-		
-	}
-
-	
 
 	public void dodajPredmet(Predmet predmet) {
 		predmeti.add(predmet);

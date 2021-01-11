@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.Deserijalizacija;
 import view.DodajPredmetProfesoruJTable;
 import view.ProfessorJTable;
 
@@ -28,41 +27,8 @@ public class BazaProfesora {
 		this.kolone.add("Titula");
 		this.kolone.add("Zvanje");
 		profesori = new ArrayList<Profesor>();
-		initProfesori();
 	}
 
-	private void initProfesori() {
-		/*
-		DateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-		try {
-			profesori.add(new Profesor("Bajagić", "Momčilo", datum.parse("09.02.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala1@bajaga.com", "Šekspirova 17", "00792434", Profesor.Titula.DR,
-					Profesor.Zvanje.DOCENT));
-			profesori.add(new Profesor("Torbica", "Momčilo", datum.parse("09.03.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala2@bajaga.com", "Šekspirova 17", "10792434", Profesor.Titula.DR,
-					Profesor.Zvanje.EMERITUS));
-			profesori.add(new Profesor("Bajagić", "Galeb", datum.parse("09.04.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala3@bajaga.com", "Šekspirova 17", "20792434", Profesor.Titula.DR,
-					Profesor.Zvanje.PROFESOR));
-			profesori.add(new Profesor("Torbica", "Galeb", datum.parse("09.05.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala4@bajaga.com", "Šekspirova 17", "30792434", Profesor.Titula.DR,
-					Profesor.Zvanje.DOCENT));
-			profesori.add(new Profesor("Basara", "Momčilo", datum.parse("09.06.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala5@bajaga.com", "Šekspirova 17", "40792434", Profesor.Titula.DR,
-					Profesor.Zvanje.DOCENT));
-			profesori.add(new Profesor("Bajagić", "Mia", datum.parse("09.07.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala6@bajaga.com", "Šekspirova 17", "50792434", Profesor.Titula.DR,
-					Profesor.Zvanje.DOCENT));
-			profesori.add(new Profesor("Basara", "Mia", datum.parse("09.08.1960."), "Vase Stajića 16", "555-333",
-					"jesimozdazaspala7@bajaga.com", "Šekspirova 17", "60792434", Profesor.Titula.DR,
-					Profesor.Zvanje.DOCENT));
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-*/
-	
-	}
 
 	public void dodajProfesora(Profesor profesor) {
 		profesori.add(profesor);
