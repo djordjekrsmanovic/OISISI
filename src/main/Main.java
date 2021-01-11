@@ -4,7 +4,6 @@ import model.BazaOcena;
 import model.BazaPredmeta;
 import model.BazaProfesora;
 import model.BazaStudenata;
-import model.Profesor;
 import persistence.Deserijalizacija;
 import view.MainWindow;
 
