@@ -51,6 +51,20 @@ public class StudentJTable extends JTable {
 			}
 
 		});
+		sorter.setComparator(3, new Comparator<String>() {
+
+			@Override
+			public int compare(String a, String b) {
+				if (Integer.parseInt(a) > Integer.parseInt(b)) {
+					return -1;
+				} else if (Integer.parseInt(a) < Integer.parseInt(b)) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+
+		});
 		this.setRowSorter(sorter);
 	}
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
