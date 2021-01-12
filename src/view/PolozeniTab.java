@@ -6,7 +6,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -86,6 +90,25 @@ public class PolozeniTab extends JPanel {
 				return Integer.compare(Integer.parseInt(a), Integer.parseInt(b));
 			}
 
+		});
+		sorter.setComparator(4,new Comparator<String>() {
+
+			@Override
+			public int compare(String date1, String date2) {
+				DateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+				try {
+					Date datum1=datum.parse(date1);
+					Date datum2=datum.parse(date2);
+					return datum1.compareTo(datum2);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return 0;
+			}
+			
+			
 		});
 		OcenaJTable.getInstance().setRowSorter(sorter); // pri
 														// otvaranju
