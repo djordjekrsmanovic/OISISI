@@ -40,6 +40,16 @@ public class MenuBar extends JMenuBar {
 		close.setIcon(new ImageIcon("images_project"+File.separator+"close_icon.png"));
 		close.setMnemonic(KeyEvent.VK_C);
 		close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,ActionEvent.CTRL_MASK));
+		close.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				MainWindow.getInstance().dispose();
+				
+			}
+			
+		});
 		
 		file.add(newI);
 		file.addSeparator();

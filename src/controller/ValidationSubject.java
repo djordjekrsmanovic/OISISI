@@ -110,7 +110,7 @@ public class ValidationSubject {
 		if (provjeriJednoznacnostSifreEdit()==false) {
 			return false;
 		}
-		return true;
+		return ret;
 	}
 	
 	private boolean provjeriJednoznacnostSifreEdit() {

@@ -27,7 +27,7 @@ public class EditStudentDialog extends JDialog {
 		String naslov = "Izmjena studenta";
 		this.setTitle(naslov);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setSize(d.width * 3 / 8, (d.height * 3 / 4) * 90 / 100);
+		this.setSize(d.width * 3 / 8, (d.height * 3 / 4) * 97 / 100);
 		setLayout(new BorderLayout());
 		setResizable(false);
 		setModal(true);

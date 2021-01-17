@@ -94,7 +94,7 @@ public class DodavanjePredmetaStudentu extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				Predmet p=predmetiZaDodavanje.get(list.getSelectedIndex());
 				predmetiZaDodavanje.remove(list.getSelectedIndex());
-				DodavanjePredmetaStudentu.s.getNepolozeniIspiti().add(p);
+				s.getNepolozeniIspiti().add(p);
 				NepolozeniTab.getDodaj().setBackground(Color.decode("#86b4e3"));
 				NepolozeniJTable.getInstance().azuriraj();
 				validate();
